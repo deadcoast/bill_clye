@@ -57,6 +57,77 @@ Visible immediately.
 ```
 
 ---
+## 2. Structural & Interactive Elements
+
+To keep your research notes from becoming a "wall of text," use these structural tools to organize data and hide complex derivations.
+
+### Collapsible Details (Accordions)
+
+Ideal for hiding lengthy proofs, raw data, or supplementary code that you don't need to see every time you open the file.
+
+<details>
+<summary><b>Click to expand: Mathematical Derivation</b></summary>
+
+Here you can place your complex  formulas or long-form descriptions that otherwise clutter the page.
+
+</details>
+
+### Advanced Tables
+
+While standard tables exist, you can use **alignment** and **HTML-in-Markdown** to create cleaner looks. You can also use empty headers for a more "minimalist" data grid.
+
+| Variable | Definition | Unit |
+| --- | --- | --- |
+|     | Learning Rate | unitless |
+|  | Time Interval |  |
+
+> prettified version
+
+| Variable | Definition | Unit     |
+| --- | --------------- | -------- |
+|     | Learning Rate   | unitless |
+|     | Time Interval   |          |
+
+---
+
+## 5. Metadata and Aesthetic "Hacks"
+
+### Keyboard Keys (`<kbd>`)
+
+If your research involves specific software workflows, use the `<kbd>` tag to make shortcuts stand out.
+
+* To run the simulation, press <kbd>Ctrl</kbd> + <kbd>R</kbd>.
+
+### Syntax Highlighting with Line Highlighting
+
+When documenting scripts, always specify the language for proper color-coding.
+
+```python
+def research_function(data):
+    # This comment is styled differently than the code
+    return [x**2 for x in data]
+
+```
+
+### Colored Text (The Diff Hack)
+
+GitHub doesn't natively support colored text via standard Markdown, but you can use `diff` code blocks to highlight "added" (green) or "removed" (red) concepts in your notes.
+
+```diff
++ Key Finding: The results were statistically significant.
+- Old Theory: The previous assumption was incorrect.
+
+```
+
+---
+
+## 6. Footnotes for Citations
+
+Keep research clean by using academic-style footnotes that link to the bottom of the document.
+
+The study of quantum entanglement is ongoing[^1].
+
+---
 
 ## Diagrams inside Markdown
 
