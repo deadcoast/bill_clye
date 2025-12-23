@@ -1,4 +1,5 @@
-# tags.md
+# doctags.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 <!-- 
 TAGS01:spec
   [1] +new_line below headers
@@ -33,6 +34,15 @@ Example:
 
 TITLE: YTAGS/
 PURPOSE: Defined by a strict spec to maximize:['BREVITY', 'CONSISTENCY', 'READABILITY', 'PARSING']
+</pre>
+
+## MRDR DOCSPEC TAGS
+<pre>
+DOC01: `MRDR:doc:spec=doctags` - Required docspec marker for all documents. Link: /docs/doctags.md
+DOC02: `MRDR:doc:spec=metadata` - Metadata spec alignment. Link: /docs/doc_specs/metadata_spec.md
+DOC03: `MRDR:doc:spec=visualdata` - Visual data spec focus.
+DOC04: `MRDR:doc:spec=output` - Output and display focus.
+DOC05: `MRDR:doc:spec=userexperience` - UX focus.
 </pre>
 
 ### FORMATTING AND RULES

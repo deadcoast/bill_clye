@@ -1,4 +1,5 @@
 # Docstring UDL Template
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 A reusable template for defining **docstring/doc-comment carriers** for both **official languages** and **UDLs** (User-Defined Languages), with **parser-grade** rules and GitHub Flavored Markdown formatting.
 

@@ -1,4 +1,5 @@
 # uv_cheatsheet.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 ## Project Setup & Management
 ```sh

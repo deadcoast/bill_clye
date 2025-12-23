@@ -1,4 +1,5 @@
 # GitHub Markdown Power-Features Reference (for research notes)
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 A curated list of **GitHub-rendered** formatting features that go beyond “basic Markdown” (bold/italic/bullets). Everything below is supported in GitHub’s renderer **in at least one of**: `.md` files, Issues, PRs, Discussions, Wikis.
 

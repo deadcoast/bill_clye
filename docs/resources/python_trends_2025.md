@@ -1,4 +1,5 @@
 # python_trends_2025
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 > In 2025, powerful Python libraries focus on AI/ML (PyTorch, TensorFlow, Hugging Face Transformers, LangChain), Data Science (Pandas, NumPy, Polars for speed, Scikit-learn), Web Dev (FastAPI, Django, Reflex for full-stack), and Utilities (Pydantic for validation, Rich for TUI, Streamlit for apps), with trends leaning towards Rust-backed speed (Polars) and seamless LLM integration (LlamaIndex).
 > > Python's ecosystem is dominated by high-performance tools written in Rust and specialized frameworks for Large Language Model (LLM) orchestration.

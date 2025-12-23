@@ -1,4 +1,5 @@
 # TODO.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 <!-- 
 **todo_spec:spec* 
   [1] REQ:['FILE,'HEADING']
@@ -44,7 +45,7 @@ HEADR: []()
   - NEVER add a `newline` between `TODO00`(`IDENTIFIER`) and tasklist checkbox `- [ ]` (`OPERATOR`)
 - `checkbox`: `- [ ]`
   - `tasklist` `checkbox` is designed to hold its own dedicated line.
-- `ID:` `TODO`+[`simpnum`](/docs/tags.md|## FORMATTING)
+- `ID:` `TODO`+[`simpnum`](/docs/doctags.md|## FORMATTING)
   - `NOTE`: `simpnum` is the alias of `SIMPLENUMERIC` version ID formatting
 - The `TODO` should only have two `additional_datapoints` (`-` based list, for clarity on TODO)
 - There is `no_limit` on the steps / tasks in the `tasklist` `TODO` planning.

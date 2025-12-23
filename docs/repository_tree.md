@@ -1,4 +1,5 @@
 # REPOSITORY TREE
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 <!--
 TREE01:spec
   [1] MONITORSTATUS: true,
@@ -12,6 +13,17 @@ TREE01:spec
 
 ```
 .
+├── .gitignore
+├── .markdownlint.json
+├── .python-version
+├── .shelved_features
+│   ├── advanced_udl_docstring.md
+│   └── docstring_deepdive.md
+├── AGENTS.md
+├── README.md
+├── main.py
+├── pyproject.toml
+├── uv.lock
 ├── database
 │   ├── delimeters
 │   │   └── delimeters.md
@@ -36,12 +48,15 @@ TREE01:spec
 │   ├── doc_specs
 │   │   ├── cli_spec.md
 │   │   ├── metadata_spec.md
+│   │   ├── newline_spec.md
 │   │   └── todo_spec.md
 │   ├── doctags.md
 │   ├── repository_tree.md
 │   ├── resources
 │   │   ├── academic_adv_markdown.md
-│   │   └── github_adv_markdown.md
+│   │   ├── github_adv_markdown.md
+│   │   ├── python_trends_2025.md
+│   │   └── uv_cheatsheet.md
 │   └── TODO.md
 ├── src
 └── templates

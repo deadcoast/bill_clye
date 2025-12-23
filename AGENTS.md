@@ -1,6 +1,7 @@
 # AGENTS.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
-Project: BILL CLYE - The Syntax CLI
+Project: MRDR - The Visual Syntax CLI
 Purpose: A CLI-driven syntax and docstring database that documents, categorizes,
 and displays examples for common codebases. The current focus is planning and
 spec definition, with Python + Rich as the intended implementation stack.
@@ -10,11 +11,12 @@ Development stage: PLANNING
 ## Specs and Docs Map
 - `docs/doc_specs/cli_spec.md`: Primary CLI design source of truth. Defines
   intended commands, options, roadmap, and the modular design intent. The main
-  invocation is `bill` / `clye` (final choice still open in TODOs).
+  invocation is `mrdr` with controllers `hyde` and `jekyl`.
 - `docs/doc_specs/metadata_spec.md`: Document metadata format for the ecosystem,
   including docstring-style header metadata and a planned YAML metadata spec.
 - `docs/doc_specs/todo_spec.md`: TODO format rules (SCREAMINGSNAKE headers,
   SIMPLENUMERIC IDs, tasklist format).
+- `docs/doc_specs/newline_spec.md`: Newline and formatting rules for docs.
 - `docs/doctags.md`: Doc tag system, delimiters, grammar identifiers, and
   formatting rules that drive consistency across docs and future CLI output.
 - `docs/dictionary.md`: Canonical definitions for tag terminology and hierarchy.
@@ -37,6 +39,8 @@ Development stage: PLANNING
   `docs/doctags.md`.
 - Maintain document metadata comments as defined in
   `docs/doc_specs/metadata_spec.md`.
+- Each document must include `[MRDR:doc:spec=doctags](/docs/doctags.md)` directly
+  below the title.
 - When adding TODOs, follow `docs/doc_specs/todo_spec.md` and
   `templates/todo_template.md`.
 

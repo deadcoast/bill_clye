@@ -1,4 +1,5 @@
 # newline_spec.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 <!-- 
   NOTE: 
     - The `mrdr:doc:spec` format is slowly introduced in this document. It is a pattern based classification for document orginazation and spec consistency.

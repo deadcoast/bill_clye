@@ -1,4 +1,5 @@
 # CLISPEC:MRDR - The Visual Syntax CLI
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 <!--
   THIS IS A LIVING DOCUMENT THAT IS BEING UPDATED AS DEVELOPMENT PROGRESSES. IT WILL EVENTUALLY BE UTILIZED AS THE ABSOLUTE SOURCE OF TRUTH FOR THE DATABASE DURING DEVELOPMENT. ALL DATA IN THIS DOCUMENT MUST BE COHERENT, AND CONSISTENT.
 -->
@@ -11,6 +12,7 @@ _MRDR The Syntax CLI is a(nod, and homage to `Doctor Jekl and Mister Hyde`) CLI 
 ## INTRODUCTION
 `MRDR` CLI output features (pulled from the designed database) in the initial design will be minimal, but that does not mean the DEVELOPMENT and SPEC will be minimal.
 > command: `mrdr`
+> controllers: `hyde` (back_end), `jekyl` (front_end)
 
 - (1).SPEC_DESIGN_PURPOSE: To maximize initial CLI design depth, the first spec will focus on full scope foundational modular cli development, if done correctly `database_display_integration` should be much easier.
   - `database_display_integration`: The CLI pulling data from the database, and displaying them in the CLI, such as the (currently planned) integration 'docstrings'.
@@ -23,6 +25,16 @@ _MRDR The Syntax CLI is a(nod, and homage to `Doctor Jekl and Mister Hyde`) CLI 
 **The weighted focus will stay on the comprehensive foundational development and expansion.**
 
 DEVELOPMENT_STAGE: `PLANNING`
+
+## MRDR OPERATION CONTROLLERS
+- `hyde` - BACK END correlation controller.
+  - `doc:spec=['metadata','doctags']`
+  - `cli:spec=['python','sourcecode']`
+  - `python:spec=['full_scope','senior_dev']`
+- `jekyl` - FRONT END correlation controller.
+  - `doc:spec=['visualdata','output','userexperience']`
+  - `cli:spec=['CLIVISUALOUTPUT','CLIDESIGN','CLIUI','ASCIIUI']`
+  - `python:spec=['richclidesign','visualenhancement','visualintegration']`
 
 ## CLI DESIGN
 LANGUAGE: `Python`
@@ -63,6 +75,8 @@ _The design has not been finalized yet, so the differential of commands have not
 #### MAIN CLI COMMAND CALL
 
 - `mrdr` - _This tag is used to identify the CLI command, it launches the CLI menu._
+  - `mrdr hyde` - _Launches the back end correlation controller._
+  - `mrdr jekyl` - _Launches the front end correlation controller._
 
 #### CLI COMMANDS
 
@@ -73,6 +87,8 @@ _The design has not been finalized yet, so the differential of commands have not
 
 - `docstring` - _identifies docstrings for the CLI._
 - `fix` - _native fix command to refresh syntax highlighting or CLI UI display_
+- `hyde` - _back end correlation controller._
+- `jekyl` - _front end correlation controller._
 
 #### MRDR COMMAND OPTIONS
 
@@ -105,7 +121,7 @@ SEE [Docstring Example File](database/docstrings/docstring_examples.md)
 
 ### User Defined Docstrings
 
-SEE [Docstring UDL Template](/templates/udl_template.md)
+SEE [Docstring UDL Template](/database/languages/udl/udl_template.md)
 
 ## FOOTER REMOVALLOG METADATA - A CHANGELOG EXPLICITLY FOR REMOVED DATA, INLINE
 

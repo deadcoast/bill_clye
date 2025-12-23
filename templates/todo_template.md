@@ -1,4 +1,5 @@
 # TODO.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 <!-- 
 **todo:spec** 
   [1] REQ:['FILE,'HEADING']
@@ -9,7 +10,7 @@
 -->
 
 > For Template, SEE [TODO TEMPLATE](/templates/todo_template.md)
-> For spec document, SEE [TODO SPECIFICATION](/docs/todo_spec.md)
+> For spec document, SEE [TODO SPECIFICATION](/docs/doc_specs/todo_spec.md)
 
 ---
 

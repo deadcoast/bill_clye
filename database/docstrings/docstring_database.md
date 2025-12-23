@@ -1,4 +1,5 @@
 # docstring_tables.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 ## Docstring Table Database
 

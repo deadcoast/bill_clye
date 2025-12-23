@@ -1,6 +1,10 @@
-# metadata.md
+# metadata_spec.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 _This file explains the two seperate metadata applications for the `MRDR` Ecosystem_
+
+## MRDR DOCSPEC REQUIREMENT
+- Each document must include `[MRDR:doc:spec=doctags](/docs/doctags.md)` directly below the document title.
 
 ## MRDR ECOSYSTEM DOCUMENT METADATA SPEC
 
@@ -15,16 +19,16 @@ _This file explains the two seperate metadata applications for the `MRDR` Ecosys
 
 1. - Start Docstring `<!--`
    -> `newline`
-2. - `file_name`(tags.md) seperated by `DELIMITER`(`:`) followed with `FILEID` (`spec`)
+2. - `file_name`(doctags.md) seperated by `DELIMITER`(`:`) followed with `FILEID` (`spec`)
    -> `newline`
-3. - Two spaces on `newline`, [`numver`](docs/tags.md|##FORMATTING) encased in square brackets
+3. - Two spaces on `newline`, [`numver`](docs/doctags.md|## FORMATTING) encased in square brackets
 4. -> `newline`
 
 > STEPS 1-4 Create this metadata so far:
 > A
 ```md
-<--
-tags.md:spec
+<!--
+doctags.md:spec
   [1]
 
 ```
@@ -32,7 +36,7 @@ tags.md:spec
 > To complete the docstring, add the `numver` paramaters and options, and close it.
 ```md
 <!--
-tags.md:spec
+doctags.md:spec
   [1] example paramater
   [2] example paramater
 -->
@@ -41,12 +45,12 @@ tags.md:spec
 - Each `MRDR` docstring requires relevant options, variables to its hosting file.
 
 [!IMPORTANT]
-> FILE: `/docs/tags.md`
+> FILE: `/docs/doctags.md`
 > HEADING: `## FORMATTING`
 
 ```md
 <!--
-tags.md:spec
+doctags.md:spec
   [1] Tags + Data + Descriptions must fit on a single line
   [2] +new_line below headers
   [3] -+new_line above headers !> lists

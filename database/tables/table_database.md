@@ -1,4 +1,5 @@
 # Docstring Tables
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 A **CLI docstring-table database** needs two things:
 

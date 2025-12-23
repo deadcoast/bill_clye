@@ -1,4 +1,5 @@
 # Research Notes — <PROJECT / PAPER TITLE>
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 > [!NOTE]
 > What this note is about in a single sentence.

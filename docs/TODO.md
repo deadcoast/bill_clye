@@ -1,4 +1,5 @@
 # TODO.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 <!-- 
 **todo:spec** 
   [1] REQ:['FILE,'HEADING']
@@ -9,7 +10,7 @@
 -->
 
 > For Template, SEE [TODO TEMPLATE](/templates/todo_template.md)
-> For spec document, SEE [TODO SPECIFICATION](/docs/todo_spec.md)
+> For spec document, SEE [TODO SPECIFICATION](/docs/doc_specs/todo_spec.md)
 
 ## TODO.01 <!-- todo:type:simpnum:spec=PARENT -->
 
@@ -17,8 +18,8 @@
 [TODO-0.1.1] <!-- todo:type:SemVer=CHILD -->
 - [ ]
 
-TASK: Extract data from the spec and populate `tags.md` with the relevant data
-REF: [spec.md](/docs/spec.md|## CLI SPECIFICATIONS)
+TASK: Extract data from the spec and populate `doctags.md` with the relevant data
+REF: [cli_spec.md](/docs/doc_specs/cli_spec.md|## CLI SPECIFICATIONS)
 ```
 > MRDR documents, categorizes and collects data from syntax and languages for future database usage, all predetermined essential data should be entered into the  MRDR documents.
 ```
@@ -30,11 +31,11 @@ REF: [spec.md](/docs/spec.md|## CLI SPECIFICATIONS)
 [TODO-0.1.2]
 - [ ]
 
-TASK: Is it plausible to use both `` and `ye` as the MAIN cli command call? If so, SKIP `TODO2`
-FILE: [spec.md](/docs/spec.md|## INTRODUCTION)
+TASK: Is it plausible to use both `mrdr` and `misterdoctor` as the MAIN cli command call? If so, SKIP `TODO2`
+FILE: [cli_spec.md](/docs/doc_specs/cli_spec.md|## INTRODUCTION)
 ```
-` MRDR` CLI output features (pulled from the designed database) in the initial design will be minimal, but that does not mean the DEVELOPMENT and SPEC will be minimal.
-> command: <!-- [TODO01: DECIDE ON ONE DEFINITIVE COMMAND] --> ``, `ye`
+`MRDR` CLI output features (pulled from the designed database) in the initial design will be minimal, but that does not mean the DEVELOPMENT and SPEC will be minimal.
+> command: <!-- [TODO01: DECIDE ON ONE DEFINITIVE COMMAND] --> `mrdr`, `misterdoctor`
 ```
 
 - (1).SPEC_DESIGN_PURPOSE: To maximize initial CLI design depth, the first spec will focus on full scope foundational modular cli development, if done correctly `database_display_integration` should be much easier.
@@ -45,7 +46,7 @@ FILE: [spec.md](/docs/spec.md|## INTRODUCTION)
 - [ ]
 
 TASK:
-REF: [spec.md](/docs/spec.md|## CLI SPECIFICATIONS)
+REF: [cli_spec.md](/docs/doc_specs/cli_spec.md|## CLI SPECIFICATIONS)
 ```
 [!NOTE]
 >  MRDR documents, categorizes and collects data from syntax and languages for future database usage, all predetermined essential data should be entered into the  MRDR documents. [TODO-03]
@@ -59,7 +60,7 @@ REF: [spec.md](/docs/spec.md|## CLI SPECIFICATIONS)
 - [ ]
 
 TASK: Needs Complete development for YAML metadata OPTION (opposed to the  MRDR metadata format) in the Ecosystem.
-REF: [METADATA DOCUMENT](/docs/metadata.md|## YAML METADATA SPEC)
+REF: [metadata_spec.md](/docs/doc_specs/metadata_spec.md|## YAML METADATA SPEC)
 ```
 N/A
 ```
@@ -67,7 +68,7 @@ N/A
 - _NA_
 
 ---
-[TODO0-0,1.5]
+[TODO-0.1.5]
 - [ ]
 
 TASK: DEFINE AND POPULATE THE DATA IN THE RELEVANT TAGGED FILES.

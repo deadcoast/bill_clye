@@ -1,4 +1,5 @@
 # python_styles.md - PYTHON DOCSTRING STYLES
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 ## 1. Sphinx (reStructuredText) Style
 

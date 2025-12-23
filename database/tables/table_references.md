@@ -1,4 +1,5 @@
 # tables.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 ## Docstring Lang Table
 

@@ -1,4 +1,5 @@
 # docstring_template.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 ## DICTIONARY
 

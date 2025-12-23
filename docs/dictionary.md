@@ -1,4 +1,5 @@
 # dictionary.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 <!-- 
 DICT01:spec
   [1] STATUS:design
@@ -11,12 +12,19 @@ DICT01:spec
 `MRDR` Is a `Visual CLI Database Ecosystem` that Contains two main thematic sequences within the ecosystem.
 
 > [!IMPORTANT]
-> Correspondance:front_end `hyde`
+> Correspondance:back_end `hyde`
+> Correspondance:front_end `jekyl`
 > CLI:cmd `mrdr hyde`
+> CLI:cmd `mrdr jekyl`
 
-- Mr Hyde is the front end correspondance on full ecosystem front end related data.
-  - From the `doc:spec` -> `CLI:spec` -> `src_code:spec`
-  desinged to display its curated databases in full support inside the MACOS Terminal via an interactive CLI.
+- Mr Hyde is the back end correspondance on full ecosystem data correlation.
+  - `doc:spec=['metadata','doctags']`
+  - `cli:spec=['python','sourcecode']`
+  - `python:spec=['full_scope','senior_dev']`
+- Mr Jekyl is the front end correspondance on full ecosystem visual correlation.
+  - `doc:spec=['visualdata','output','userexperience']`
+  - `cli:spec=['CLIVISUALOUTPUT','CLIDESIGN','CLIUI','ASCIIUI']`
+  - `python:spec=['richclidesign','visualenhancement','visualintegration']`
 
 ### NAMETYPES
 - CHD: `chd`, `CHILD` | Child Data Hierarchy
@@ -25,8 +33,9 @@ DICT01:spec
 - GPN01: `mrdr`, `MISTERDOCTOR` | Main CLI cmd
   - PNT01: `dr`, `DOCTOR` | CLI cmd
   - PNT02: `mr`, `MISTER` | CLI cmd
-    - CHD03: `clide`, `CLIDE` | CLI opt
+    - CHD01: `hyde` `HYDE` | CLI opt
     - CHD02: `jekyl` `JEKYL` | CLI opt
+    - CHD03: `clide`, `CLIDE` | CLI opt
 
 #### DEFINITIONS
 - DEF01: `ver`, `VERSION`

@@ -1,4 +1,5 @@
 # docstring_udl_template.md
+[MRDR:doc:spec=doctags](/docs/doctags.md)
 
 A reusable template for defining a **docstring / doc-comment carrier** for either an **official language** or a **UDL**.  
 Designed for **parser-grade determinism** and **CLI database indexing**.
