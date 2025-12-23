@@ -20,6 +20,7 @@ TREE01:spec
 │   ├── advanced_udl_docstring.md
 │   └── docstring_deepdive.md
 ├── AGENTS.md
+├── TODO.md
 ├── README.md
 ├── main.py
 ├── pyproject.toml
@@ -57,7 +58,6 @@ TREE01:spec
 │   │   ├── github_adv_markdown.md
 │   │   ├── python_trends_2025.md
 │   │   └── uv_cheatsheet.md
-│   └── TODO.md
 ├── src
 └── templates
     ├── docstring_template.md

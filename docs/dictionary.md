@@ -14,6 +14,8 @@ DICT01:spec
 > [!IMPORTANT]
 > Correspondance:back_end `hyde`
 > Correspondance:front_end `jekyl`
+> CLI:cmd `mrdr`
+> CLI:alias `misterdoctor`
 > CLI:cmd `mrdr hyde`
 > CLI:cmd `mrdr jekyl`
 

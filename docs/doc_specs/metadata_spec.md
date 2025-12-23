@@ -61,3 +61,29 @@ doctags.md:spec
 
 ## YAML METADATA SPEC
 [TODO04]
+
+_YAML metadata is an optional alternative to the MRDR docstring comment format._
+
+### YAML RULES
+- YAML metadata must be the first block in the document.
+- Use YAML front matter delimiters: `---` (open) and `---` (close).
+- Required keys: `mrdr.docspec`, `mrdr.file`, `mrdr.fileid`, `mrdr.version`.
+- `mrdr.docspec` must match the in-file marker `[MRDR:doc:spec=doctags](/docs/doctags.md)`.
+- Link entries use repo-relative paths and headings.
+
+### YAML EXAMPLE
+```yaml
+---
+mrdr:
+  docspec: doctags
+  file: "doctags.md"
+  fileid: "spec"
+  version: 1
+  tags:
+    - metadata
+    - doctags
+links:
+  - file: "/docs/doctags.md"
+    heading: "## FORMATTING"
+---
+```

@@ -26,6 +26,7 @@ REF: [cli_spec.md](/docs/doc_specs/cli_spec.md|## CLI SPECIFICATIONS)
 
 - _This section contains a global dictionary of all the terms and their definitions that are used in the documentation._
 - _If any definitions have exact duplicates in other languages, identiy the additional utilization with tag `+LANG_USE` but always keep the more widely accepted or pupular nametype for these documents
+- RESOLUTION: Doctags placeholders populated; verify for completeness and naming cohesion.
 
 ---
 [TODO-0.1.2]
@@ -38,6 +39,7 @@ FILE: [cli_spec.md](/docs/doc_specs/cli_spec.md|## INTRODUCTION)
 > command: <!-- [TODO01: DECIDE ON ONE DEFINITIVE COMMAND] --> `mrdr`, `misterdoctor`
 ```
 
+- RESOLUTION: `misterdoctor` is the alias for `mrdr`.
 - (1).SPEC_DESIGN_PURPOSE: To maximize initial CLI design depth, the first spec will focus on full scope foundational modular cli development, if done correctly `database_display_integration` should be much easier.
   - `database_display_integration`: The CLI pulling data from the database, and displaying them in the CLI, such as the (currently planned) integration 'docstrings'.
 
@@ -66,6 +68,7 @@ N/A
 ```
 - _NA_
 - _NA_
+- RESOLUTION: YAML metadata spec drafted in `docs/doc_specs/metadata_spec.md`.
 
 ---
 [TODO-0.1.5]

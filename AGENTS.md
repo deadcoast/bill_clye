@@ -11,7 +11,7 @@ Development stage: PLANNING
 ## Specs and Docs Map
 - `docs/doc_specs/cli_spec.md`: Primary CLI design source of truth. Defines
   intended commands, options, roadmap, and the modular design intent. The main
-  invocation is `mrdr` with controllers `hyde` and `jekyl`.
+  invocation is `mrdr` (alias: `misterdoctor`) with controllers `hyde` and `jekyl`.
 - `docs/doc_specs/metadata_spec.md`: Document metadata format for the ecosystem,
   including docstring-style header metadata and a planned YAML metadata spec.
 - `docs/doc_specs/todo_spec.md`: TODO format rules (SCREAMINGSNAKE headers,
@@ -20,7 +20,7 @@ Development stage: PLANNING
 - `docs/doctags.md`: Doc tag system, delimiters, grammar identifiers, and
   formatting rules that drive consistency across docs and future CLI output.
 - `docs/dictionary.md`: Canonical definitions for tag terminology and hierarchy.
-- `docs/TODO.md`: Active TODOs; follow the TODO spec and templates.
+- `TODO.md`: Active TODOs; follow the TODO spec and templates.
 - `docs/repository_tree.md`: Expected repository layout; update if structure
   changes.
 - `templates/docstring_template.md`, `templates/todo_template.md`: Templates for

@@ -11,7 +11,7 @@ _MRDR The Syntax CLI is a(nod, and homage to `Doctor Jekl and Mister Hyde`) CLI 
 
 ## INTRODUCTION
 `MRDR` CLI output features (pulled from the designed database) in the initial design will be minimal, but that does not mean the DEVELOPMENT and SPEC will be minimal.
-> command: `mrdr`
+> command: `mrdr` (alias: `misterdoctor`)
 > controllers: `hyde` (back_end), `jekyl` (front_end)
 
 - (1).SPEC_DESIGN_PURPOSE: To maximize initial CLI design depth, the first spec will focus on full scope foundational modular cli development, if done correctly `database_display_integration` should be much easier.
@@ -75,6 +75,7 @@ _The design has not been finalized yet, so the differential of commands have not
 #### MAIN CLI COMMAND CALL
 
 - `mrdr` - _This tag is used to identify the CLI command, it launches the CLI menu._
+  - `misterdoctor` - _Alias of `mrdr`._
   - `mrdr hyde` - _Launches the back end correlation controller._
   - `mrdr jekyl` - _Launches the front end correlation controller._
 
@@ -104,9 +105,9 @@ _The design has not been finalized yet, so the differential of commands have not
 - `-f`, `--format` - _This tag is used to identify the CLI command option._
 - `-p`, `--purpose` - _This tag is used to identify the CLI command option._
 - `-r`, `--restrictions` - _This tag is used to identify the CLI command option._
-- `-s`, `--styling` - _This tag is used to identify the CLI command option._
+- `-y`, `--styling` - _This tag is used to identify the CLI command option._
 - `-u`, `--user` - _This tag is used to identify the CLI command option._
-- `-n`, `--notes` - _This tag is used to identify the CLI command option._
+- `-o`, `--notes` - _This tag is used to identify the CLI command option._
 - `-q`, `--quit` - _This tag is used to quit the cli._
 
 ### INTER-DOCUMENT (doc) DEFINITIONS
