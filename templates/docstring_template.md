@@ -11,7 +11,7 @@
   **NOTE**:
   - Not every definition requires explanation, such as "opening, closing, and bracket".
   - Self-Explanatory words do not require explicit definition in the DICTIONARY 
- -->
+-->
 
 ## User Defined Doc String Template
 
@@ -21,7 +21,7 @@ LANG: UDL
 
 ### Pointy Numerical Index - A numerical and BRACKET hierachal index design
 
-```pindx
+```
 <(1)
   CLAIM:{
     sky_color:"The color of the observable sky is blue during the day"
