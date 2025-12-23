@@ -10,8 +10,10 @@
 -->
 
 ## DOCTAG SPEC
+</pre>
 TITLE: BILLYTAGS
 PURPOSE: Defined by a strict spec to maximize:['BREVITY', 'CONSISTENCY', 'READABILITY', 'PARSING']
+</pre>
 
 ### FORMATTING AND RULES
 - ID: `THREELETTER`
@@ -22,15 +24,18 @@ PURPOSE: Defined by a strict spec to maximize:['BREVITY', 'CONSISTENCY', 'READAB
 ## DOC DELIMITERS
 _Unique Delimiters, and their NLP based identifiers(kept unique for compatibility)_
 
+<pre>
 DDL01: `+`, `ADDTACH` - add, or attach an item or reference
 DDL02: `-+`,`DELREM` - remove, or delete an item or reference
 DDL03: `!>`, `EXCEPTFOR` - "Except for [x] ID", an exception to a rule.
 DDL04:
 DDL05:
+</pre>
 
 ## Grammar
 _Grammar or Definitions for a custom defined purpose_
 
+<pre>
 GRM01: `rstr`, `RESTRICTIONS` - Strictly prohibited practise. DO NOT utilize. AVOID. etc.
 GRM02: `ntype`, `NAMETYPE`
 GRM05: `dlist`, `DASHLIST` - Identifies a list, beginning with the `DELIMITER`:`-`
@@ -39,8 +44,10 @@ GRM07:
 GRM08:
 GRM09:
 GRM10:
+</pre>
 
 ## Inter-Document-Commands
+<pre>
 IDC01: `LANGUSE`, `LANGUAGEUSAGE` - Specific or Identical Characteristics found in another language | `eg`: "01" for first.
 IDC02:
 IDC03:
@@ -51,8 +58,10 @@ IDC07:
 IDC08:
 IDC09:
 IDC10:
+</pre>
 
 ## FORMATTING
+<pre>
 FMT02: `ver`, `VERSION` - Version control, a parent numeric tagging system to child:FMT01
 FMT01: `accro`, `ACRONYM` - Acronym accompanied by a single numeric digit to specify its letter length.
 FMT03: `numver`, `NUMERICVERSION` - A Grandfather term for all number based version control formats.
@@ -63,3 +72,4 @@ FMT07:
 FMT08:
 FMT09:
 FMT10:
+</pre>
