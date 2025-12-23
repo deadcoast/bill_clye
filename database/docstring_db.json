@@ -1,0 +1,135 @@
+{
+  "manifest_name": "Global Docstring Syntax Database",
+  "version": "1.0.0",
+  "schema_origin": "Absolute Truth Version (Technical Development)",
+  "entries": [
+    {
+      "language": "Python",
+      "syntax": {
+        "start": "\"\"\"",
+        "end": "\"\"\"",
+        "type": "literal",
+        "location": "internal_first_line"
+      },
+      "tags": ["pep257", "indentation_sensitive"],
+      "example_content": "format: github\npurpose: visual_styling\nuser: \"Technical Development\"\n - profile: A developer and academic..."
+    },
+    {
+      "language": "JavaScript",
+      "syntax": {
+        "start": "/**",
+        "end": "*/",
+        "type": "block",
+        "location": "above_target"
+      },
+      "tags": ["jsdoc", "asterisk_prefix"],
+      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n */"
+    },
+    {
+      "language": "Lua",
+      "syntax": {
+        "start": "--[=[",
+        "end": "]=]",
+        "type": "padded_bracket",
+        "location": "anywhere"
+      },
+      "tags": ["nestable", "equal_padding"],
+      "metadata": "The number of '=' signs can be increased to avoid collision with internal code."
+    },
+    {
+      "language": "Rust",
+      "syntax": {
+        "start": "///",
+        "end": null,
+        "type": "line_sugared",
+        "location": "above_target"
+      },
+      "tags": ["rustdoc", "compiler_native"],
+      "example_content": "/// format: github\n/// user: \"Technical Development\""
+    },
+    {
+      "language": "Elixir",
+      "syntax": {
+        "start": "@doc \"\"\"",
+        "end": "\"\"\"",
+        "type": "module_attribute",
+        "location": "above_target"
+      },
+      "tags": ["compiled_metadata", "beam"],
+      "example_content": "@doc \"\"\"\nformat: github\n\"\"\""
+    },
+    {
+      "language": "D",
+      "syntax": {
+        "start": "/++",
+        "end": "+/",
+        "type": "nestable_block",
+        "location": "above_target"
+      },
+      "tags": ["ddoc", "nesting_safe"],
+      "conflict_ref": "Javascript [2]"
+    },
+    {
+      "language": "Julia",
+      "syntax": {
+        "start": "\"\"\"",
+        "end": "\"\"\"",
+        "type": "prefix_literal",
+        "location": "above_target"
+      },
+      "tags": ["markdown_native"],
+      "conflict_ref": "Python [1]"
+    },
+    {
+      "language": "Haskell",
+      "syntax": {
+        "start": "{-|",
+        "end": "-}",
+        "type": "haddock_block",
+        "location": "above_target"
+      },
+      "tags": ["functional", "pipe_delimited"]
+    },
+    {
+      "language": "COBOL",
+      "syntax": {
+        "start": "*",
+        "end": null,
+        "type": "positional",
+        "location": "column_7"
+      },
+      "tags": ["legacy", "fixed_width"],
+      "parsing_rule": "Look for asterisk at index 6 (0-indexed)."
+    },
+    {
+      "language": "Raku",
+      "syntax": {
+        "start": "#|",
+        "end": null,
+        "type": "leading_line",
+        "location": "above_target"
+      },
+      "tags": ["pod6", "raku"]
+    },
+    {
+      "language": "C#",
+      "syntax": {
+        "start": "/// <",
+        "end": ">",
+        "type": "xml_structured",
+        "location": "above_target"
+      },
+      "tags": ["xml", "compiler_validated"]
+    },
+    {
+      "language": "Erlang",
+      "syntax": {
+        "start": "%% @doc",
+        "end": null,
+        "type": "attribute_comment",
+        "location": "above_target"
+      },
+      "tags": ["edoc"]
+    }
+  ]
+}
