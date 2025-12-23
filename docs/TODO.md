@@ -11,8 +11,10 @@
 > For Template, SEE [TODO TEMPLATE](/templates/todo_template.md)
 > For spec document, SEE [TODO SPECIFICATION](/docs/todo_spec.md)
 
+## TODO.01 <!-- todo:type:simpnum:spec=PARENT -->
+
 ---
-[TODO01]
+[TODO-0.1.1] <!-- todo:type:SemVer=CHILD -->
 - [ ]
 
 TASK: Extract data from the spec and populate `tags.md` with the relevant data
@@ -25,7 +27,7 @@ REF: [spec.md](/docs/spec.md|## CLI SPECIFICATIONS)
 - _If any definitions have exact duplicates in other languages, identiy the additional utilization with tag `+LANG_USE` but always keep the more widely accepted or pupular nametype for these documents
 
 ---
-[TODO02]
+[TODO-0.1.2]
 - [ ]
 
 TASK: Is it plausible to use both `` and `ye` as the MAIN cli command call? If so, SKIP `TODO2`
@@ -39,7 +41,7 @@ FILE: [spec.md](/docs/spec.md|## INTRODUCTION)
   - `database_display_integration`: The CLI pulling data from the database, and displaying them in the CLI, such as the (currently planned) integration 'docstrings'.
 
 ---
-[TODOO03]
+[TODO-0.1.3]
 - [ ]
 
 TASK:
@@ -53,7 +55,7 @@ REF: [spec.md](/docs/spec.md|## CLI SPECIFICATIONS)
 - _If any definitions have exact duplicates in other languages, identiy the additional utilization with tag `[+LANG_USE]` but always keep the more widely accepted or pupular nametype for these documents_
 
 ---
-[TODO04]
+[TODO-0.1.4]
 - [ ]
 
 TASK: Needs Complete development for YAML metadata OPTION (opposed to the  MRDR metadata format) in the Ecosystem.
@@ -65,8 +67,29 @@ N/A
 - _NA_
 
 ---
-[TODO05]
+[TODO0-0,1.5]
 - [ ]
 
 TASK: DEFINE AND POPULATE THE DATA IN THE RELEVANT TAGGED FILES.
 REF: `GLOBAL` TODO TASK.
+
+---
+
+## TODO.02
+
+---
+[TODO-0.2.1]
+
+- [ ] <!-- TODO:tasklist:chekbox:spec=[PRIMARY == "PrimaryIndicatorSuccessfulTask":accro='PIST'] -->
+REF: [FILE LINK TITLE](path/to/file/reference.md|## HEADER REFERENCE) <!-- Correct Header Linking Format for github -->
+
+> DIRECT LINE REFERENCE FROM THE CORRESPONDING DOCUMENT THE TODO BILLYTAG IS LINKED <!-- TODO tags originate in other files, then are populated here. This section must ALWAYS provide a corresponding TODOTAG with the correct IDENTIFIER -->
+
+- `additional_datapoint` Essential Context regarding the files specific TODOTAG call
+- Second `additional_datapoint` Datapoint or information relating to the source file and its TODOTAG
+
+<!-- tasklist:checkbox:spec -->
+- [ ] 1. Example: Step to complete or correct first task
+  - [ ] 2. Example: Subtask to complete or correct correlated to the SecondaryTasks
+
+---

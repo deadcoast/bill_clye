@@ -8,17 +8,26 @@
   [4] VER: 'SIMPNUM'
 -->
 
+> For Template, SEE [TODO TEMPLATE](/templates/todo_template.md)
+> For spec document, SEE [TODO SPECIFICATION](/docs/todo_spec.md)
+
 ---
-[TODO00]
 
-- [ ]
-FILE: []()
-HEADR: []()
+## TODO_0.1.0
 
-> DIRECT LINE REFERENCE FROM THE CORRESPONDING DOCUMENT THE TODO BILLYTAG IS LINKED
+---
+[TODO1.0]
 
-- `additional_datapoint` Context or information regarding the TODO reference
-- Second `additional_datapoint` Datapoint or information regarding the TODO
+- [ ] <!-- TODO:tasklist:chekbox:spec=[PRIMARY == "PrimaryIndicatorSuccessfulTask":accro='PIST'] -->
+REF: [FILE LINK TITLE](path/to/file/reference.md|## HEADER REFERENCE) <!-- Correct Header Linking Format for github -->
 
-- 1. First step example to complete or correct it
-- 2. Second step example to complete or correct it
+> DIRECT LINE REFERENCE FROM THE CORRESPONDING DOCUMENT THE TODO BILLYTAG IS LINKED <!-- TODO tags originate in other files, then are populated here. This section must ALWAYS provide a corresponding TODOTAG with the correct IDENTIFIER -->
+
+- `additional_datapoint` Essential Context regarding the files specific TODOTAG call
+- Second `additional_datapoint` Datapoint or information relating to the source file and its TODOTAG
+
+<!-- tasklist:checkbox:spec -->
+- [ ] 1. Example: Step to complete or correct first task
+  - [ ] 2. Example: Subtask to complete or correct correlated to the SecondaryTasks
+
+---
