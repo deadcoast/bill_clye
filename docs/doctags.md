@@ -1,17 +1,37 @@
 # tags.md
 <!-- 
-**tags.md:spec** 
-  [1] Tags + Data + Descriptions must fit on a single line
-  [2] +new_line below headers
-  [3] -+new_line above headers !> lists
-  [4] -+['whitespace','delimiter'] in NLP ALIAS IDENTIFIERS
-  [5] docs -> src -> cli NAMETYPE cohesion is crucial for full scope UX in the ecosystem
-  [6] The docs, source code, and cli should be consistent
+TAGS01:spec
+  [1] +new_line below headers
+  [2] -+new_line above headers !> lists
+  [3] -+['whitespace','delimiter'] in NLP ALIAS IDENTIFIERS
+  [4] docs -> src -> cli nametype cohesion
+  [5] The docs, source code, and cli should be consistent
 -->
 
-## DOCTAG SPEC
+## RULES
+
+### LIST RULES
+
+#### DEFAULT BEHAVIOR
+The Backslash (`\`) Method
+- In GitHub-Flavored Markdown, a backslash at the end of a line acts exactly like the "two spaces" rule. It’s a bit more visible than spaces, making it easier to manage.
+```
+Item `one`\
+Item `two`\
+Item `three`
+```
+- For long Lists: `<pre></pre>`
+
+Example:
+```
+<pre>
+[MET01] : Tags + Data + Descriptions must fit on a single line
 </pre>
-TITLE: BILLYTAGS
+```
+
+## DOCTAG SPEC
+
+TITLE: BILLYTAGS/
 PURPOSE: Defined by a strict spec to maximize:['BREVITY', 'CONSISTENCY', 'READABILITY', 'PARSING']
 </pre>
 
@@ -40,8 +60,8 @@ GRM01: `rstr`, `RESTRICTIONS` - Strictly prohibited practise. DO NOT utilize. AV
 GRM02: `ntype`, `NAMETYPE`
 GRM05: `dlist`, `DASHLIST` - Identifies a list, beginning with the `DELIMITER`:`-`
 GRM06: `fid`, `FILEID` - The identifer used to describe the purpose of a document or file.
-GRM07:
-GRM08:
+GRM07: `glbl`, `GLOBAL` - Applies Globally in the Repo
+GRM08: `met`, `METADATA` -
 GRM09:
 GRM10:
 </pre>
@@ -62,13 +82,11 @@ IDC10:
 
 ## FORMATTING
 <pre>
-FMT02: `ver`, `VERSION` - Version control, a parent numeric tagging system to child:FMT01
-FMT01: `accro`, `ACRONYM` - Acronym accompanied by a single numeric digit to specify its letter length.
-FMT03: `numver`, `NUMERICVERSION` - A Grandfather term for all number based version control formats.
-FMT04: `simpnum`, `SIMPLENUMERIC` - Two Number `numver` identifier
-FMT05: `scrmsnk`, `SCREAMINSNAKE` - All Capital Name Type formatting
-FMT06: `rmlog`, `REMOVALLOG` - The metadata footer log, used when AI removes large portions of files
-FMT07:
+
+FMT07: `newline`
+- HEADERS:newline,
+  - ABOVE:true,
+  - BELOW:false
 FMT08:
 FMT09:
 FMT10:

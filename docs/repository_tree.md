@@ -1,7 +1,14 @@
 # REPOSITORY TREE
+<!--
+TREE01:spec
+  [1] MONITORSTATUS: true,
+  [2] MONITOR: 'depreciation',
+    [2.1] IFTRUE: 'notify_user'
+  [3]  
+-->
 
 ## TREE SPEC
-<!-- NOTE: THIS IS A LIVING DOCUMENT, THE REPOSITORY TREE SHOULD BE MONITORED, IF OUT OF SYNC OR DEPRECIATED, NOTIFY THE USER TO GENERATE ANOTHER UPDATED VERSION. -->
+<!-- NOTE: THIS IS ALIVING DOCUMENT , THE REPOSITORY TREE SHOULD BE MONITORED, IF OUT OF SYNC OR DEPRECIATED, NOTIFY THE USER TO GENERATE ANOTHER UPDATED VERSION. -->
 
 ```
 .
@@ -31,6 +38,10 @@
 │   │   ├── metadata_spec.md
 │   │   └── todo_spec.md
 │   ├── doctags.md
+│   ├── repository_tree.md
+│   ├── resources
+│   │   ├── academic_adv_markdown.md
+│   │   └── github_adv_markdown.md
 │   └── TODO.md
 ├── src
 └── templates
