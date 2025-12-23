@@ -17,7 +17,7 @@
 > `mrdr:doc:spec` IS SPECIFICALLY DESIGNED TO BE ROBUSTLY PATTERN BASED, TIGHT, AND EASILY RECOGNIZABLE BY IDE INTEGRATED AI AGENTS
 
 ---
-
+## 01
 [1] Focus on full scope standardization of the `MRDR` Ecosystem.
 [2] I have further defined the specs, they are not perfect, and they require help to unify.
 [2.1] The documents describe, or literally display how i want the spec to function on both the doc spec and cli spec. They are twp seperate specs, that require consistency with the source code implementation.
@@ -40,20 +40,20 @@
 [6.1] Iterconnected ecosystem: `sourcecode <-> doctags <-> CLI`
 
 ---
-
 ## 0.2
-
 expand upon this, lets say for a use case of a python CLI code and syntax database. Its purpose is to output code and syntax information, rules, docs, anythong the user choose to add to the database. They key is output and visual integrations to entice potential users. Things like RICH CLI, ASCII windows, a UI and UX that goes above and beyond to present itself in a visually pleasing manner. Features syntax highlighting support, inline notepad editor and visuals user QOL enhancements.
 
+---
 ## 0.3
-
 REVISIONS
 
 > [!USER]
 > Its not for a scientific reasearch paper, that was only one of the things i listed that i do.
 > > DOC FORMAT PURPOSE: "Interactive, modern, inline CLI that features comprehensive visual output, pulling from a database."
 
-## cli design
+---
+## 0.4
+cli design
 
 `mrdr` cli focuses on enhanced visual and ui integrations with rich ui library, making a comprehensive effort to entice users with epxanded visual aesthetics.
 - WHAT THAT MEANS TO `mrdr` DEV TEAM IS UNIQUE + ADVANCED + COMPREHENSIVE VISUAL FEATURES AND INTEGRATIONS NOT COMMONLY SEEN. THE DOCUMENTS SHOULD MATCH THIS 'ABOVE AND BEYOND'ATTITUTE'. `mrdr` strives to PROVIDE 'GOING THE EXTRA STEP' VISUALLY, AND COMPREHENSIVELY FROM THE DOCUMENTS TO THE CLI OUTPUT.
@@ -62,17 +62,18 @@ REVISIONS
 [2] Pay attention to your output. Im not asking for low quality, or common integrations.
 
 ---
+## 05
+- USER:request
+  - RARE VISUAL INTEGRATIONS FOR GITHUB FLAVOR DOCS.md
+  - format: markdown --github_flavor
+  - platform: github
+  - purpose: visual_styling, document_suite
+  - PROVIDE THIS TO ME IN A REFERENCE STYLE, APPEALING MARKDOWN FORMATTED PAGE.
+  - I WOULD LIKE TO START COLLECTING CREATIVE, ROBUST, AND MORE ADVANCED LAYOUTS AND FORMATS OF PROVIDING THE NEXT LEVEL OF MARKDOWN DOCUMENT.
 
-## USER
-- RARE VISUAL INTEGRATIONS FOR GITHUB FLAVOR DOCS.md
-- format: markdown --github_flavor
-- platform: github
-- purpose: visual_styling, document_suite
-
-## REQUEST
-PROVIDE THIS TO ME IN A REFERENCE STYLE, APPEALING MARKDOWN FORMATTED PAGE. I WOULD LIKE TO START COLLECTING CREATIVE, ROBUST, AND MORE ADVANCED LAYOUTS AND FORMATS OF PROVIDING THE NEXT LEVEL OF MARKDOWN DOCUMENT.
-
-### REVISIONS
+---
+## 06
+REVISIONS
 
 > [!NOTE]
 > Its not for a scientific reasearch paper, that was only one of the things i listed that i do.
