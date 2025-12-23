@@ -2,7 +2,7 @@
 
 _BILL CLYE The Syntax CLI is a(nod, and homage to `Bill Nye the Science Guy`) CLI database that allows you to display and render different example of common codebases._
 
-[!IMPORTANT]:
+> [!IMPORTANT]
 > `BILL CLYE` initial design should contain comprehensive, future proof, documented, modular codebase. The output features in the initial design will be minimal, but that does not mean the DEVELOPMENT and SPEC will be minimal. The implications of the future support and design spec, indicate that this codebase design must be comprehensive from its foundations. The modular design should be created full scope, with weighted attention focused on developing user quality of life, database integration, CLI design and inclusivity. The foundations should be so in deopth and comprehensiove, that the `docstring` display format functions and modules should be an easy, modular injection / integration.
 > Once the initial design is completed, shipped, stabilized and launched, the `future_roadmap` will be considered. The `future_roadmap` will be a list of features that will be implemented in the future, and will be considered in the development of the `BILL CLYE` CLI.
 > The `future_roadmap` will be a list of features that will be implemented in the future, and will be considered in the development of the quality of life, and modular foundations `BILL CLYE` CLI **BUT** additional output display modules will not be integrated past the `docstrings`. The weighted focus will stay on the comprehensive foundational development and expansion.
