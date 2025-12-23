@@ -1,0 +1,6 @@
+# DS.STORE
+.DS_Store
+._*.DS_Store
+
+# .tempfile/
+.tempfile/
