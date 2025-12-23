@@ -6,22 +6,27 @@ DICT01:spec
     - "THE FUNCTIONS ARE CURRENTLY EXAMPLES AND PLACEHOLDERS FOR CONTEXTUAL UNDERSTANDING IN DESIGN"
     - THIS SPEC IS A DRAFT, A WORK IN PROGRESS, AND NEEDS TO BE UNIFIED CORRECTLY WITH THE PROJECT ECOSYSTEM AS IT EVOLVES AND PROGRESSES. 
 -->
-## MRDR index
- [TODO05]:tag:[GRM07]
 
 ## MRDR DICTIONARY
+`MRDR` Is a `Visual CLI Database Ecosystem` that Contains two main thematic sequences within the ecosystem.
 
-`MRDR` Is a `Visual CLI Database Ecosystem` that Contains two main thematic sequences within the
+> [!IMPORTANT]
+> Correspondance:front_end `hyde`
+> CLI:cmd `mrdr hyde`
+
+- Mr Hyde is the front end correspondance on full ecosystem front end related data.
+  - From the `doc:spec` -> `CLI:spec` -> `src_code:spec`
+  desinged to display its curated databases in full support inside the MACOS Terminal via an interactive CLI.
 
 ### NAMETYPES
-- GLB01: `vsclide`, `VSCLIDE` | `accro`:`VISUAL CLI DATABASE ECOSYSTEM`
+- CHD: `chd`, `CHILD` | Child Data Hierarchy
 - PNT: `pnt`, `PARENT` | Parent Data Hierarchy
 - GPN: `gpn`, `GRANDPARENT` | Grandparent Data Hierarchy
-  - GPN01: `mrdr`, `MISTERDOCTOR` | Main CLI cmd
-    - PNT01: `dr`, `DOCTOR` | CLI cmd
-    - PNT02: `mr`, `MISTER` | CLI cmd
-      - CHD03: `clide`, `CLIDE` | CLI opt
-      - CHD02: `jekyl` `JEKYL` | CLI opt
+- GPN01: `mrdr`, `MISTERDOCTOR` | Main CLI cmd
+  - PNT01: `dr`, `DOCTOR` | CLI cmd
+  - PNT02: `mr`, `MISTER` | CLI cmd
+    - CHD03: `clide`, `CLIDE` | CLI opt
+    - CHD02: `jekyl` `JEKYL` | CLI opt
 
 #### DEFINITIONS
 - DEF01: `ver`, `VERSION`
@@ -31,7 +36,7 @@ ACROYNM representing a title
 - DEF03: `numver`, `NUMERICVERSION`
 `VERSION`(PARENT), `numver`(child) type
 - DEF04: `simpnum`, `SIMPLENUMERIC`
-A simple numeric (billy)`ver:numver:simpnum`numver`=`opt`:(2)
+A simple numeric `ver:numver:simpnum`numver`=`opt`:(2)
 - DEF05: `scrmsnk`, `SCREAMINSNAKE` -
 All Capital Name Type formatting
 - DEF06: `rmlog`, `REMOVALLOG`
@@ -44,6 +49,8 @@ Add or Remove the correlating data
 Command that has a function
 - DEF10: `glbl`, `GLOBAL`
 Defines the relative action as global in the `mrdr` ecosystem
+- DEF11: `clide`, `VSCLIDE`
+  - `accro:vsclide="VISUAL CLI DATABASE ECOSYSTEM"`
 
 ## Document Class Hierarchy
 
@@ -61,32 +68,43 @@ _Top level notation, carry large weight, often used as header or footer notes_
 - `NOTES` - _This tag is used to identify any additional important notes about the corresponding data._\
 
 ### `parent` commands [TODO05]
+<!--
+  NOTE:
+    - This section showcases:
+      - newline:spec=HTMLPRE
+      - HTMLPRE:styling=none
+-->
+
 <pre>
-`APD` - As Per Defined in the english(or semantic syntax) language
-`OBJ_ACC`, `objective_acceptane` - A statement or claim that is obvious in nature(_understandable without further explanation_), that while still technically is disputable, such disputes would render the operator in a position that is not serious; SEE [`semantics`]
+apd:ASPERDEFINED=[
+  'Reference is in context to traditional definition'
+  ],
+objacc:OBJECTIVEACCEPTANCE=[
+  'A statement or claim that is obvious in nature',
+  'Understandable without further explanation',
+  'While still technically sound is disputable',
+  'Dispute would disqualify users intelligence'
+  ]
 </pre>
 
 ### `child` Function [TODO05]
 _child of the parent Function, usually utilized in specific subsections such as "parent:python | child:docstring"_
-<pre>
-`sem`, `semantics` - APD arguing not not good faith, raising redundant points.
-`def`, `definition` - APD
-`dstr`, `docstring` - APD
-`rsch`, `research` - APD
-`stat`, `statistic` - APD
-`eg`, `example` - APD
-`vldt`, `validated` - APD
-`expr`, `experimental` - APD
-`optml`, `optimal` - APD
-`unstbl`, `unstable` - APD
-`vislap`, `visually_appealing` - APD
-`crtve`, `creative` - Creative
-`vldtd`, `validated`- APD
-`optml`, `optimal`, - APD
-`unstbl` `unstable`, - APD
-`visap`, `visually_appealing`, - APD
-`crtv`, `creative` - APD
-</pre>
+
+`sem`, `semantics` - arguing out of good faith\
+`def`, `definition` - APD\
+`dstr`, `docstring` - APD\
+`rsch`, `research` - APD\
+`stat`, `statistic` - APD\
+`eg`, `example` - APD\
+`vldt`, `validated` - APD\
+`expr`, `experimental` - APD\
+`optml`, `optimal` - APD\
+`unstbl`, `unstable` - APD\
+`vislap`, `visually_appealing` - APD\
+`vldtd`, `validated`- APD\
+`optml`, `optimal`, - APD\
+`unstbl` `unstable`, - APD\
+`crtv`, `creative` - APD\
 
 ### `grandchild` [TODO05]
 <pre>

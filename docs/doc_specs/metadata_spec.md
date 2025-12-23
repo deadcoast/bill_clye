@@ -1,8 +1,8 @@
 # metadata.md
 
-_This file explains the two seperate metadata applications for the `BILL_CLYE` Ecosystem_
+_This file explains the two seperate metadata applications for the `MRDR` Ecosystem_
 
-## BILL_CLYE ECOSYSTEM DOCUMENT METADATA SPEC
+## MRDR ECOSYSTEM DOCUMENT METADATA SPEC
 
 - DOCSTRING:
   - open:`<!--`
@@ -38,7 +38,7 @@ tags.md:spec
 -->
 ```
 
-- Each `BILL_CLYE` docstring requires relevant options, variables to its hosting file.
+- Each `MRDR` docstring requires relevant options, variables to its hosting file.
 
 [!IMPORTANT]
 > FILE: `/docs/tags.md`

@@ -31,7 +31,7 @@ Example:
 
 ## DOCTAG SPEC
 
-TITLE: BILLYTAGS/
+TITLE: YTAGS/
 PURPOSE: Defined by a strict spec to maximize:['BREVITY', 'CONSISTENCY', 'READABILITY', 'PARSING']
 </pre>
 
@@ -43,51 +43,55 @@ PURPOSE: Defined by a strict spec to maximize:['BREVITY', 'CONSISTENCY', 'READAB
 
 ## DOC DELIMITERS
 _Unique Delimiters, and their NLP based identifiers(kept unique for compatibility)_
+<!-- spec:newline=BACKSLASH -->
 
-<pre>
-DDL01: `+`, `ADDTACH` - add, or attach an item or reference
-DDL02: `-+`,`DELREM` - remove, or delete an item or reference
-DDL03: `!>`, `EXCEPTFOR` - "Except for [x] ID", an exception to a rule.
-DDL04:
-DDL05:
-</pre>
+DDL01: `+`, `ADDTACH` - add, or attach an item or reference\
+DDL02: `-+`,`DELREM` - remove, or delete an item or reference\
+DDL03: `!>`, `EXCEPTFOR` - "Except for [x] ID", an exception to a rule.\
+DDL04: ` `\
+DDL05: ` `\
+DDL06: ` `\
+DDL07: ` `\
+DDL08: ` `\
+DDL09: ` `\
+DDL10: ` `
 
 ## Grammar
 _Grammar or Definitions for a custom defined purpose_
 
-<pre>
-GRM01: `rstr`, `RESTRICTIONS` - Strictly prohibited practise. DO NOT utilize. AVOID. etc.
-GRM02: `ntype`, `NAMETYPE`
-GRM05: `dlist`, `DASHLIST` - Identifies a list, beginning with the `DELIMITER`:`-`
-GRM06: `fid`, `FILEID` - The identifer used to describe the purpose of a document or file.
-GRM07: `glbl`, `GLOBAL` - Applies Globally in the Repo
-GRM08: `met`, `METADATA` -
-GRM09:
-GRM10:
-</pre>
+GRM01: `rstr`, `RESTRICTIONS` - Prohibited practise\
+GRM02: `ntype`, `NAMETYPE` - Grandparent Type\
+GRM05: `dlist`, `DASHLIST` - a dash ordered list\
+GRM06: `id`, `ID` - Purpose Related Identifier\
+GRM07: `glbl`, `GLOBAL` - Applies Globally in the Repo\
+GRM08: `met`, `METADATA` - References the docs Metadata\
+GRM09: ` `\
+GRM10: ` `
 
 ## Inter-Document-Commands
-<pre>
-IDC01: `LANGUSE`, `LANGUAGEUSAGE` - Specific or Identical Characteristics found in another language | `eg`: "01" for first.
-IDC02:
-IDC03:
-IDC04:
-IDC05:
-IDC06:
-IDC07:
-IDC08:
-IDC09:
-IDC10:
-</pre>
+IDC01: `LANGUSE`, `LANGUAGEUSAGE` - Duplicated Usage\
+IDC02:\
+IDC03:\
+IDC04:\
+IDC05:\
+IDC06:\
+IDC07:\
+IDC08:\
+IDC09:\
+IDC10:\
 
 ## FORMATTING
-<pre>
+FMT01: `newline`\
+- HEADERS:newline\
+  - ABOVE:true,\
+  - BELOW:`false`\
 
-FMT07: `newline`
-- HEADERS:newline,
-  - ABOVE:true,
-  - BELOW:false
-FMT08:
-FMT09:
+FMT02: `bksmtd`, `BACKSLASHMETHOD`\
+FMT03: `CONFIG:DEFAULT:newline:spec=TWOSPACES`\
+FMT04:\
+FMT05:\
+FMT06:\
+FMT07:\
+FMT08:\
+FMT09:\
 FMT10:
-</pre>

@@ -8,7 +8,7 @@
   [4] VER: 'SIMPNUM'
 -->
 
-## TODO: BILL CLYE DOCUMENT FORMAT
+## TODO:  MRDR DOCUMENT FORMAT
 ```md
 # TODO.md
 <!-- 
@@ -27,7 +27,7 @@
 FILE: []()
 HEADR: []()
 
-> DIRECT LINE REFERENCE FROM THE CORRESPONDING DOCUMENT THE TODO BILLYTAG IS LINKED
+> DIRECT LINE REFERENCE FROM THE CORRESPONDING DOCUMENT THE TODO YTAG IS LINKED
 
 - `additional_datapoint` Context or information regarding the TODO reference
 - Second `additional_datapoint` Datapoint or information regarding the TODO
