@@ -45,7 +45,7 @@ Since you have "large lists," the most "pro" way to handle this without breaking
 2. Press `Ctrl + H` (Find and Replace).
 3. Click the **Regex icon** (looks like `.*`).
 4. **Find:** `(\n)` (or `$` depending on your editor).
-5. **Replace:** `  \n` (Two spaces followed by a newline).
+5. **Replace:** `\n` (Two spaces before `\` and a newline).
 6. Hit **Replace All**.
 
 This instantly transforms a 500-line list into a GitHub-friendly format while keeping your `backticks` fully functional.
