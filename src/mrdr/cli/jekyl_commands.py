@@ -11,12 +11,17 @@ import typer
 from rich.console import Console
 
 from mrdr.cli.app import state
+from mrdr.cli.error_handlers import (
+    display_language_not_found_error,
+    display_unexpected_error,
+    handle_mrdr_error,
+)
 from mrdr.controllers.hyde import HydeController
 from mrdr.controllers.jekyl import JekylController, ShowOptions
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
 from mrdr.render.rich_renderer import RichRenderer
-from mrdr.utils.errors import LanguageNotFoundError
+from mrdr.utils.errors import LanguageNotFoundError, MRDRError
 
 jekyl_app = typer.Typer(
     name="jekyl",
@@ -38,20 +43,6 @@ def get_jekyl_controller() -> JekylController:
         renderer = RichRenderer(state.console)
     
     return JekylController(hyde=hyde, renderer=renderer, console=state.console)
-
-
-def handle_language_not_found(error: LanguageNotFoundError, console: Console) -> None:
-    """Display user-friendly error with recovery suggestions."""
-    from rich.panel import Panel
-    
-    suggestions_text = "\n".join(f"  • {s}" for s in error.suggestions[:5])
-    console.print(Panel(
-        f"[red]✖[/red] Language '[bold]{error.language}[/bold]' not found\n\n"
-        f"[dim]Did you mean:[/dim]\n{suggestions_text}\n\n"
-        f"[dim]Try:[/dim] mrdr hyde list",
-        title="Not Found",
-        border_style="red"
-    ))
 
 
 @jekyl_app.command("show")
@@ -112,11 +103,13 @@ def show(
             console.print(f"\n[dim]Render time: {elapsed:.2f}ms | Cache: miss[/dim]")
             
     except LanguageNotFoundError as e:
-        if state.json:
-            error_data = {"error": str(e), "suggestions": e.suggestions}
-            console.print(json.dumps(error_data, indent=2))
-        else:
-            handle_language_not_found(e, console)
+        display_language_not_found_error(e, console, state.json)
+        raise typer.Exit(1)
+    except MRDRError as e:
+        handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
 
 
@@ -153,9 +146,11 @@ def compare(
             console.print(f"\n[dim]Render time: {elapsed:.2f}ms | Cache: miss[/dim]")
             
     except LanguageNotFoundError as e:
-        if state.json:
-            error_data = {"error": str(e), "suggestions": e.suggestions}
-            console.print(json.dumps(error_data, indent=2))
-        else:
-            handle_language_not_found(e, console)
+        display_language_not_found_error(e, console, state.json)
+        raise typer.Exit(1)
+    except MRDRError as e:
+        handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)

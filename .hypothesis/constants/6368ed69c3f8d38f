@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/utils/suggestions.py
+# hypothesis_version: 6.148.8
+
+[0.4, 0.5, 'compare', 'config', 'docstring', 'export', 'fix', 'hyde', 'inspect', 'jekyl', 'list', 'query', 'set', 'show', 'validate']

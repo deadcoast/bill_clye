@@ -4,7 +4,6 @@ This module implements the docstring command for displaying docstring
 syntax examples for programming languages.
 """
 
-import json
 import time
 from typing import Optional
 
@@ -16,10 +15,15 @@ from rich.table import Table
 from rich.text import Text
 
 from mrdr.cli.app import state
+from mrdr.cli.error_handlers import (
+    display_language_not_found_error,
+    display_unexpected_error,
+    handle_mrdr_error,
+)
 from mrdr.controllers.hyde import HydeController
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
-from mrdr.utils.errors import LanguageNotFoundError
+from mrdr.utils.errors import LanguageNotFoundError, MRDRError
 
 
 # Python docstring styles
@@ -101,18 +105,6 @@ def get_hyde_controller() -> HydeController:
     return HydeController()
 
 
-def handle_language_not_found(error: LanguageNotFoundError, console: Console) -> None:
-    """Display user-friendly error with recovery suggestions."""
-    suggestions_text = "\n".join(f"  • {s}" for s in error.suggestions[:5])
-    console.print(Panel(
-        f"[red]✖[/red] Language '[bold]{error.language}[/bold]' not found\n\n"
-        f"[dim]Did you mean:[/dim]\n{suggestions_text}\n\n"
-        f"[dim]Try:[/dim] mrdr docstring --all",
-        title="Not Found",
-        border_style="red"
-    ))
-
-
 def docstring_command(
     language: Optional[str] = typer.Argument(
         None, help="Programming language to display docstring syntax for."
@@ -157,7 +149,7 @@ def docstring_command(
         _display_python_style(style, console, start_time)
         return
     elif style and language.lower() != "python":
-        console.print(f"[yellow]Warning:[/yellow] --style is only supported for Python.")
+        console.print("[yellow]Warning:[/yellow] --style is only supported for Python.")
     
     # Display docstring for language
     try:
@@ -191,11 +183,13 @@ def docstring_command(
             console.print(f"\n[dim]Query time: {elapsed:.2f}ms | Cache: miss[/dim]")
             
     except LanguageNotFoundError as e:
-        if state.json:
-            error_data = {"error": str(e), "suggestions": e.suggestions}
-            console.print(json.dumps(error_data, indent=2))
-        else:
-            handle_language_not_found(e, console)
+        display_language_not_found_error(e, console, state.json)
+        raise typer.Exit(1)
+    except MRDRError as e:
+        handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
 
 
@@ -302,8 +296,6 @@ def _display_python_style(style: str, console: Console, start_time: float) -> No
 
 def _display_rich_docstring(entry, console: Console) -> None:
     """Display docstring entry with Rich formatting."""
-    from mrdr.database.schema import DocstringEntry
-    
     table = Table(show_header=False, box=None, padding=(0, 1))
     table.add_column("Field", style="cyan")
     table.add_column("Value")

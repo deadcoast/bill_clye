@@ -267,19 +267,19 @@ This implementation plan transforms the MRDR CLI Foundation design into actionab
     - Add `mrdr fix` command for UI refresh
     - _Requirements: 7.5_
 
-- [ ] 10. Error handling and suggestions
-  - [ ] 10.1 Implement fuzzy matching for suggestions
+- [x] 10. Error handling and suggestions
+  - [x] 10.1 Implement fuzzy matching for suggestions
     - Create `utils/suggestions.py` with fuzzy_match function
     - Use difflib.get_close_matches for command suggestions
     - Use difflib.get_close_matches for language suggestions
     - _Requirements: 2.4, 7.1_
 
-  - [ ] 10.2 Write property test for suggestions
+  - [x] 10.2 Write property test for suggestions
     - **Property 18: Unknown Command Suggestions**
     - **Property 19: Empty Result Suggestions**
     - **Validates: Requirements 7.1, 7.3**
 
-  - [ ] 10.3 Implement error handlers in CLI
+  - [x] 10.3 Implement error handlers in CLI
     - Add exception handlers for MRDRError hierarchy
     - Implement user-friendly error display with Rich panels
     - Implement debug file logging for unexpected errors

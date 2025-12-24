@@ -15,10 +15,15 @@ from rich.table import Table
 from rich.text import Text
 
 from mrdr.cli.app import state
+from mrdr.cli.error_handlers import (
+    display_language_not_found_error,
+    display_unexpected_error,
+    handle_mrdr_error,
+)
 from mrdr.controllers.hyde import HydeController
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
-from mrdr.utils.errors import LanguageNotFoundError
+from mrdr.utils.errors import LanguageNotFoundError, MRDRError
 
 hyde_app = typer.Typer(
     name="hyde",
@@ -31,18 +36,6 @@ hyde_app = typer.Typer(
 def get_hyde_controller() -> HydeController:
     """Get a configured HydeController instance."""
     return HydeController()
-
-
-def handle_language_not_found(error: LanguageNotFoundError, console: Console) -> None:
-    """Display user-friendly error with recovery suggestions."""
-    suggestions_text = "\n".join(f"  • {s}" for s in error.suggestions[:5])
-    console.print(Panel(
-        f"[red]✖[/red] Language '[bold]{error.language}[/bold]' not found\n\n"
-        f"[dim]Did you mean:[/dim]\n{suggestions_text}\n\n"
-        f"[dim]Try:[/dim] mrdr hyde list",
-        title="Not Found",
-        border_style="red"
-    ))
 
 
 @hyde_app.command("query")
@@ -92,11 +85,13 @@ def query(
             console.print(f"\n[dim]Query time: {elapsed:.2f}ms | Cache: miss[/dim]")
             
     except LanguageNotFoundError as e:
-        if state.json:
-            error_data = {"error": str(e), "suggestions": e.suggestions}
-            console.print(json.dumps(error_data, indent=2))
-        else:
-            handle_language_not_found(e, console)
+        display_language_not_found_error(e, console, state.json)
+        raise typer.Exit(1)
+    except MRDRError as e:
+        handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
 
 
@@ -184,11 +179,13 @@ def inspect(
             console.print(f"\n[dim]Query time: {elapsed:.2f}ms | Cache: miss[/dim]")
             
     except LanguageNotFoundError as e:
-        if state.json:
-            error_data = {"error": str(e), "suggestions": e.suggestions}
-            console.print(json.dumps(error_data, indent=2))
-        else:
-            handle_language_not_found(e, console)
+        display_language_not_found_error(e, console, state.json)
+        raise typer.Exit(1)
+    except MRDRError as e:
+        handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
 
 
@@ -231,9 +228,11 @@ def export(
             console.print(f"\n[dim]Export time: {elapsed:.2f}ms[/dim]")
             
     except LanguageNotFoundError as e:
-        if state.json:
-            error_data = {"error": str(e), "suggestions": e.suggestions}
-            console.print(json.dumps(error_data, indent=2))
-        else:
-            handle_language_not_found(e, console)
+        display_language_not_found_error(e, console, state.json)
+        raise typer.Exit(1)
+    except MRDRError as e:
+        handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
