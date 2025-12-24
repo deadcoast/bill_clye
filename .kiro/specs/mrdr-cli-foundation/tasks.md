@@ -63,24 +63,24 @@ This implementation plan transforms the MRDR CLI Foundation design into actionab
     - **Property 13: Serialization Round-Trip**
     - **Validates: Requirements 2.6, 2.7, 4.6**
 
-- [ ] 3. Checkpoint - Database module complete
+- [x] 3. Checkpoint - Database module complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Hyde Controller implementation
-  - [ ] 4.1 Implement Hyde Controller core
+- [x] 4. Hyde Controller implementation
+  - [x] 4.1 Implement Hyde Controller core
     - Create `controllers/hyde.py` with HydeController class
     - Implement query method returning DocstringEntry
     - Implement list_languages method
     - Implement inspect method returning detailed metadata dict
     - _Requirements: 2.1, 2.2, 2.3_
 
-  - [ ] 4.2 Implement export functionality
+  - [x] 4.2 Implement export functionality
     - Add export method with format parameter (json/yaml)
     - Implement JSON serialization with field order preservation
     - Implement YAML serialization
     - _Requirements: 2.6, 2.7_
 
-  - [ ] 4.3 Implement database validation method
+  - [x] 4.3 Implement database validation method
     - Add validate_database method returning list of ValidationError
     - Integrate with loader validation
     - _Requirements: 4.3, 4.4_
