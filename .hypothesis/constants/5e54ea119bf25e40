@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/render/components/plusrep.py
+# hypothesis_version: 6.148.8
+
+['+', '.', 'FAIR', 'GOOD', 'GREAT', 'MAXIMUM', 'No grade', 'No grade available', 'PLUSREP', 'PLUSREP Grade', 'POOR', 'PlusrepDisplay', 'RESET', 'SLOPPY', 'UNKNOWN', '[', ']', 'bold cyan', 'bold green', 'bold red', 'bold yellow', 'cyan', 'dim', 'green', 'red', 'yellow']

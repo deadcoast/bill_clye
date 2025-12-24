@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/controllers/hyde.py
+# hypothesis_version: 6.148.8
+
+['attachment_location', 'carrier_type', 'conflict_ref', 'end', 'example_content', 'export', 'export_all', 'format', 'inspect', 'json', 'label', 'language', 'list', 'metadata', 'parsing_rule', 'plusrep', 'query', 'rating', 'start', 'syntax_signature', 'tags', 'tokens', 'validate', 'yaml']
