@@ -4,3 +4,4 @@
 
 # .tempfile/
 .tempfile/
+.early.coverage
