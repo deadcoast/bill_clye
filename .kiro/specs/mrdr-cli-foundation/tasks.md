@@ -169,47 +169,47 @@ This implementation plan transforms the MRDR CLI Foundation design into actionab
     - **Property 15: PLUSREP Display**
     - **Validates: Requirements 5.2**
 
-- [ ] 8. Configuration module implementation
-  - [ ] 8.1 Implement config schema
+- [x] 8. Configuration module implementation
+  - [x] 8.1 Implement config schema
     - Create `config/schema.py` with OutputFormat enum
     - Implement ThemeConfig model
     - Implement MRDRConfig model with defaults
     - _Requirements: 9.4_
 
-  - [ ] 8.2 Implement config loader
+  - [x] 8.2 Implement config loader
     - Create `config/loader.py` with ConfigLoader class
     - Implement load from `~/.mrdr/config.yaml`
     - Implement environment variable override with MRDR_ prefix
     - Implement fallback to defaults when no config exists
     - _Requirements: 9.1, 9.2, 9.3, 9.4_
 
-  - [ ] 8.3 Write property test for config loading
+  - [x] 8.3 Write property test for config loading
     - **Property 20: Config Loading**
     - **Property 21: Environment Variable Override**
     - **Validates: Requirements 9.2, 9.3**
 
-  - [ ] 8.4 Implement config set functionality
+  - [x] 8.4 Implement config set functionality
     - Add set method to ConfigLoader
     - Implement persistence to config file
     - _Requirements: 9.6_
 
-  - [ ] 8.5 Write property test for config set
+  - [x] 8.5 Write property test for config set
     - **Property 22: Config Set Persistence**
     - **Validates: Requirements 9.6**
 
-- [ ] 9. CLI module implementation
-  - [ ] 9.1 Implement Typer app and entry points
+- [x] 9. CLI module implementation
+  - [x] 9.1 Implement Typer app and entry points
     - Create `cli/app.py` with main Typer app
     - Register `mrdr` as primary command
     - Register `misterdoctor` as alias
     - Implement version callback for -v/--version
     - _Requirements: 1.1, 1.2, 1.7_
 
-  - [ ] 9.2 Write property test for alias equivalence
+  - [x] 9.2 Write property test for alias equivalence
     - **Property 1: Alias Equivalence**
     - **Validates: Requirements 1.2**
 
-  - [ ] 9.3 Implement Hyde subcommands
+  - [x] 9.3 Implement Hyde subcommands
     - Create `cli/hyde_commands.py` with hyde subcommand group
     - Implement `hyde query <language>` command
     - Implement `hyde list` command
@@ -217,53 +217,53 @@ This implementation plan transforms the MRDR CLI Foundation design into actionab
     - Implement `hyde export --format` command
     - _Requirements: 1.4, 2.1, 2.2, 2.3, 2.6, 2.7_
 
-  - [ ] 9.4 Implement Jekyl subcommands
+  - [x] 9.4 Implement Jekyl subcommands
     - Create `cli/jekyl_commands.py` with jekyl subcommand group
     - Implement `jekyl show <language>` command with --plain, --example, --grade flags
     - Implement `jekyl compare <lang1> <lang2>` command
     - _Requirements: 1.5, 3.1, 3.3, 3.4, 3.6, 5.2_
 
-  - [ ] 9.5 Implement docstring command
+  - [x] 9.5 Implement docstring command
     - Add `docstring <language>` command to main app
     - Implement --style flag for Python styles
     - Implement --all flag to list all languages
     - _Requirements: 10.1, 10.3, 10.4_
 
-  - [ ] 9.6 Write property test for docstring display
+  - [x] 9.6 Write property test for docstring display
     - **Property 23: Docstring Display Completeness**
     - **Property 24: Python Style Selection**
     - **Validates: Requirements 10.1, 10.2, 10.3, 10.6**
 
-  - [ ] 9.7 Implement config subcommands
+  - [x] 9.7 Implement config subcommands
     - Add `config show` command
     - Add `config set <key> <value>` command
     - _Requirements: 9.5, 9.6_
 
-  - [ ] 9.8 Implement global flags
+  - [x] 9.8 Implement global flags
     - Add --plain global flag
     - Add --json global flag
     - Add --debug global flag
     - Implement TTY detection for automatic plain fallback
     - _Requirements: 6.1, 6.2, 6.3, 6.6_
 
-  - [ ] 9.9 Write property test for TTY detection
+  - [x] 9.9 Write property test for TTY detection
     - **Property 17: TTY Detection**
     - **Validates: Requirements 6.6**
 
-  - [ ] 9.10 Write property test for debug output
+  - [x] 9.10 Write property test for debug output
     - **Property 16: Debug Output**
     - **Validates: Requirements 6.3**
 
-  - [ ] 9.11 Implement help for all commands
+  - [x] 9.11 Implement help for all commands
     - Ensure -h/--help works for all commands and subcommands
     - Add descriptive help text for each command
     - _Requirements: 1.3, 1.6_
 
-  - [ ] 9.12 Write property test for help availability
+  - [x] 9.12 Write property test for help availability
     - **Property 2: Help Availability**
     - **Validates: Requirements 1.6**
 
-  - [ ] 9.13 Implement fix command
+  - [x] 9.13 Implement fix command
     - Add `mrdr fix` command for UI refresh
     - _Requirements: 7.5_
 

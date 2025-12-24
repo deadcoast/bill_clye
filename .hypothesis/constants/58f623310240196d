@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/cli/config_commands.py
+# hypothesis_version: 6.148.8
+
+['--help', '-h', 'Configuration Error', 'MRDR Configuration', 'Setting', 'Value', 'Value to set.', 'config', 'cyan', 'error', 'exists', 'get', 'green', 'help_option_names', 'key', 'not found', 'path', 'red', 'set', 'show', 'success', 'value']

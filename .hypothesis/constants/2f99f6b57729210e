@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/cli/jekyl_commands.py
+# hypothesis_version: 6.148.8
+
+[1000, '--example', '--grade', '--help', '--plain', '-e', '-g', '-h', 'Not Found', 'compare', 'error', 'help_option_names', 'jekyl', 'lang1', 'lang2', 'red', 'show', 'suggestions']

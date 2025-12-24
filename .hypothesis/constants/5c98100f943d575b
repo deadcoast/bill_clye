@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/config/loader.py
+# hypothesis_version: 6.148.8
+
+['.', '.mrdr', '1', 'MRDR_DATABASE_PATH', 'MRDR_DEBUG_MODE', 'MRDR_DEFAULT_OUTPUT', 'MRDR_SHOW_HINTS', 'accent_color', 'config.yaml', 'database_path', 'debug_mode', 'default_output', 'error_color', 'on', 'plusrep_negative', 'plusrep_positive', 'primary_color', 'r', 'show_hints', 'theme', 'theme.accent_color', 'theme.error_color', 'theme.primary_color', 'true', 'utf-8', 'w', 'yes']
