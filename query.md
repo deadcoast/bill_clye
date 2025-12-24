@@ -85,3 +85,12 @@ plusrep:grade:weight=(
   2. true [+++++.]
   3. true [++++..]
 <!-- plusrep:conclusion:="NETPOSITIVE:rep, PLUSREP!!" -->
+
+---
+## 04
+### CLAUDE: /init
+
+> /init review the repository directory in full. start with the root docs @TODO.md then review  my @docs/ once you
+understand the docs comprehensively, continue to @database/ . create a COMPREHENSIVE CLAUDE.md that will guide you
+through the FULL SCOPE of this project. Adhere to the assigned specs in the user docs, adhere to the design and the
+`mrdr` framework , it must be thorougj, and consisten AS PER THE DESIGN EXAMPLES, DESIGNS, AND DEFINITIONS
