@@ -21,6 +21,7 @@ Development stage: PLANNING
   formatting rules that drive consistency across docs and future CLI output.
 - `docs/dictionary.md`: Canonical definitions for tag terminology and hierarchy.
 - `TODO.md`: Active TODOs; follow the TODO spec and templates.
+- `CHANGELOG.md`: Completed task log and historical updates.
 - `docs/repository_tree.md`: Expected repository layout; update if structure
   changes.
 - `templates/docstring_template.md`, `templates/todo_template.md`: Templates for

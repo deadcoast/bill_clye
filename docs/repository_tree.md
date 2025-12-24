@@ -20,6 +20,7 @@ TREE01:spec
 │   ├── advanced_udl_docstring.md
 │   └── docstring_deepdive.md
 ├── AGENTS.md
+├── CHANGELOG.md
 ├── TODO.md
 ├── README.md
 ├── main.py

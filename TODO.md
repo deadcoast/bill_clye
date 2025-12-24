@@ -1,7 +1,7 @@
 # TODO.md
 [MRDR:doc:spec=doctags](/docs/doctags.md)
 <!-- 
-**todo:spec** 
+todo:spec*
   [1] REQ:['FILE,'HEADING']
   [2] DOCLINK:['FILES', 'HEADERS']
   [3] HEADERFORMAT: 'SCREAMINGSNAKE'
@@ -11,9 +11,55 @@
 
 > For Template, SEE [TODO TEMPLATE](/templates/todo_template.md)
 > For spec document, SEE [TODO SPECIFICATION](/docs/doc_specs/todo_spec.md)
+> Completed tasks are logged in [CHANGELOG](/CHANGELOG.md)
 
 ## TODO.01 <!-- todo:type:simpnum:spec=PARENT -->
 
+---
+[TODO-0.1.3]
+- [ ]
+
+TASK:
+REF: [cli_spec.md](/docs/doc_specs/cli_spec.md|## CLI SPECIFICATIONS)
+```
+[!NOTE]
+>  MRDR documents, categorizes and collects data from syntax and languages for future database usage, all predetermined essential data should be entered into the  MRDR documents. [TODO-03]
+```
+
+- _This section contains a global dictionary of all the terms and their definitions that are used in the documentation._
+- _If any definitions have exact duplicates in other languages, identiy the additional utilization with tag `[+LANG_USE]` but always keep the more widely accepted or pupular nametype for these documents_
+
+---
+[TODO-0.1.5]
+- [ ]
+
+TASK: DEFINE AND POPULATE THE DATA IN THE RELEVANT TAGGED FILES.
+REF: `GLOBAL` TODO TASK.
+
+---
+
+## TODO.02
+
+---
+[TODO-0.2.1]
+
+- [ ] <!-- TODO:tasklist:chekbox:spec=[PRIMARY == "PrimaryIndicatorSuccessfulTask":accro='PIST'] -->
+REF: [FILE LINK TITLE](path/to/file/reference.md|## HEADER REFERENCE) <!-- Correct Header Linking Format for github -->
+
+> DIRECT LINE REFERENCE FROM THE CORRESPONDING DOCUMENT THE TODO BILLYTAG IS LINKED <!-- TODO tags originate in other files, then are populated here. This section must ALWAYS provide a corresponding TODOTAG with the correct IDENTIFIER -->
+
+- `additional_datapoint` Essential Context regarding the files specific TODOTAG call
+- Second `additional_datapoint` Datapoint or information relating to the source file and its TODOTAG
+
+<!-- tasklist:checkbox:spec -->
+- [ ] 1. Example: Step to complete or correct first task
+  - [ ] 2. Example: Subtask to complete or correct correlated to the SecondaryTasks
+
+---
+
+## FOOTER REMOVALLOG METADATA - A CHANGELOG EXPLICITLY FOR REMOVED DATA, INLINE
+REMOVED_DATA:
+```md
 ---
 [TODO-0.1.1] <!-- todo:type:SemVer=CHILD -->
 - [ ]
@@ -44,20 +90,6 @@ FILE: [cli_spec.md](/docs/doc_specs/cli_spec.md|## INTRODUCTION)
   - `database_display_integration`: The CLI pulling data from the database, and displaying them in the CLI, such as the (currently planned) integration 'docstrings'.
 
 ---
-[TODO-0.1.3]
-- [ ]
-
-TASK:
-REF: [cli_spec.md](/docs/doc_specs/cli_spec.md|## CLI SPECIFICATIONS)
-```
-[!NOTE]
->  MRDR documents, categorizes and collects data from syntax and languages for future database usage, all predetermined essential data should be entered into the  MRDR documents. [TODO-03]
-```
-
-- _This section contains a global dictionary of all the terms and their definitions that are used in the documentation._
-- _If any definitions have exact duplicates in other languages, identiy the additional utilization with tag `[+LANG_USE]` but always keep the more widely accepted or pupular nametype for these documents_
-
----
 [TODO-0.1.4]
 - [ ]
 
@@ -69,31 +101,4 @@ N/A
 - _NA_
 - _NA_
 - RESOLUTION: YAML metadata spec drafted in `docs/doc_specs/metadata_spec.md`.
-
----
-[TODO-0.1.5]
-- [ ]
-
-TASK: DEFINE AND POPULATE THE DATA IN THE RELEVANT TAGGED FILES.
-REF: `GLOBAL` TODO TASK.
-
----
-
-## TODO.02
-
----
-[TODO-0.2.1]
-
-- [ ] <!-- TODO:tasklist:chekbox:spec=[PRIMARY == "PrimaryIndicatorSuccessfulTask":accro='PIST'] -->
-REF: [FILE LINK TITLE](path/to/file/reference.md|## HEADER REFERENCE) <!-- Correct Header Linking Format for github -->
-
-> DIRECT LINE REFERENCE FROM THE CORRESPONDING DOCUMENT THE TODO BILLYTAG IS LINKED <!-- TODO tags originate in other files, then are populated here. This section must ALWAYS provide a corresponding TODOTAG with the correct IDENTIFIER -->
-
-- `additional_datapoint` Essential Context regarding the files specific TODOTAG call
-- Second `additional_datapoint` Datapoint or information relating to the source file and its TODOTAG
-
-<!-- tasklist:checkbox:spec -->
-- [ ] 1. Example: Step to complete or correct first task
-  - [ ] 2. Example: Subtask to complete or correct correlated to the SecondaryTasks
-
----
+```
