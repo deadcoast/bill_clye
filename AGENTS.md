@@ -17,6 +17,7 @@ Development stage: PLANNING
 - `docs/doc_specs/todo_spec.md`: TODO format rules (SCREAMINGSNAKE headers,
   SIMPLENUMERIC IDs, tasklist format).
 - `docs/doc_specs/newline_spec.md`: Newline and formatting rules for docs.
+- `docs/doc_specs/plusrep_spec.md`: PLUSREP grading system and output patterns.
 - `docs/doctags.md`: Doc tag system, delimiters, grammar identifiers, and
   formatting rules that drive consistency across docs and future CLI output.
 - `docs/dictionary.md`: Canonical definitions for tag terminology and hierarchy.

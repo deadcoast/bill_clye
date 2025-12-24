@@ -51,6 +51,7 @@ TREE01:spec
 │   │   ├── cli_spec.md
 │   │   ├── metadata_spec.md
 │   │   ├── newline_spec.md
+│   │   ├── plusrep_spec.md
 │   │   └── todo_spec.md
 │   ├── doctags.md
 │   ├── repository_tree.md

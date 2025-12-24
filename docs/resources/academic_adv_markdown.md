@@ -1,4 +1,4 @@
-# Research Notes — <PROJECT / PAPER TITLE>
+# Document Template — <PROJECT / PAPER TITLE>
 [MRDR:doc:spec=doctags](/docs/doctags.md)
 
 > [!NOTE]

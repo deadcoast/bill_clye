@@ -12,11 +12,14 @@ DICT01:spec
 `MRDR` Is a `Visual CLI Database Ecosystem` that Contains two main thematic sequences within the ecosystem.
 
 > [!IMPORTANT]
+> ```
 > Correspondance:back_end `hyde`
 > Correspondance:front_end `jekyl`
-> CLI:cmd `mrdr`
-> CLI:alias `misterdoctor`
-> CLI:cmd `mrdr hyde`
+> ```
+
+> CLI:cmd `mrdr`\
+> CLI:alias `misterdoctor`\
+> CLI:cmd `mrdr hyde`\
 > CLI:cmd `mrdr jekyl`
 
 - Mr Hyde is the back end correspondance on full ecosystem data correlation.
@@ -62,6 +65,12 @@ Command that has a function
 Defines the relative action as global in the `mrdr` ecosystem
 - DEF11: `clide`, `VSCLIDE`
   - `accro:vsclide="VISUAL CLI DATABASE ECOSYSTEM"`
+- DEF12: `plusrep`, `PLUSREP`
+PLUSREP grading system using `+` and `.` repweight tokens.
+- DEF13: `rep`, `REPUTATION`
+Reputation value used by PLUSREP output ratings.
+- DEF14: `repweight`, `REPWEIGHT`
+Weighted contribution from a PLUSREP token.
 
 ## Document Class Hierarchy
 
