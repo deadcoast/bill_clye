@@ -9,18 +9,17 @@ todo:spec*
   [4] VER: 'SIMPNUM'
 -->
 
-> For Template, SEE [TODO TEMPLATE](/templates/todo_template.md)
-> For spec document, SEE [TODO SPECIFICATION](/docs/doc_specs/todo_spec.md)
-> Completed tasks are logged in [CHANGELOG](/CHANGELOG.md)
+- For Template, SEE [TODO TEMPLATE](/templates/todo_template.md)
+- For spec document, SEE [TODO SPECIFICATION](/docs/docspecs/todo_spec.md)
+- Completed tasks are logged in [CHANGELOG](/CHANGELOG.md)
 
 ## TODO.01 <!-- todo:type:simpnum:spec=PARENT -->
-
 ---
 [TODO-0.1.3]
 - [ ]
 
 TASK:
-REF: [cli_spec.md](/docs/doc_specs/cli_spec.md|## CLI SPECIFICATIONS)
+REF: [cli_spec.md](/docs/docspecs/cli_spec.md|## CLI SPECIFICATIONS)
 ```
 [!NOTE]
 >  MRDR documents, categorizes and collects data from syntax and languages for future database usage, all predetermined essential data should be entered into the  MRDR documents. [TODO-03]
@@ -39,7 +38,6 @@ REF: `GLOBAL` TODO TASK.
 ---
 
 ## TODO.02
-
 ---
 [TODO-0.2.1]
 
@@ -54,14 +52,10 @@ REF: [FILE LINK TITLE](path/to/file/reference.md|## HEADER REFERENCE) <!-- Corre
 <!-- tasklist:checkbox:spec -->
 - [ ] 1. Example: Step to complete or correct first task
   - [ ] 2. Example: Subtask to complete or correct correlated to the SecondaryTasks
+FOOTER REMOVALLOG METADATA - A CHANGELOG EXPLICITLY FOR REMOVED DATA, INLINE
 
 ---
-
-## FOOTER REMOVALLOG METADATA - A CHANGELOG EXPLICITLY FOR REMOVED DATA, INLINE
-REMOVED_DATA:
-```md
----
-[TODO-0.1.1] <!-- todo:type:SemVer=CHILD -->
+[TODO-0.2.2] <!-- todo:type:SemVer=CHILD -->
 - [ ]
 
 TASK: Extract data from the spec and populate `doctags.md` with the relevant data
@@ -75,7 +69,7 @@ REF: [cli_spec.md](/docs/doc_specs/cli_spec.md|## CLI SPECIFICATIONS)
 - RESOLUTION: Doctags placeholders populated; verify for completeness and naming cohesion.
 
 ---
-[TODO-0.1.2]
+[TODO-0.2.3]
 - [ ]
 
 TASK: Is it plausible to use both `mrdr` and `misterdoctor` as the MAIN cli command call? If so, SKIP `TODO2`
@@ -90,7 +84,7 @@ FILE: [cli_spec.md](/docs/doc_specs/cli_spec.md|## INTRODUCTION)
   - `database_display_integration`: The CLI pulling data from the database, and displaying them in the CLI, such as the (currently planned) integration 'docstrings'.
 
 ---
-[TODO-0.1.4]
+[TODO-0.2.4]
 - [ ]
 
 TASK: Needs Complete development for YAML metadata OPTION (opposed to the  MRDR metadata format) in the Ecosystem.

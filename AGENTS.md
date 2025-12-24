@@ -9,15 +9,15 @@ spec definition, with Python + Rich as the intended implementation stack.
 Development stage: PLANNING
 
 ## Specs and Docs Map
-- `docs/doc_specs/cli_spec.md`: Primary CLI design source of truth. Defines
+- `docs/docspecs/cli_spec.md`: Primary CLI design source of truth. Defines
   intended commands, options, roadmap, and the modular design intent. The main
   invocation is `mrdr` (alias: `misterdoctor`) with controllers `hyde` and `jekyl`.
-- `docs/doc_specs/metadata_spec.md`: Document metadata format for the ecosystem,
+- `docs/docspecs/metadata_spec.md`: Document metadata format for the ecosystem,
   including docstring-style header metadata and a planned YAML metadata spec.
-- `docs/doc_specs/todo_spec.md`: TODO format rules (SCREAMINGSNAKE headers,
+- `docs/docspecs/todo_spec.md`: TODO format rules (SCREAMINGSNAKE headers,
   SIMPLENUMERIC IDs, tasklist format).
-- `docs/doc_specs/newline_spec.md`: Newline and formatting rules for docs.
-- `docs/doc_specs/plusrep_spec.md`: PLUSREP grading system and output patterns.
+- `docs/docspecs/newline_spec.md`: Newline and formatting rules for docs.
+- `docs/docspecs/plusrep_spec.md`: PLUSREP grading system and output patterns.
 - `docs/doctags.md`: Doc tag system, delimiters, grammar identifiers, and
   formatting rules that drive consistency across docs and future CLI output.
 - `docs/dictionary.md`: Canonical definitions for tag terminology and hierarchy.
@@ -40,10 +40,10 @@ Development stage: PLANNING
 - Use SCREAMINGSNAKE tags, SIMPLENUMERIC IDs, and delimiters as defined in
   `docs/doctags.md`.
 - Maintain document metadata comments as defined in
-  `docs/doc_specs/metadata_spec.md`.
+  `docs/docspecs/metadata_spec.md`.
 - Each document must include `[MRDR:doc:spec=doctags](/docs/doctags.md)` directly
   below the title.
-- When adding TODOs, follow `docs/doc_specs/todo_spec.md` and
+- When adding TODOs, follow `docs/docspecs/todo_spec.md` and
   `templates/todo_template.md`.
 
 ## Design Stages (Contextual Workflow)
@@ -58,7 +58,7 @@ Development stage: PLANNING
      preserving naming, tags, and behaviors from the docs.
 
 ## Notes for Agents
-- Treat `docs/doc_specs/cli_spec.md` as the authoritative CLI spec until a
+- Treat `docs/docspecs/cli_spec.md` as the authoritative CLI spec until a
   dedicated Python source spec exists.
 - Preserve TODO markers and open questions; do not resolve them unless asked.
 - If the repository structure changes, update `docs/repository_tree.md`.

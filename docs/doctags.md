@@ -24,14 +24,14 @@ Item `three`
 - For long Lists: `<pre></pre>`
 
 Example:
-```
+```md
 <pre>
 [MET01] : Tags + Data + Descriptions must fit on a single line
 </pre>
 ```
 
 ## DOCTAG SPEC
-
+<pre>
 TITLE: YTAGS/
 PURPOSE: Defined by a strict spec to maximize:['BREVITY', 'CONSISTENCY', 'READABILITY', 'PARSING']
 </pre>
@@ -39,7 +39,7 @@ PURPOSE: Defined by a strict spec to maximize:['BREVITY', 'CONSISTENCY', 'READAB
 ## MRDR DOCSPEC TAGS
 <pre>
 DOC01: `MRDR:doc:spec=doctags` - Required docspec marker for all documents. Link: /docs/doctags.md
-DOC02: `MRDR:doc:spec=metadata` - Metadata spec alignment. Link: /docs/doc_specs/metadata_spec.md
+DOC02: `MRDR:doc:spec=metadata` - Metadata spec alignment. Link: /docs/docspecs/metadata_spec.md
 DOC03: `MRDR:doc:spec=visualdata` - Visual data spec focus.
 DOC04: `MRDR:doc:spec=output` - Output and display focus.
 DOC05: `MRDR:doc:spec=userexperience` - UX focus.

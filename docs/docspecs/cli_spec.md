@@ -58,6 +58,41 @@ SEE [SHELVED FEATURES](/.shelved_features/)
 
 ---
 
+## DOCSTRING VISUAL PATTERNS
+_Additional visual output patterns for Rich-rendered docstrings._
+
+### Line number gutterguard (Rich UI)
+```mrdr
+  <!--
+1|  add:context:[
+2|    mrdr:ecosystem:core:??:types={
+3|      'jekyl', 
+4|      'hyde'
+5|    },
+6|    core:types:spec:=!={
+7|      doc:design:spec
+8|    },
+9|  ]
+  -->
+```
+
+### Plain variant (no gutter guard)
+```mrdr
+<!--
+  add:context:[
+    mrdr:ecosystem:core:??:types={
+      'jekyl', 
+      'hyde'
+    },
+    core:types:spec:=!={
+      doc:design:spec
+    },
+  ]
+-->
+```
+
+---
+
 ## CLI SPECIFICATIONS
 
 [!NOTE]

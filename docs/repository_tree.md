@@ -9,23 +9,12 @@ TREE01:spec
 -->
 
 ## TREE SPEC
-<!-- NOTE: THIS IS ALIVING DOCUMENT , THE REPOSITORY TREE SHOULD BE MONITORED, IF OUT OF SYNC OR DEPRECIATED, NOTIFY THE USER TO GENERATE ANOTHER UPDATED VERSION. -->
+<!-- NOTE: THIS IS A LIVING DOCUMENT THAT CHANGES WITH DEVELOPMENT, THE REPOSITORY TREE SHOULD BE MONITORED, IF OUT OF SYNC OR DEPRECIATED, NOTIFY THE USER TO GENERATE ANOTHER UPDATED VERSION. -->
 
 ```
 .
-├── .gitignore
-├── .markdownlint.json
-├── .python-version
-├── .shelved_features
-│   ├── advanced_udl_docstring.md
-│   └── docstring_deepdive.md
 ├── AGENTS.md
 ├── CHANGELOG.md
-├── TODO.md
-├── README.md
-├── main.py
-├── pyproject.toml
-├── uv.lock
 ├── database
 │   ├── delimeters
 │   │   └── delimeters.md
@@ -47,7 +36,7 @@ TREE01:spec
 │       └── table_references.md
 ├── docs
 │   ├── dictionary.md
-│   ├── doc_specs
+│   ├── docspecs
 │   │   ├── cli_spec.md
 │   │   ├── metadata_spec.md
 │   │   ├── newline_spec.md
@@ -55,13 +44,19 @@ TREE01:spec
 │   │   └── todo_spec.md
 │   ├── doctags.md
 │   ├── repository_tree.md
-│   ├── resources
-│   │   ├── academic_adv_markdown.md
-│   │   ├── github_adv_markdown.md
-│   │   ├── python_trends_2025.md
-│   │   └── uv_cheatsheet.md
+│   └── resources
+│       ├── academic_adv_markdown.md
+│       ├── github_adv_markdown.md
+│       ├── python_trends_2025.md
+│       └── uv_cheatsheet.md
+├── main.py
+├── pyproject.toml
+├── query.md
+├── README.md
 ├── src
-└── templates
-    ├── docstring_template.md
-    └── todo_template.md
+├── templates
+│   ├── docstring_template.md
+│   └── todo_template.md
+├── TODO.md
+└── uv.lock
 ```

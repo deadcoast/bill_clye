@@ -10,7 +10,7 @@
 -->
 
 > For Template, SEE [TODO TEMPLATE](/templates/todo_template.md)
-> For spec document, SEE [TODO SPECIFICATION](/docs/doc_specs/todo_spec.md)
+> For spec document, SEE [TODO SPECIFICATION](/docs/docspecs/todo_spec.md)
 
 ---
 
