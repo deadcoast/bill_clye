@@ -53,8 +53,8 @@ ACROYNM representing a title
 A simple numeric `ver:numver:simpnum`numver`=`opt`:(2)
 - DEF05: `scrmsnk`, `SCREAMINSNAKE` -
 All Capital Name Type formatting
-- DEF06: `rmlog`, `REMOVALLOG`
-metadata footer log, used when AI removes large portions of files
+- DEF06: `chlog`, `CHANGELOG`
+Central changelog for completed tasks and updates. SEE `/CHANGELOG.md`.
 - DEF07: `met`, `META`
 Referencing the correlating METADATA
 - DEF08: `add`, `ADD`
