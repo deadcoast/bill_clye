@@ -25,7 +25,6 @@ _This file explains the two seperate metadata applications for the `MRDR` Ecosys
 4. -> `newline`
 
 > STEPS 1-4 Create this metadata so far:
-> A
 ```md
 <!--
 doctags.md:spec

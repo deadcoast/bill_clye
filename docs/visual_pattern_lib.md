@@ -154,10 +154,10 @@ A docs “superpower”: make specs readable by default, deep on demand.
 
 | Field   | Type  | Required | UI role              |
 | ------- | ----- | -------: | -------------------- |
-| `id`    | uuid  |        ✅ | hidden key           |
-| `name`  | text  |        ✅ | primary label        |
-| `score` | float |        ✅ | right-aligned metric |
-| `notes` | text  |        ☐ | details panel        |
+| `id`    | uuid  |        Y | hidden key           |
+| `name`  | text  |        Y | primary label        |
+| `score` | float |        Y | right-aligned metric |
+| `notes` | text  |        N | details panel        |
 
 </details>
 

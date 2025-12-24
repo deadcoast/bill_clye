@@ -1,0 +1,3 @@
+[console_scripts]
+misterdoctor = mrdr.cli.app:app
+mrdr = mrdr.cli.app:app

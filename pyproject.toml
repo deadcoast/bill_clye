@@ -1,7 +1,7 @@
 [project]
-name = "bill-clye"
+name = "mrdr"
 version = "0.1.0"
-description = "Add your description here"
+description = "MRDR - The Visual Syntax CLI for docstring and syntax database"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -9,4 +9,21 @@ dependencies = [
     "isort>=7.0.0",
     "rich>=14.2.0",
     "sourcery>=1.41.1",
+    "typer>=0.15.0",
+    "pydantic>=2.10.0",
+    "pyyaml>=6.0.0",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "hypothesis>=6.120.0",
+    "pytest>=8.0.0",
+    "pytest-cov>=6.0.0",
+]
+
+[project.scripts]
+mrdr = "mrdr.cli.app:app"
+misterdoctor = "mrdr.cli.app:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]

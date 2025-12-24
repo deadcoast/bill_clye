@@ -1,0 +1,12 @@
+black>=25.12.0
+isort>=7.0.0
+rich>=14.2.0
+sourcery>=1.41.1
+typer>=0.15.0
+pydantic>=2.10.0
+pyyaml>=6.0.0
+
+[dev]
+hypothesis>=6.120.0
+pytest>=8.0.0
+pytest-cov>=6.0.0

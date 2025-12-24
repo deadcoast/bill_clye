@@ -20,9 +20,9 @@ TITLE: 'Pointy-Numerical-Index'
 DESCR: 'Hierarchal, Numerical based BRACKET index'
 LANG: UDL
 
-### Pointy Numerical Index - A numerical and BRACKET hierachal index design
+### Pointy Numerical Index - (PSEUDO) - numerical and BRACKET hierachal index design
 
-```
+```pseudo
 <(1)
   CLAIM:{
     sky_color:"The color of the observable sky is blue during the day"
