@@ -15,11 +15,19 @@ This module provides reusable UI components:
 - HierarchyDisplay: Tree-based hierarchy visualization
 - HierarchyNode: Data model for hierarchy tree nodes
 - HierarchyLevel: Enum for hierarchy levels
+- AlertComponent: Semantic alert message component
+- AlertType: Enum for alert types (NOTE, TIP, IMPORTANT, WARNING, CAUTION)
+- ALERT_CONFIG: Configuration dict for alert styling
 """
 
 from mrdr.render.components.accordion import (
     Accordion,
     AccordionSection,
+)
+from mrdr.render.components.alert import (
+    ALERT_CONFIG,
+    AlertComponent,
+    AlertType,
 )
 from mrdr.render.components.card_grid import (
     CardData,
@@ -74,4 +82,8 @@ __all__ = [
     "HierarchyNode",
     "HierarchyLevel",
     "HIERARCHY_STYLES",
+    # Alert components
+    "AlertComponent",
+    "AlertType",
+    "ALERT_CONFIG",
 ]

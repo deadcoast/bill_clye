@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/render/components/alert.py
+# hypothesis_version: 6.148.8
+
+['Caution', 'Important', 'Note', 'Tip', 'Warning', 'caution', 'color', 'cyan', 'green', 'icon', 'important', 'magenta', 'note', 'red', 'tip', 'title', 'warning', 'yellow', 'ℹ️', '⚠️', '❗', '💡', '🛑']
