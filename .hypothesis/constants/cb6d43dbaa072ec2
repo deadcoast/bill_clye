@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/render/components/keybar.py
+# hypothesis_version: 6.148.8
+
+[' · ', '/', 'bold cyan reverse', 'details', 'dim', 'f', 'filter', 'q', 'quit', 'search', '↵', '⌨ ']

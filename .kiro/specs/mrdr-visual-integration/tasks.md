@@ -7,8 +7,8 @@ This implementation plan transforms the MRDR Visual Integration design into acti
 
 ## Tasks
 
-- [ ] 1. Visual component infrastructure
-  - [ ] 1.1 Create visual components module structure
+- [x] 1. Visual component infrastructure
+  - [x] 1.1 Create visual components module structure
     - Create `src/mrdr/render/components/card_grid.py`
     - Create `src/mrdr/render/components/accordion.py`
     - Create `src/mrdr/render/components/line_gutter.py`
@@ -16,52 +16,52 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Update `src/mrdr/render/components/__init__.py` with exports
     - _Requirements: 1.1, 1.3, 2.1, 1.5_
 
-  - [ ] 1.2 Implement Card Grid component
+  - [x] 1.2 Implement Card Grid component
     - Create CardData dataclass with title, purpose, ui_description, modes fields
     - Create CardGrid class with render method using Rich tables
     - Implement _render_card method producing Rich Panels
     - _Requirements: 1.1, 1.2_
 
-  - [ ] 1.3 Write property test for Card Grid
+  - [x] 1.3 Write property test for Card Grid
     - **Property 1: Card Grid Layout Structure**
     - **Validates: Requirements 1.1, 1.2**
 
-  - [ ] 1.4 Implement Accordion component
+  - [x] 1.4 Implement Accordion component
     - Create AccordionSection dataclass with title, content, open fields
     - Create Accordion class with render method using Rich panels
     - Support open attribute for default-expanded sections
     - _Requirements: 1.3, 1.4_
 
-  - [ ] 1.5 Write property test for Accordion
+  - [x] 1.5 Write property test for Accordion
     - **Property 2: Accordion Expandable Sections**
     - **Validates: Requirements 1.3, 1.4**
 
-  - [ ] 1.6 Implement Keybar component
+  - [x] 1.6 Implement Keybar component
     - Create Keybar class extending existing HintBar
     - Implement kbd-style formatting with Rich markup
     - _Requirements: 1.5_
 
-  - [ ] 1.7 Write property test for Keybar
+  - [x] 1.7 Write property test for Keybar
     - **Property 3: Keybar Keycap Formatting**
     - **Validates: Requirements 1.5**
 
-- [ ] 2. Line Gutter implementation
-  - [ ] 2.1 Implement Line Gutter component
+- [x] 2. Line Gutter implementation
+  - [x] 2.1 Implement Line Gutter component
     - Create `src/mrdr/render/components/line_gutter.py`
     - Create LineGutter dataclass with content, start_line, separator fields
     - Implement render method with right-justified line numbers
     - Implement plain mode without ANSI codes
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-  - [ ] 2.2 Write property test for Line Gutter alignment
+  - [x] 2.2 Write property test for Line Gutter alignment
     - **Property 4: Line Gutter Number Alignment**
     - **Validates: Requirements 2.1, 2.2, 2.5**
 
-  - [ ] 2.3 Write property test for Line Gutter plain mode
+  - [x] 2.3 Write property test for Line Gutter plain mode
     - **Property 5: Line Gutter Plain Mode**
     - **Validates: Requirements 2.3**
 
-  - [ ] 2.4 Write property test for Line Gutter start line
+  - [x] 2.4 Write property test for Line Gutter start line
     - **Property 6: Line Gutter Start Line**
     - **Validates: Requirements 2.4**
 
@@ -259,7 +259,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Include resolution guidance in output
     - _Requirements: 9.1, 9.2, 9.3, 9.5_
 
-  - [ ]* 12.3 Write property test for Conflict information
+  - [ ] 12.3 Write property test for Conflict information
     - **Property 19: Conflict Information Completeness**
     - **Validates: Requirements 9.1, 9.2, 9.3, 9.5**
 
@@ -268,7 +268,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Display all known syntax conflicts in table format
     - _Requirements: 9.4_
 
-  - [ ]* 12.5 Write property test for Conflict table
+  - [ ] 12.5 Write property test for Conflict table
     - **Property 20: Conflict Table Display**
     - **Validates: Requirements 9.4**
 
@@ -291,7 +291,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Support field=value filter syntax
     - _Requirements: 10.3_
 
-  - [ ]* 14.3 Write property test for Table row filtering
+  - [ ] 14.3 Write property test for Table row filtering
     - **Property 23: Table Row Filtering**
     - **Validates: Requirements 10.3**
 
@@ -300,7 +300,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Support ascending/descending toggle
     - _Requirements: 10.4_
 
-  - [ ]* 14.5 Write property test for Table sorting
+  - [ ] 14.5 Write property test for Table sorting
     - **Property 24: Table Sorting**
     - **Validates: Requirements 10.4**
 
@@ -309,7 +309,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Implement _render_pagination_hints method
     - _Requirements: 10.5_
 
-  - [ ]* 14.7 Write property test for Table pagination
+  - [ ] 14.7 Write property test for Table pagination
     - **Property 25: Table Pagination**
     - **Validates: Requirements 10.5**
 
@@ -317,7 +317,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Update _build_table to respect columns config
     - _Requirements: 10.2_
 
-  - [ ]* 14.9 Write property test for Table column filtering
+  - [ ] 14.9 Write property test for Table column filtering
     - **Property 22: Table Column Filtering**
     - **Validates: Requirements 10.2**
 
@@ -326,7 +326,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Generate valid GFM table syntax
     - _Requirements: 10.6_
 
-  - [ ]* 14.11 Write property test for Table markdown export
+  - [ ] 14.11 Write property test for Table markdown export
     - **Property 26: Table Markdown Export**
     - **Validates: Requirements 10.6**
 
@@ -335,7 +335,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Add --columns, --filter, --sort, --export options
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.6_
 
-  - [ ]* 14.13 Write property test for Master table completeness
+  - [ ] 14.13 Write property test for Master table completeness
     - **Property 21: Master Table Completeness**
     - **Validates: Requirements 10.1**
 
@@ -384,7 +384,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
 
 ## Notes
 
-- Tasks marked with `*` are optional property-based tests that can be skipped for faster MVP
+- All tasks including property-based tests are required for comprehensive coverage
 - Each task references specific requirements for traceability
 - Checkpoints ensure incremental validation
 - Property tests validate universal correctness properties
