@@ -71,6 +71,26 @@ def show(
         "-g",
         help="Include PLUSREP quality grade in output.",
     ),
+    card: bool = typer.Option(
+        False,
+        "--card",
+        help="Render output using card grid layout.",
+    ),
+    accordion: bool = typer.Option(
+        False,
+        "--accordion",
+        help="Render output using accordion layout with expandable sections.",
+    ),
+    gutter: bool = typer.Option(
+        False,
+        "--gutter",
+        help="Render code examples with line number gutter.",
+    ),
+    start_line: int = typer.Option(
+        1,
+        "--start-line",
+        help="Starting line number for gutter display (default: 1).",
+    ),
 ) -> None:
     """Display docstring syntax with Rich formatting.
     
@@ -78,7 +98,14 @@ def show(
     layout with header bar, primary payload, and hints bar.
     
     Use 'udl:<name>' to display a custom UDL definition.
+    
+    Visual modes:
+    - --card: Display as a card grid layout
+    - --accordion: Display with expandable sections
+    - --gutter: Display code with line numbers
     """
+    from mrdr.cli.visual_commands import VisualOptions, apply_visual_options
+    
     start_time = time.time()
     console = state.console
     
@@ -99,6 +126,15 @@ def show(
         grade=grade,
     )
     
+    # Visual options
+    visual_opts = VisualOptions(
+        card=card,
+        accordion=accordion,
+        gutter=gutter,
+        start_line=start_line,
+        plain=state.should_use_plain(),
+    )
+    
     try:
         if state.json:
             # JSON output
@@ -106,6 +142,16 @@ def show(
             renderer = JSONRenderer()
             output = renderer.render(entry, "show")
             console.print(output)
+        elif card or accordion or gutter:
+            # Visual mode output
+            entry = jekyl.hyde.query(language)
+            output = apply_visual_options(entry, visual_opts, console)
+            if output:
+                console.print(output)
+            else:
+                # Fallback to standard rendering
+                output = jekyl.show(language, options)
+                console.print(output)
         else:
             # Rich or plain output via JekylController
             output = jekyl.show(language, options)

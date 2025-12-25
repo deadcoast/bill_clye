@@ -342,40 +342,40 @@ This implementation plan transforms the MRDR Visual Integration design into acti
 - [x] 15. Checkpoint - Table Renderer complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 16. CLI integration and wiring
-  - [ ] 16.1 Create visual commands module
+- [x] 16. CLI integration and wiring
+  - [x] 16.1 Create visual commands module
     - Create `src/mrdr/cli/visual_commands.py`
     - Wire --card, --accordion, --gutter flags to jekyl show
     - _Requirements: 1.1, 1.3, 2.1_
 
-  - [ ] 16.2 Update jekyl commands with visual options
+  - [x] 16.2 Update jekyl commands with visual options
     - Add --card flag to show command
     - Add --accordion flag to show command
     - Add --gutter and --start-line flags to show command
     - _Requirements: 1.1, 1.3, 2.1, 2.4_
 
-  - [ ] 16.3 Wire UDL commands to hyde
+  - [x] 16.3 Wire UDL commands to hyde
     - Register udl subcommand group under hyde
     - Wire create, list commands
     - _Requirements: 3.2, 3.7_
 
-  - [ ] 16.4 Wire doctag command to jekyl
+  - [x] 16.4 Wire doctag command to jekyl
     - Register doctag command under jekyl
     - _Requirements: 4.5_
 
-  - [ ] 16.5 Wire hierarchy command to hyde
+  - [x] 16.5 Wire hierarchy command to hyde
     - Register hierarchy command under hyde
     - _Requirements: 6.4_
 
-  - [ ] 16.6 Wire diagram command to jekyl
+  - [x] 16.6 Wire diagram command to jekyl
     - Register diagram command under jekyl
     - _Requirements: 7.5_
 
-  - [ ] 16.7 Wire conflicts command to jekyl
+  - [x] 16.7 Wire conflicts command to jekyl
     - Register conflicts command under jekyl
     - _Requirements: 9.4_
 
-  - [ ] 16.8 Wire table command to jekyl
+  - [x] 16.8 Wire table command to jekyl
     - Register table command under jekyl with all options
     - _Requirements: 10.1_
 
