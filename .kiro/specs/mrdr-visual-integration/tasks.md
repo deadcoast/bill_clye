@@ -279,7 +279,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
 - [x] 13. Checkpoint - Mermaid and Conflict complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [-] 14. Advanced Table Renderer implementation
+- [x] 14. Advanced Table Renderer implementation
   - [x] 14.1 Create Advanced Table Renderer module
     - Create `src/mrdr/render/components/table_advanced.py`
     - Create TableConfig dataclass with columns, filter, sort, pagination fields
@@ -304,38 +304,38 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - **Property 24: Table Sorting**
     - **Validates: Requirements 10.4**
 
-  - [-] 14.6 Implement table pagination
+  - [x] 14.6 Implement table pagination
     - Implement _apply_pagination method
     - Implement _render_pagination_hints method
     - _Requirements: 10.5_
 
-  - [ ] 14.7 Write property test for Table pagination
+  - [x] 14.7 Write property test for Table pagination
     - **Property 25: Table Pagination**
     - **Validates: Requirements 10.5**
 
-  - [ ] 14.8 Implement column filtering
+  - [x] 14.8 Implement column filtering
     - Update _build_table to respect columns config
     - _Requirements: 10.2_
 
-  - [ ] 14.9 Write property test for Table column filtering
+  - [x] 14.9 Write property test for Table column filtering
     - **Property 22: Table Column Filtering**
     - **Validates: Requirements 10.2**
 
-  - [ ] 14.10 Implement markdown export
+  - [x] 14.10 Implement markdown export
     - Implement export_markdown method
     - Generate valid GFM table syntax
     - _Requirements: 10.6_
 
-  - [ ] 14.11 Write property test for Table markdown export
+  - [x] 14.11 Write property test for Table markdown export
     - **Property 26: Table Markdown Export**
     - **Validates: Requirements 10.6**
 
-  - [ ] 14.12 Implement table command
+  - [x] 14.12 Implement table command
     - Add `mrdr jekyl table --master` command
     - Add --columns, --filter, --sort, --export options
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.6_
 
-  - [ ] 14.13 Write property test for Master table completeness
+  - [x] 14.13 Write property test for Master table completeness
     - **Property 21: Master Table Completeness**
     - **Validates: Requirements 10.1**
 

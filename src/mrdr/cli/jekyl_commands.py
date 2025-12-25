@@ -507,3 +507,160 @@ def conflicts() -> None:
     except Exception as e:
         display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
+
+
+@jekyl_app.command("table")
+def table(
+    master: bool = typer.Option(
+        False,
+        "--master",
+        help="Display the master docstring table with all languages.",
+    ),
+    columns: str = typer.Option(
+        None,
+        "--columns",
+        "-c",
+        help="Comma-separated list of columns to display (e.g., 'language,syntax.type').",
+    ),
+    filter_opt: str = typer.Option(
+        None,
+        "--filter",
+        "-f",
+        help="Filter rows by field=value (e.g., 'syntax.type=literal').",
+    ),
+    sort: str = typer.Option(
+        None,
+        "--sort",
+        "-s",
+        help="Sort by field name. Prefix with '-' for descending (e.g., '-language').",
+    ),
+    export: str = typer.Option(
+        None,
+        "--export",
+        "-e",
+        help="Export format: 'md' for markdown.",
+    ),
+    page: int = typer.Option(
+        1,
+        "--page",
+        "-p",
+        help="Page number for paginated output.",
+    ),
+    page_size: int = typer.Option(
+        20,
+        "--page-size",
+        help="Number of rows per page.",
+    ),
+) -> None:
+    """Display database tables with filtering, sorting, and pagination.
+    
+    Renders the docstring database as a table with various options
+    for filtering, sorting, and exporting data.
+    
+    Examples:
+        mrdr jekyl table --master
+        mrdr jekyl table --master --columns language,syntax.type
+        mrdr jekyl table --master --filter syntax.type=literal
+        mrdr jekyl table --master --sort language
+        mrdr jekyl table --master --export md
+    """
+    from mrdr.database.loader import DatabaseLoader
+    from mrdr.render.components import AdvancedTableRenderer, TableConfig
+    
+    start_time = time.time()
+    console = state.console
+    
+    if not master:
+        console.print("[yellow]Hint:[/yellow] Use --master to display the master docstring table.")
+        raise typer.Exit(0)
+    
+    try:
+        # Load database
+        loader = DatabaseLoader()
+        entries = loader.get_entries()
+        
+        # Convert entries to flat dictionaries for table display
+        data = []
+        for entry in entries:
+            row = {
+                "language": entry.language,
+                "syntax_type": entry.syntax.type if entry.syntax else "",
+                "syntax_start": entry.syntax.start if entry.syntax else "",
+                "syntax_end": entry.syntax.end or "" if entry.syntax else "",
+                "syntax_location": entry.syntax.location if entry.syntax else "",
+                "tags": ", ".join(entry.tags) if entry.tags else "",
+                "conflict_ref": entry.conflict_ref or "",
+            }
+            data.append(row)
+        
+        # Parse columns option
+        column_list = None
+        if columns:
+            column_list = [c.strip() for c in columns.split(",")]
+        
+        # Parse filter option
+        filter_field = None
+        filter_value = None
+        if filter_opt:
+            if "=" in filter_opt:
+                filter_field, filter_value = filter_opt.split("=", 1)
+                filter_field = filter_field.strip()
+                filter_value = filter_value.strip()
+        
+        # Parse sort option
+        sort_field = None
+        sort_descending = False
+        if sort:
+            if sort.startswith("-"):
+                sort_descending = True
+                sort_field = sort[1:]
+            else:
+                sort_field = sort
+        
+        # Create config
+        config = TableConfig(
+            columns=column_list,
+            filter_field=filter_field,
+            filter_value=filter_value,
+            sort_field=sort_field,
+            sort_descending=sort_descending,
+            page_size=page_size,
+            current_page=page,
+        )
+        
+        renderer = AdvancedTableRenderer(data=data, config=config)
+        elapsed = (time.time() - start_time) * 1000
+        
+        # Handle export
+        if export:
+            if export.lower() == "md":
+                console.print(renderer.export_markdown())
+            else:
+                console.print(f"[red]Error:[/red] Unknown export format '{export}'. Use 'md' for markdown.")
+                raise typer.Exit(1)
+        elif state.json:
+            # JSON output
+            filtered_data = renderer._apply_filter()
+            sorted_data = renderer._apply_sort(filtered_data)
+            console.print(json_module.dumps({
+                "data": sorted_data,
+                "total_rows": len(sorted_data),
+                "page": page,
+                "page_size": page_size,
+            }, indent=2))
+        elif state.should_use_plain():
+            console.print(renderer.render_plain())
+        else:
+            # Rich output
+            output = renderer.render()
+            console.print(output)
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms | Rows: {renderer.get_total_rows()}[/dim]")
+            
+    except FileNotFoundError as e:
+        console.print(f"[red]Error:[/red] Database not found: {e}")
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)
