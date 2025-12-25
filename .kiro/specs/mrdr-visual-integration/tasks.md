@@ -276,7 +276,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Update `mrdr jekyl show` to display conflict warning when conflict_ref exists
     - _Requirements: 9.1_
 
-- [ ] 13. Checkpoint - Mermaid and Conflict complete
+- [x] 13. Checkpoint - Mermaid and Conflict complete
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 14. Advanced Table Renderer implementation

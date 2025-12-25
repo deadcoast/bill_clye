@@ -187,12 +187,9 @@ def test_mermaid_flowchart_horizontal_layout() -> None:
     assert "Output" in output
 
 
-# Strategy for participant names (alphanumeric, starting with letter)
+# Strategy for participant names (ASCII letters only for regex compatibility)
 participant_strategy = st.text(
-    alphabet=st.characters(
-        whitelist_categories=("Lu", "Ll"),  # Only uppercase and lowercase letters
-        blacklist_characters="İıİı",  # Exclude Turkish dotted/dotless i variants
-    ),
+    alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     min_size=2,
     max_size=10,
 ).map(lambda s: s.capitalize() if s else "Participant")
