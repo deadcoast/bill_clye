@@ -246,33 +246,33 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Display example diagrams for flowchart and sequence types
     - _Requirements: 7.5_
 
-- [ ] 12. Conflict Display implementation
-  - [ ] 12.1 Create Conflict Display module
+- [x] 12. Conflict Display implementation
+  - [x] 12.1 Create Conflict Display module
     - Create `src/mrdr/render/components/conflict.py`
     - Create SyntaxConflict dataclass with languages, delimiter, resolution, attachment_rules
     - Create ConflictDisplay class
     - _Requirements: 9.1, 9.2, 9.3, 9.5_
 
-  - [ ] 12.2 Implement Conflict Display
+  - [x] 12.2 Implement Conflict Display
     - Implement render_warning method producing warning Panel
     - Implement render_table method producing conflicts Table
     - Include resolution guidance in output
     - _Requirements: 9.1, 9.2, 9.3, 9.5_
 
-  - [ ] 12.3 Write property test for Conflict information
+  - [x] 12.3 Write property test for Conflict information
     - **Property 19: Conflict Information Completeness**
     - **Validates: Requirements 9.1, 9.2, 9.3, 9.5**
 
-  - [ ] 12.4 Implement conflicts command
+  - [x] 12.4 Implement conflicts command
     - Add `mrdr jekyl conflicts` command
     - Display all known syntax conflicts in table format
     - _Requirements: 9.4_
 
-  - [ ] 12.5 Write property test for Conflict table
+  - [x] 12.5 Write property test for Conflict table
     - **Property 20: Conflict Table Display**
     - **Validates: Requirements 9.4**
 
-  - [ ] 12.6 Integrate conflict warnings into show command
+  - [x] 12.6 Integrate conflict warnings into show command
     - Update `mrdr jekyl show` to display conflict warning when conflict_ref exists
     - _Requirements: 9.1_
 

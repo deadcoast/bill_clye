@@ -108,6 +108,9 @@ class JekylController:
         Returns:
             Rich Panel containing the formatted entry.
         """
+        from rich.console import Group
+        from mrdr.render.components import ConflictDisplay
+
         table = Table(show_header=False, box=None, padding=(0, 1))
         table.add_column("Field", style="cyan")
         table.add_column("Value")
@@ -144,7 +147,21 @@ class JekylController:
             )
             table.add_row("", syntax)
 
-        return Panel(table, title=f"[bold]{entry.language}[/bold] Docstring Syntax")
+        main_panel = Panel(table, title=f"[bold]{entry.language}[/bold] Docstring Syntax")
+
+        # Check for conflict and add warning panel if exists
+        if entry.conflict_ref:
+            conflict_display = ConflictDisplay()
+            conflict = conflict_display.find_conflict_for_language(entry.language)
+            if conflict:
+                warning_panel = conflict_display._render_warning_panel(entry.language, conflict)
+                return Panel(
+                    Group(main_panel, Text(""), warning_panel),
+                    title=f"[bold]{entry.language}[/bold] Docstring Syntax",
+                    border_style="cyan",
+                )
+
+        return main_panel
 
     def compare(self, lang1: str, lang2: str) -> str:
         """Display side-by-side comparison of two languages.

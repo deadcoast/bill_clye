@@ -20,6 +20,9 @@ This module provides reusable UI components:
 - ALERT_CONFIG: Configuration dict for alert styling
 - MermaidRenderer: Mermaid diagram to ASCII converter
 - MermaidDiagramType: Enum for Mermaid diagram types
+- ConflictDisplay: Syntax conflict display component
+- SyntaxConflict: Data model for syntax conflicts
+- KNOWN_CONFLICTS: List of known syntax conflicts
 """
 
 from mrdr.render.components.accordion import (
@@ -34,6 +37,11 @@ from mrdr.render.components.alert import (
 from mrdr.render.components.card_grid import (
     CardData,
     CardGrid,
+)
+from mrdr.render.components.conflict import (
+    KNOWN_CONFLICTS,
+    ConflictDisplay,
+    SyntaxConflict,
 )
 from mrdr.render.components.golden_screen import (
     ContextStrip,
@@ -95,4 +103,8 @@ __all__ = [
     # Mermaid components
     "MermaidRenderer",
     "MermaidDiagramType",
+    # Conflict components
+    "ConflictDisplay",
+    "SyntaxConflict",
+    "KNOWN_CONFLICTS",
 ]

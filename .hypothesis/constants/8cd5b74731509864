@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/render/components/conflict.py
+# hypothesis_version: 6.148.8
+
+['\n\nAttachment Rules:\n', '\nResolution: ', '"""', ', ', '/** or /++', '=', 'Also used by: ', 'Attachment Rules:', 'Conflict Warning', 'D', 'Delimiter', 'Delimiter: ', 'JavaScript', 'Julia', 'Languages', 'Python', 'Resolution', 'Syntax Conflicts', 'above_target', 'bold', 'bold yellow', 'cyan', 'dim', 'green', 'internal_first_line', 'italic', 'yellow', '⚠️ Syntax Conflict\n\n']

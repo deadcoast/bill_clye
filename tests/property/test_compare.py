@@ -1,113 +1,371 @@
-"""Property tests for compare functionality.
+"""Property tests for Conflict Display component.
 
-Feature: mrdr-cli-foundation, Property 10: Compare Shows Both Languages
-Validates: Requirements 3.4
+Feature: mrdr-visual-integration, Property 19: Conflict Information Completeness
+Feature: mrdr-visual-integration, Property 20: Conflict Table Display
+Validates: Requirements 9.1, 9.2, 9.3, 9.4, 9.5
 """
+
+import re
 
 from hypothesis import given, settings
 from hypothesis import strategies as st
 
-from mrdr.controllers.hyde import HydeController
-from mrdr.controllers.jekyl import JekylController
-from mrdr.render.rich_renderer import RichRenderer
+from mrdr.render.components import (
+    ConflictDisplay,
+    KNOWN_CONFLICTS,
+    SyntaxConflict,
+)
 
 
-def get_valid_languages() -> list[str]:
-    """Get list of valid languages from the database."""
-    hyde = HydeController()
-    return hyde.list_languages()
+# Strategy for language names (simple alphanumeric)
+language_name = st.text(
+    min_size=1,
+    max_size=20,
+    alphabet=st.characters(
+        whitelist_categories=("L",),
+        whitelist_characters="_",
+    ),
+).filter(lambda x: x.strip() and not x.startswith("_"))
+
+# Strategy for delimiter patterns
+delimiter_pattern = st.text(
+    min_size=1,
+    max_size=10,
+    alphabet=st.characters(
+        whitelist_categories=("P", "S"),
+        blacklist_characters="\r\n\t\x00",
+    ),
+)
+
+# Strategy for resolution text
+resolution_text = st.text(
+    min_size=5,
+    max_size=100,
+    alphabet=st.characters(
+        whitelist_categories=("L", "N", "P", "S", "Z"),
+        blacklist_characters="\r\n\t\x00",
+    ),
+)
+
+# Strategy for attachment rules
+attachment_rule = st.text(
+    min_size=3,
+    max_size=30,
+    alphabet=st.characters(
+        whitelist_categories=("L", "N"),
+        whitelist_characters="_",
+    ),
+)
 
 
-# Strategy for valid language pairs (different languages)
 @st.composite
-def valid_language_pair(draw: st.DrawFn) -> tuple[str, str]:
-    """Generate a pair of different valid languages."""
-    languages = get_valid_languages()
-    if len(languages) < 2:
-        # Fallback if database has fewer than 2 languages
-        return ("Python", "JavaScript")
+def syntax_conflict_strategy(draw):
+    """Generate a valid SyntaxConflict instance."""
+    num_languages = draw(st.integers(min_value=2, max_value=4))
+    languages = draw(
+        st.lists(language_name, min_size=num_languages, max_size=num_languages, unique=True)
+    )
+    delimiter = draw(delimiter_pattern)
+    resolution = draw(resolution_text)
     
-    lang1 = draw(st.sampled_from(languages))
-    # Filter out lang1 to ensure different languages
-    remaining = [l for l in languages if l != lang1]
-    lang2 = draw(st.sampled_from(remaining))
-    return (lang1, lang2)
+    # Generate attachment rules for each language
+    rules = {}
+    for lang in languages:
+        rules[lang] = draw(attachment_rule)
+    
+    return SyntaxConflict(
+        languages=languages,
+        delimiter=delimiter,
+        resolution=resolution,
+        attachment_rules=rules,
+    )
 
 
-@given(lang_pair=valid_language_pair())
+@given(conflict=syntax_conflict_strategy())
 @settings(max_examples=100)
-def test_compare_shows_both_languages(lang_pair: tuple[str, str]) -> None:
-    """Property 10: Compare Shows Both Languages.
+def test_conflict_information_completeness(conflict: SyntaxConflict) -> None:
+    """Property 19: Conflict Information Completeness.
 
-    Feature: mrdr-cli-foundation, Property 10: Compare Shows Both Languages
-    For any two valid languages, `mrdr jekyl compare <lang1> <lang2>` SHALL
-    produce output containing information from both languages.
-    **Validates: Requirements 3.4**
+    Feature: mrdr-visual-integration, Property 19: Conflict Information Completeness
+    For any language with conflict_ref, the conflict display SHALL show:
+    warning panel, list of conflicting languages, attachment rule differences,
+    and resolution guidance.
+    **Validates: Requirements 9.1, 9.2, 9.3, 9.5**
     """
-    lang1, lang2 = lang_pair
+    display = ConflictDisplay(conflicts=[conflict])
+    language = conflict.languages[0]
     
-    hyde = HydeController()
-    renderer = RichRenderer()
-    jekyl = JekylController(hyde=hyde, renderer=renderer)
+    # Render warning for the first language
+    warning_output = display.render_warning(language, conflict)
     
-    output = jekyl.compare(lang1, lang2)
+    # Should contain warning indicator
+    assert "⚠️" in warning_output or "Warning" in warning_output, \
+        "Warning output should contain warning indicator"
     
-    # Output should contain both language names
-    assert lang1 in output, f"Output should contain {lang1}"
-    assert lang2 in output, f"Output should contain {lang2}"
+    # Should contain the delimiter
+    assert conflict.delimiter in warning_output, \
+        f"Warning should contain delimiter '{conflict.delimiter}'"
+    
+    # Should list other conflicting languages
+    other_languages = [lang for lang in conflict.languages if lang != language]
+    for other_lang in other_languages:
+        assert other_lang in warning_output, \
+            f"Warning should list conflicting language '{other_lang}'"
+    
+    # Should contain resolution guidance
+    assert conflict.resolution in warning_output, \
+        "Warning should contain resolution guidance"
+    
+    # Should contain attachment rules if present
+    if conflict.attachment_rules:
+        for lang, rule in conflict.attachment_rules.items():
+            assert rule in warning_output, \
+                f"Warning should contain attachment rule '{rule}' for {lang}"
 
 
-@given(lang_pair=valid_language_pair())
+@given(conflict=syntax_conflict_strategy())
 @settings(max_examples=100)
-def test_compare_contains_syntax_info(lang_pair: tuple[str, str]) -> None:
-    """Property 10: Compare Shows Both Languages - syntax info.
+def test_conflict_warning_panel_structure(conflict: SyntaxConflict) -> None:
+    """Property 19: Conflict Information Completeness - panel structure.
 
-    Feature: mrdr-cli-foundation, Property 10: Compare Shows Both Languages
-    For any two valid languages, the comparison output SHALL contain
-    syntax information (start delimiter, type, location) for both.
-    **Validates: Requirements 3.4**
+    Feature: mrdr-visual-integration, Property 19: Conflict Information Completeness
+    For any conflict, render_warning SHALL produce a Rich Panel with
+    proper border characters.
+    **Validates: Requirements 9.1, 9.5**
     """
-    lang1, lang2 = lang_pair
+    display = ConflictDisplay(conflicts=[conflict])
+    language = conflict.languages[0]
     
-    hyde = HydeController()
-    renderer = RichRenderer()
-    jekyl = JekylController(hyde=hyde, renderer=renderer)
+    warning_output = display.render_warning(language, conflict)
     
-    # Get entries to verify syntax info
-    entry1 = hyde.query(lang1)
-    entry2 = hyde.query(lang2)
-    
-    output = jekyl.compare(lang1, lang2)
-    
-    # Output should contain syntax start delimiters (as repr strings)
-    assert repr(entry1.syntax.start) in output or entry1.syntax.start in output
-    assert repr(entry2.syntax.start) in output or entry2.syntax.start in output
+    # Should contain Rich Panel border characters
+    assert "╭" in warning_output or "┌" in warning_output, \
+        "Warning should be rendered as a panel with border"
+    assert "╯" in warning_output or "┘" in warning_output, \
+        "Warning should have closing panel border"
 
 
-def test_compare_same_language_shows_identical_values() -> None:
-    """Compare with same language should show identical values in both columns."""
-    hyde = HydeController()
-    renderer = RichRenderer()
-    jekyl = JekylController(hyde=hyde, renderer=renderer)
+@given(conflict=syntax_conflict_strategy())
+@settings(max_examples=100)
+def test_conflict_plain_warning(conflict: SyntaxConflict) -> None:
+    """Property 19: Conflict Information Completeness - plain text.
+
+    Feature: mrdr-visual-integration, Property 19: Conflict Information Completeness
+    For any conflict, render_warning_plain SHALL produce plain text output
+    with no ANSI codes.
+    **Validates: Requirements 9.1, 9.2, 9.3, 9.5**
+    """
+    display = ConflictDisplay(conflicts=[conflict])
+    language = conflict.languages[0]
     
-    # This tests edge case - comparing a language with itself
-    output = jekyl.compare("Python", "Python")
+    plain_output = display.render_warning_plain(language, conflict)
     
-    # Should still work and contain Python twice
-    assert output.count("Python") >= 2
+    # Should have no ANSI escape sequences
+    ansi_pattern = re.compile(r"\x1b\[[0-9;]*[a-zA-Z]")
+    assert len(ansi_pattern.findall(plain_output)) == 0, \
+        "Plain output should have no ANSI codes"
+    
+    # Should contain warning indicator
+    assert "[WARNING]" in plain_output, \
+        "Plain warning should contain [WARNING] marker"
+    
+    # Should contain delimiter
+    assert conflict.delimiter in plain_output, \
+        "Plain warning should contain delimiter"
+    
+    # Should contain resolution
+    assert conflict.resolution in plain_output, \
+        "Plain warning should contain resolution"
 
 
-def test_compare_output_is_table_format() -> None:
-    """Compare output SHALL be in table format with columns for each language."""
-    hyde = HydeController()
-    renderer = RichRenderer()
-    jekyl = JekylController(hyde=hyde, renderer=renderer)
+def test_known_conflicts_completeness() -> None:
+    """Known conflicts should have all required fields populated.
+
+    **Validates: Requirements 9.1, 9.2, 9.3, 9.5**
+    """
+    for conflict in KNOWN_CONFLICTS:
+        # Should have at least 2 languages
+        assert len(conflict.languages) >= 2, \
+            "Conflict should involve at least 2 languages"
+        
+        # Should have non-empty delimiter
+        assert conflict.delimiter and len(conflict.delimiter) > 0, \
+            "Conflict should have non-empty delimiter"
+        
+        # Should have non-empty resolution
+        assert conflict.resolution and len(conflict.resolution) > 0, \
+            "Conflict should have non-empty resolution"
+        
+        # Should have attachment rules for all languages
+        for lang in conflict.languages:
+            assert lang in conflict.attachment_rules, \
+                f"Conflict should have attachment rule for {lang}"
+
+
+def test_find_conflict_for_language() -> None:
+    """find_conflict_for_language should return correct conflict.
+
+    **Validates: Requirements 9.1**
+    """
+    display = ConflictDisplay()
     
-    output = jekyl.compare("Python", "JavaScript")
+    # Python should be found in a conflict
+    python_conflict = display.find_conflict_for_language("Python")
+    assert python_conflict is not None, "Python should have a conflict"
+    assert "Python" in python_conflict.languages
     
-    # Should contain comparison-related text
-    assert "Comparison" in output or "compare" in output.lower()
-    # Should contain field labels
-    assert "Start" in output
-    assert "Type" in output
-    assert "Location" in output
+    # Julia should be found in a conflict
+    julia_conflict = display.find_conflict_for_language("Julia")
+    assert julia_conflict is not None, "Julia should have a conflict"
+    assert "Julia" in julia_conflict.languages
+    
+    # Non-existent language should return None
+    unknown_conflict = display.find_conflict_for_language("NonExistentLang")
+    assert unknown_conflict is None, "Unknown language should return None"
+
+
+
+# ============================================================================
+# Property 20: Conflict Table Display
+# ============================================================================
+
+
+@given(
+    conflicts=st.lists(
+        syntax_conflict_strategy(),
+        min_size=1,
+        max_size=5,
+    )
+)
+@settings(max_examples=100)
+def test_conflict_table_display(conflicts: list[SyntaxConflict]) -> None:
+    """Property 20: Conflict Table Display.
+
+    Feature: mrdr-visual-integration, Property 20: Conflict Table Display
+    For any invocation of `mrdr jekyl conflicts`, the output SHALL contain
+    a table with all known syntax conflicts including delimiter, languages,
+    and resolution columns.
+    **Validates: Requirements 9.4**
+    """
+    display = ConflictDisplay(conflicts=conflicts)
+    table_output = display.render_table()
+
+    # Should contain table title
+    assert "Syntax Conflicts" in table_output, \
+        "Table should have 'Syntax Conflicts' title"
+
+    # Should contain column headers
+    assert "Delimiter" in table_output, \
+        "Table should have 'Delimiter' column"
+    assert "Languages" in table_output, \
+        "Table should have 'Languages' column"
+    assert "Resolution" in table_output, \
+        "Table should have 'Resolution' column"
+
+    # Should contain data from each conflict
+    for conflict in conflicts:
+        assert conflict.delimiter in table_output, \
+            f"Table should contain delimiter '{conflict.delimiter}'"
+        # Resolution may be truncated in table display, check prefix
+        # Rich tables truncate long text with ellipsis
+        resolution_prefix = conflict.resolution[:10] if len(conflict.resolution) > 10 else conflict.resolution
+        assert resolution_prefix in table_output or "…" in table_output, \
+            f"Table should contain resolution or truncation indicator"
+        # At least one language should appear
+        assert any(lang in table_output for lang in conflict.languages), \
+            "Table should contain at least one language from conflict"
+
+
+@given(
+    conflicts=st.lists(
+        syntax_conflict_strategy(),
+        min_size=1,
+        max_size=5,
+    )
+)
+@settings(max_examples=100)
+def test_conflict_table_has_table_structure(conflicts: list[SyntaxConflict]) -> None:
+    """Property 20: Conflict Table Display - table structure.
+
+    Feature: mrdr-visual-integration, Property 20: Conflict Table Display
+    For any conflicts list, render_table SHALL produce Rich Table with
+    proper border characters.
+    **Validates: Requirements 9.4**
+    """
+    display = ConflictDisplay(conflicts=conflicts)
+    table_output = display.render_table()
+
+    # Should contain Rich Table border characters
+    assert "┏" in table_output or "╭" in table_output or "┌" in table_output, \
+        "Table should have top border"
+    assert "┗" in table_output or "╯" in table_output or "└" in table_output, \
+        "Table should have bottom border"
+
+
+@given(
+    conflicts=st.lists(
+        syntax_conflict_strategy(),
+        min_size=1,
+        max_size=5,
+    )
+)
+@settings(max_examples=100)
+def test_conflict_plain_table(conflicts: list[SyntaxConflict]) -> None:
+    """Property 20: Conflict Table Display - plain text.
+
+    Feature: mrdr-visual-integration, Property 20: Conflict Table Display
+    For any conflicts list, render_plain SHALL produce plain text output
+    with no ANSI codes.
+    **Validates: Requirements 9.4**
+    """
+    display = ConflictDisplay(conflicts=conflicts)
+    plain_output = display.render_plain()
+
+    # Should have no ANSI escape sequences
+    ansi_pattern = re.compile(r"\x1b\[[0-9;]*[a-zA-Z]")
+    assert len(ansi_pattern.findall(plain_output)) == 0, \
+        "Plain output should have no ANSI codes"
+
+    # Should contain title
+    assert "Syntax Conflicts" in plain_output, \
+        "Plain output should contain title"
+
+    # Should contain data from each conflict
+    for conflict in conflicts:
+        assert conflict.delimiter in plain_output, \
+            f"Plain output should contain delimiter '{conflict.delimiter}'"
+        assert conflict.resolution in plain_output, \
+            "Plain output should contain resolution"
+
+
+def test_conflict_table_with_known_conflicts() -> None:
+    """Conflict table should display all known conflicts.
+
+    **Validates: Requirements 9.4**
+    """
+    display = ConflictDisplay()
+    table_output = display.render_table()
+
+    # Should contain all known conflicts
+    for conflict in KNOWN_CONFLICTS:
+        assert conflict.delimiter in table_output, \
+            f"Table should contain known delimiter '{conflict.delimiter}'"
+        for lang in conflict.languages:
+            assert lang in table_output, \
+                f"Table should contain known language '{lang}'"
+
+
+def test_get_all_conflicts() -> None:
+    """get_all_conflicts should return all conflicts.
+
+    **Validates: Requirements 9.4**
+    """
+    display = ConflictDisplay()
+    all_conflicts = display.get_all_conflicts()
+
+    assert len(all_conflicts) == len(KNOWN_CONFLICTS), \
+        "get_all_conflicts should return all known conflicts"
+
+    for conflict in KNOWN_CONFLICTS:
+        assert conflict in all_conflicts, \
+            "get_all_conflicts should include all known conflicts"

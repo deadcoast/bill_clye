@@ -459,3 +459,51 @@ def diagram(
     except Exception as e:
         display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
+
+
+@jekyl_app.command("conflicts")
+def conflicts() -> None:
+    """Display all known syntax conflicts in table format.
+    
+    Shows a table of programming languages that share identical
+    delimiter syntax, along with resolution guidance for each conflict.
+    
+    Conflicts occur when multiple languages use the same delimiter
+    pattern but with different attachment rules (e.g., Python vs Julia
+    both use triple quotes but attach differently).
+    """
+    from mrdr.render.components import ConflictDisplay, KNOWN_CONFLICTS
+    
+    start_time = time.time()
+    console = state.console
+    display = ConflictDisplay()
+    
+    try:
+        elapsed = (time.time() - start_time) * 1000
+        
+        if state.json:
+            conflicts_data = []
+            for conflict in KNOWN_CONFLICTS:
+                conflicts_data.append({
+                    "delimiter": conflict.delimiter,
+                    "languages": conflict.languages,
+                    "resolution": conflict.resolution,
+                    "attachment_rules": conflict.attachment_rules,
+                })
+            console.print(json_module.dumps({
+                "conflicts": conflicts_data,
+                "count": len(conflicts_data),
+            }, indent=2))
+        elif state.should_use_plain():
+            console.print(display.render_plain())
+        else:
+            # Rich output - render table
+            table_output = display.render_table()
+            console.print(table_output)
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+            
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)
