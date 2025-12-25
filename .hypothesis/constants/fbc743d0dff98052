@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/cli/hyde_commands.py
+# hypothesis_version: 6.148.8
+
+[1000, '\nHierarchy Path:\n', ' > ', '#', ', ', '--format', '--help', '-f', '-h', 'Description: ', 'End Delimiter', 'Field', 'Language', 'Level: ', 'Location', 'None', 'None (line-based)', 'Start Delimiter', 'Supported Languages', 'Tags', 'Term: ', 'Type', 'Value', '[]', '\\x1b\\[[0-9;]*m', 'alias', 'ancestors', 'blue', 'bold', 'bold cyan', 'bold green', 'children', 'cyan', 'description', 'dim', 'export', 'help_option_names', 'hierarchy', 'hyde', 'inspect', 'italic', 'json', 'level', 'list', 'magenta', 'name', 'query', 'show', 'term', 'udl', 'yaml', 'yellow']

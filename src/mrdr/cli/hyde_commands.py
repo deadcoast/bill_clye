@@ -1,7 +1,7 @@
 """Hyde subcommands for MRDR CLI.
 
 This module implements the hyde subcommand group for back-end data operations
-including query, list, inspect, and export commands.
+including query, list, inspect, export, and hierarchy commands.
 """
 
 import time
@@ -19,7 +19,9 @@ from mrdr.cli.error_handlers import (
     handle_mrdr_error,
 )
 from mrdr.cli.udl_commands import udl_app
+from mrdr.database.hierarchy import build_dictionary_hierarchy, get_all_terms
 from mrdr.factory import get_hyde_controller
+from mrdr.render.components import HierarchyDisplay
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
 from mrdr.utils.errors import LanguageNotFoundError, MRDRError
@@ -233,3 +235,122 @@ def export(
     except Exception as e:
         display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
+
+
+@hyde_app.command("hierarchy")
+def hierarchy(
+    term: Optional[str] = typer.Argument(
+        None, help="Term to look up in the dictionary hierarchy."
+    ),
+) -> None:
+    """Display the dictionary hierarchy or look up a specific term.
+
+    Shows the MRDR dictionary hierarchy tree structure. If a term is provided,
+    displays the term's position in the hierarchy with its ancestors.
+
+    Examples:
+        mrdr hyde hierarchy          # Show full hierarchy
+        mrdr hyde hierarchy sem      # Look up 'sem' term
+        mrdr hyde hierarchy NOTE     # Look up 'NOTE' term
+    """
+    start_time = time.time()
+    console = state.console
+
+    root = build_dictionary_hierarchy()
+    display = HierarchyDisplay(root=root)
+
+    if term:
+        # Look up specific term
+        found_node = display.find_node(term)
+        if found_node:
+            ancestors = display.get_ancestors(term)
+            elapsed = (time.time() - start_time) * 1000
+
+            if state.json:
+                import json
+
+                result = {
+                    "term": found_node.name,
+                    "alias": found_node.alias,
+                    "level": found_node.level.value,
+                    "description": found_node.description,
+                    "ancestors": [
+                        {"name": a.name, "alias": a.alias, "level": a.level.value}
+                        for a in ancestors
+                    ],
+                }
+                console.print(json.dumps(result, indent=2))
+            elif state.should_use_plain():
+                console.print(f"Term: {found_node.name}")
+                console.print(f"Alias: {found_node.alias}")
+                console.print(f"Level: {found_node.level.value}")
+                console.print(f"Description: {found_node.description}")
+                if ancestors:
+                    path = " > ".join(a.name for a in ancestors)
+                    console.print(f"Path: {path} > {found_node.name}")
+            else:
+                # Rich output - show term info and path
+                text = Text()
+                text.append("Term: ", style="dim")
+                text.append(f"{found_node.name}", style="bold cyan")
+                text.append(f" ({found_node.alias})\n", style="dim")
+                text.append("Level: ", style="dim")
+                text.append(f"{found_node.level.value}\n", style="magenta")
+                if found_node.description:
+                    text.append("Description: ", style="dim")
+                    text.append(f"{found_node.description}\n", style="italic")
+                if ancestors:
+                    text.append("\nHierarchy Path:\n", style="bold")
+                    path_parts = [a.name for a in ancestors] + [found_node.name]
+                    for i, part in enumerate(path_parts):
+                        indent = "  " * i
+                        if i == len(path_parts) - 1:
+                            text.append(f"{indent}└── ", style="dim")
+                            text.append(f"{part}", style="bold green")
+                        else:
+                            text.append(f"{indent}├── ", style="dim")
+                            text.append(f"{part}\n", style="cyan")
+
+                console.print(Panel(text, title="[bold]Hierarchy Lookup[/bold]"))
+
+            if state.debug:
+                console.print(f"\n[dim]Lookup time: {elapsed:.2f}ms[/dim]")
+        else:
+            # Term not found - suggest similar terms
+            all_terms = get_all_terms()
+            suggestions = [t for t in all_terms if term.lower() in t.lower()][:5]
+
+            console.print(f"[red]Error:[/red] Term '{term}' not found in hierarchy.")
+            if suggestions:
+                console.print(f"[dim]Did you mean: {', '.join(suggestions)}?[/dim]")
+            raise typer.Exit(1)
+    else:
+        # Show full hierarchy
+        elapsed = (time.time() - start_time) * 1000
+
+        if state.json:
+            import json
+
+            def node_to_dict(node):
+                return {
+                    "name": node.name,
+                    "alias": node.alias,
+                    "level": node.level.value,
+                    "description": node.description,
+                    "children": [node_to_dict(c) for c in node.children],
+                }
+
+            console.print(json.dumps(node_to_dict(root), indent=2))
+        elif state.should_use_plain():
+            output = display.render()
+            # Strip ANSI codes for plain output
+            import re
+
+            plain_output = re.sub(r"\x1b\[[0-9;]*m", "", output)
+            console.print(plain_output)
+        else:
+            tree = display.render_tree()
+            console.print(Panel(tree, title="[bold]MRDR Dictionary Hierarchy[/bold]"))
+
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")

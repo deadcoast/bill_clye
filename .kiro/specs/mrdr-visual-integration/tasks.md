@@ -160,29 +160,29 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - Add --all-styles flag for comparison view
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6_
 
-- [ ] 8. Hierarchy Display implementation
-  - [ ] 8.1 Create Hierarchy Display module
+- [x] 8. Hierarchy Display implementation
+  - [x] 8.1 Create Hierarchy Display module
     - Create `src/mrdr/render/components/hierarchy.py`
     - Create HierarchyLevel enum with grandparent, parent, child, grandchild
     - Create HIERARCHY_STYLES mapping for level styling
     - _Requirements: 6.1, 6.2, 6.3, 6.5_
 
-  - [ ] 8.2 Implement Hierarchy Display
+  - [x] 8.2 Implement Hierarchy Display
     - Create HierarchyNode dataclass with name, alias, level, description, children
     - Create HierarchyDisplay class with render method producing Rich Tree
     - Implement _format_node and _add_children methods
     - _Requirements: 6.1, 6.2, 6.3, 6.5_
 
-  - [ ] 8.3 Write property test for Hierarchy indentation
+  - [x] 8.3 Write property test for Hierarchy indentation
     - **Property 13: Hierarchy Level Indentation**
     - **Validates: Requirements 6.1, 6.2, 6.3, 6.5**
 
-  - [ ] 8.4 Implement Hierarchy lookup command
+  - [x] 8.4 Implement Hierarchy lookup command
     - Add `mrdr hyde hierarchy <term>` command
     - Display term position in hierarchy tree
     - _Requirements: 6.4_
 
-  - [ ] 8.5 Write property test for Hierarchy lookup
+  - [x] 8.5 Write property test for Hierarchy lookup
     - **Property 14: Hierarchy Term Lookup**
     - **Validates: Requirements 6.4**
 

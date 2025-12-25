@@ -12,6 +12,9 @@ This module provides reusable UI components:
 - AccordionSection: Data model for accordion sections
 - LineGutter: Line number gutter for code display
 - Keybar: Keycap-styled keybind display
+- HierarchyDisplay: Tree-based hierarchy visualization
+- HierarchyNode: Data model for hierarchy tree nodes
+- HierarchyLevel: Enum for hierarchy levels
 """
 
 from mrdr.render.components.accordion import (
@@ -27,6 +30,12 @@ from mrdr.render.components.golden_screen import (
     GoldenScreen,
     HeaderBar,
     HintBar,
+)
+from mrdr.render.components.hierarchy import (
+    HIERARCHY_STYLES,
+    HierarchyDisplay,
+    HierarchyLevel,
+    HierarchyNode,
 )
 from mrdr.render.components.keybar import (
     Keybar,
@@ -60,4 +69,9 @@ __all__ = [
     "LineGutter",
     # Keybar component
     "Keybar",
+    # Hierarchy components
+    "HierarchyDisplay",
+    "HierarchyNode",
+    "HierarchyLevel",
+    "HIERARCHY_STYLES",
 ]

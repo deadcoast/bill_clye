@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/hierarchy.py
+# hypothesis_version: 6.148.8
+
+['APD', 'ASPERDEFINED', 'CLAIM', 'FORMAT', 'LANG_USE', 'MRDR_DICTIONARY', 'NOTE', 'NOTES', 'OBJECTIVEACCEPTANCE', 'PURPOSE', 'RESTRICTIONS', 'STYLING', 'Top level Claims', 'USER', 'apd', 'claim', 'creative', 'crtv', 'def', 'definition', 'dictionary', 'docstring', 'dstr', 'eg', 'example', 'experimental', 'expr', 'format', 'lang_use', 'note', 'notes', 'objacc', 'optimal', 'optml', 'purpose', 'research', 'restrictions', 'rsch', 'sem', 'semantics', 'stat', 'statistic', 'styling', 'unstable', 'unstbl', 'user', 'val', 'validated', 'value', 'vislap', 'visually_appealing', 'vldt']

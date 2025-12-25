@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/render/components/hierarchy.py
+# hypothesis_version: 6.148.8
+
+['HierarchyNode', 'bold cyan', 'bold green', 'child', 'dim', 'grandchild', 'grandparent', 'italic', 'parent', 'yellow']
