@@ -279,32 +279,32 @@ This implementation plan transforms the MRDR Visual Integration design into acti
 - [x] 13. Checkpoint - Mermaid and Conflict complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 14. Advanced Table Renderer implementation
-  - [ ] 14.1 Create Advanced Table Renderer module
+- [-] 14. Advanced Table Renderer implementation
+  - [x] 14.1 Create Advanced Table Renderer module
     - Create `src/mrdr/render/components/table_advanced.py`
     - Create TableConfig dataclass with columns, filter, sort, pagination fields
     - Create AdvancedTableRenderer class
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
 
-  - [ ] 14.2 Implement table filtering
+  - [x] 14.2 Implement table filtering
     - Implement _apply_filter method for row filtering
     - Support field=value filter syntax
     - _Requirements: 10.3_
 
-  - [ ] 14.3 Write property test for Table row filtering
+  - [x] 14.3 Write property test for Table row filtering
     - **Property 23: Table Row Filtering**
     - **Validates: Requirements 10.3**
 
-  - [ ] 14.4 Implement table sorting
+  - [x] 14.4 Implement table sorting
     - Implement _apply_sort method for column sorting
     - Support ascending/descending toggle
     - _Requirements: 10.4_
 
-  - [ ] 14.5 Write property test for Table sorting
+  - [x] 14.5 Write property test for Table sorting
     - **Property 24: Table Sorting**
     - **Validates: Requirements 10.4**
 
-  - [ ] 14.6 Implement table pagination
+  - [-] 14.6 Implement table pagination
     - Implement _apply_pagination method
     - Implement _render_pagination_hints method
     - _Requirements: 10.5_

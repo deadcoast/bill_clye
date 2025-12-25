@@ -23,6 +23,8 @@ This module provides reusable UI components:
 - ConflictDisplay: Syntax conflict display component
 - SyntaxConflict: Data model for syntax conflicts
 - KNOWN_CONFLICTS: List of known syntax conflicts
+- AdvancedTableRenderer: Advanced table with filtering, sorting, pagination
+- TableConfig: Configuration for advanced table rendering
 """
 
 from mrdr.render.components.accordion import (
@@ -70,6 +72,10 @@ from mrdr.render.components.plusrep import (
     calculate_rating,
     get_rating_label,
 )
+from mrdr.render.components.table_advanced import (
+    AdvancedTableRenderer,
+    TableConfig,
+)
 
 __all__ = [
     # Golden Screen components
@@ -107,4 +113,7 @@ __all__ = [
     "ConflictDisplay",
     "SyntaxConflict",
     "KNOWN_CONFLICTS",
+    # Advanced Table components
+    "AdvancedTableRenderer",
+    "TableConfig",
 ]
