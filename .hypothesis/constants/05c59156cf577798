@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/render/python_style.py
+# hypothesis_version: 6.148.8
+
+['(minimal)', ', ', '----------', ':param:', ':return:', ':rtype:', ':type:', '@param', '@return', '@type', 'Args:', 'Epytext (Epydoc)', 'Example:', 'Google Style', 'Key Markers', 'Name', 'NumPy Style', 'PEP 257', 'Parameters', 'Raises:', 'Returns', 'Returns:', 'Rules:', 'Style', 'bold cyan', 'cyan', 'description', 'epytext', 'google', 'green', 'markers', 'monokai', 'name', 'numpy', 'pep257', 'python', 'sphinx', 'yellow']

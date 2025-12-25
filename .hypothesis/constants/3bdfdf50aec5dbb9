@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/cli/docstring_commands.py
+# hypothesis_version: 6.148.8
+
+[1000, '(line)', ', ', '-', '--all', '--all-styles', '--style', '-a', '-s', 'Conflict', 'End', 'End Delimiter', 'Epytext (Epydoc)', 'Example', 'Field', 'Google Style', 'Language', 'Location', 'None (line-based)', 'NumPy Style', 'PEP 257', 'Python', 'Start', 'Start Delimiter', 'Supported Languages', 'Tags', 'Type', 'Value', 'blue', 'bold green', 'conflict_ref', 'count', 'cyan', 'description', 'dim', 'end', 'epytext', 'example', 'example_content', 'google', 'language', 'languages', 'list', 'location', 'magenta', 'markers', 'monokai', 'name', 'numpy', 'pep257', 'python', 'red', 'show', 'sphinx', 'start', 'style', 'style_name', 'styles', 'syntax', 'tags', 'type', 'yellow']

@@ -89,7 +89,7 @@ def test_python_style_selection(style: str) -> None:
     
     # Style-specific content checks
     if style == "sphinx":
-        assert ":param" in output or ":returns" in output, f"Sphinx markers missing for {style}"
+        assert ":param" in output or ":return" in output, f"Sphinx markers missing for {style}"
     elif style == "google":
         assert "Args:" in output or "Returns:" in output, f"Google markers missing for {style}"
     elif style == "numpy":
@@ -97,7 +97,11 @@ def test_python_style_selection(style: str) -> None:
     elif style == "epytext":
         assert "@param" in output or "@return" in output, f"Epytext markers missing for {style}"
     elif style == "pep257":
-        assert "Arguments:" in output or "Returns:" in output, f"PEP257 markers missing for {style}"
+        # PEP257 is minimal - just check it has a docstring with description
+        # It doesn't have structured markers like other styles
+        assert "Perform a simple task" in output or "PEP 257" in output, (
+            f"PEP257 content missing for {style}"
+        )
 
 
 def test_docstring_all_flag() -> None:

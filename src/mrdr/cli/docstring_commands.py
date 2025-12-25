@@ -2,6 +2,9 @@
 
 This module implements the docstring command for displaying docstring
 syntax examples for programming languages.
+
+Feature: mrdr-visual-integration
+**Validates: Requirements 5.1, 5.2, 5.3, 5.4, 5.5, 5.6**
 """
 
 import time
@@ -23,10 +26,17 @@ from mrdr.cli.error_handlers import (
 from mrdr.factory import get_hyde_controller
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
+from mrdr.render.python_style import (
+    STYLE_METADATA,
+    STYLE_TEMPLATES,
+    PythonDocstringStyle,
+    PythonStyleRenderer,
+)
 from mrdr.utils.errors import LanguageNotFoundError, MRDRError
 
 
-# Python docstring styles
+# Legacy Python docstring styles (kept for backward compatibility)
+# New code should use PythonStyleRenderer from mrdr.render.python_style
 PYTHON_STYLES = {
     "sphinx": {
         "name": "Sphinx (reStructuredText)",
@@ -116,27 +126,39 @@ def docstring_command(
         "-a",
         help="List all supported languages with their signatures.",
     ),
+    all_styles: bool = typer.Option(
+        False,
+        "--all-styles",
+        help="Display all Python docstring styles in a comparison view.",
+    ),
 ) -> None:
     """Display docstring syntax for a programming language.
     
     Shows the docstring syntax specification including delimiters,
     attachment rules, and a code example for the specified language.
     
-    For Python, use --style to see specific docstring style formats.
+    For Python, use --style to see specific docstring style formats,
+    or --all-styles to see all styles in a comparison view.
     """
     start_time = time.time()
     console = state.console
     hyde = get_hyde_controller()
+    
+    # Handle --all-styles flag (Python comparison view)
+    if all_styles:
+        _display_all_python_styles(console, start_time)
+        return
     
     # Handle --all flag
     if all_languages:
         _display_all_languages(hyde, console, start_time)
         return
     
-    # Require language if not --all
+    # Require language if not --all or --all-styles
     if not language:
         console.print("[red]Error:[/red] Please specify a language or use --all.")
         console.print("[dim]Example: mrdr docstring python[/dim]")
+        console.print("[dim]Use --all-styles to see all Python docstring styles[/dim]")
         raise typer.Exit(1)
     
     # Handle Python style selection
@@ -252,44 +274,94 @@ def _display_all_languages(hyde, console: Console, start_time: float) -> None:
         console.print(f"\n[dim]Query time: {elapsed:.2f}ms | Cache: miss[/dim]")
 
 
+def _display_all_python_styles(console: Console, start_time: float) -> None:
+    """Display all Python docstring styles in a comparison view.
+    
+    Args:
+        console: Rich Console for output.
+        start_time: Start time for timing calculation.
+    """
+    elapsed = (time.time() - start_time) * 1000
+    renderer = PythonStyleRenderer(console=console)
+    
+    if state.json:
+        # JSON output with all styles
+        styles_data = []
+        for style in PythonDocstringStyle:
+            metadata = STYLE_METADATA[style]
+            styles_data.append({
+                "style": style.value,
+                "name": metadata["name"],
+                "description": metadata["description"],
+                "markers": metadata["markers"],
+                "example": STYLE_TEMPLATES[style],
+            })
+        json_renderer = JSONRenderer()
+        console.print(json_renderer.render({
+            "language": "Python",
+            "styles": styles_data,
+            "count": len(styles_data),
+        }, "list"))
+    elif state.should_use_plain():
+        # Plain text output
+        console.print(renderer.render_all_plain())
+    else:
+        # Rich output with panels
+        console.print("[bold cyan]Python Docstring Styles Comparison[/bold cyan]\n")
+        
+        # First show summary table
+        console.print(renderer.render_style_table())
+        console.print()
+        
+        # Then show each style
+        for panel in renderer.render_all_styles():
+            console.print(panel)
+            console.print()
+    
+    if state.debug:
+        console.print(f"\n[dim]Query time: {elapsed:.2f}ms[/dim]")
+
+
 def _display_python_style(style: str, console: Console, start_time: float) -> None:
-    """Display a specific Python docstring style."""
+    """Display a specific Python docstring style.
+    
+    Uses the PythonStyleRenderer for consistent rendering.
+    
+    Args:
+        style: The style name (sphinx, google, numpy, epytext, pep257).
+        console: Rich Console for output.
+        start_time: Start time for timing calculation.
+    """
     style_lower = style.lower()
     elapsed = (time.time() - start_time) * 1000
     
-    if style_lower not in PYTHON_STYLES:
-        valid_styles = ", ".join(PYTHON_STYLES.keys())
+    # Validate style
+    valid_styles = [s.value for s in PythonDocstringStyle]
+    if style_lower not in valid_styles:
         console.print(f"[red]Error:[/red] Unknown style '{style}'.")
-        console.print(f"[dim]Valid styles: {valid_styles}[/dim]")
+        console.print(f"[dim]Valid styles: {', '.join(valid_styles)}[/dim]")
         raise typer.Exit(1)
     
-    style_info = PYTHON_STYLES[style_lower]
+    # Get the enum value
+    style_enum = PythonDocstringStyle(style_lower)
+    renderer = PythonStyleRenderer(console=console)
+    metadata = STYLE_METADATA[style_enum]
     
     if state.json:
         data = {
             "language": "Python",
             "style": style_lower,
-            "style_name": style_info["name"],
-            "example": style_info["example"],
+            "style_name": metadata["name"],
+            "description": metadata["description"],
+            "markers": metadata["markers"],
+            "example": STYLE_TEMPLATES[style_enum],
         }
-        renderer = JSONRenderer()
-        console.print(renderer.render(data, "show"))
+        json_renderer = JSONRenderer()
+        console.print(json_renderer.render(data, "show"))
     elif state.should_use_plain():
-        lines = [
-            f"=== Python Docstring Style: {style_info['name']} ===",
-            "",
-            "Example:",
-            style_info["example"],
-            "",
-        ]
-        console.print("\n".join(lines))
+        console.print(renderer.render_plain(style_enum))
     else:
-        syntax = Syntax(style_info["example"], "python", theme="monokai", line_numbers=False)
-        console.print(Panel(
-            syntax,
-            title=f"[bold]Python[/bold] - {style_info['name']}",
-            subtitle=f"[dim]Style: {style_lower}[/dim]",
-        ))
+        console.print(renderer.render_style(style_enum))
     
     if state.debug:
         console.print(f"\n[dim]Query time: {elapsed:.2f}ms[/dim]")
