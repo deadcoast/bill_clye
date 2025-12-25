@@ -135,7 +135,7 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - **Property 11: Doctag Lookup Display**
     - **Validates: Requirements 4.5**
 
-- [-] 6. Checkpoint - UDL and Doctag complete
+- [x] 6. Checkpoint - UDL and Doctag complete
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 7. Python Style Renderer implementation

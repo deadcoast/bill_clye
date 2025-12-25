@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/cli/udl_commands.py
+# hypothesis_version: 6.148.8
+
+[' | ', ' | walrus ', '#', '-', '--close', '--description', '--help', '--open', '--title', '-c', '-d', '-h', '-o', '-t', '...', ':=', ':>', '<', '<:', '=:', '>', 'Brackets', 'Created', 'Created UDL: ', 'Delimiters', 'Delimiters: ', 'Description', 'Field', 'Language', 'Name', 'Operators', 'Operators:', 'Operators: ', 'Path: ', 'Title', 'UDL Created', 'UDL Definitions', 'UDL not found', 'Value', '_', 'available', 'bold', 'bold cyan', 'bracket_close', 'bracket_open', 'close', 'count', 'create', 'created', 'created_at', 'cyan', 'definition', 'delimiter_close', 'delimiter_open', 'description', 'dim', 'dolphin ', 'error', 'examples', 'green', 'green bold', 'help_option_names', 'language', 'list', 'magenta', 'name', 'open', 'operators', 'path', 'show', 'status', 'title', 'udl', 'udls', 'yellow', '✓ ']

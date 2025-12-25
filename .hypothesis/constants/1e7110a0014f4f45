@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/cli/jekyl_commands.py
+# hypothesis_version: 6.148.8
+
+[1000, ' | ', '--example', '--grade', '--help', '--plain', '-e', '-g', '-h', 'Brackets', 'DDL', 'DOC', 'Delimiters', 'Description', 'Doctag not found', 'FMT', 'Field', 'GRM', 'IDC', 'Language', 'Operators', 'Operators:', 'Title', 'UDL not found', 'Value', 'available', 'bold green', 'bracket_close', 'bracket_open', 'category', 'close', 'compare', 'cyan', 'definition', 'delimiter_close', 'delimiter_open', 'description', 'dim', 'doctag', 'error', 'example', 'examples', 'help_option_names', 'id', 'jekyl', 'json', 'lang1', 'lang2', 'language', 'magenta', 'name', 'open', 'operators', 'plain', 'rich', 'short_name', 'show', 'symbol', 'tag_id', 'title', 'type', 'udl', 'udl:', 'yellow']
