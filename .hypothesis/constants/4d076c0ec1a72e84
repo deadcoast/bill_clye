@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/render/components/mermaid.py
+# hypothesis_version: 6.148.8
+
+[' ──► ', '(\\w+)\\s*-->\\s*(\\w+)', '(\\w+)\\s*->>?\\s*(\\w+)', 'LR', 'RL', 'TB', 'flowchart', 'graph', 'participant\\s+(\\w+)', 'sequence', 'sequencediagram', 'unknown', '─', '│', '┌', '┐', '└', '┘', '▼']

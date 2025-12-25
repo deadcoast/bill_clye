@@ -353,3 +353,109 @@ def doctag(
     except Exception as e:
         display_unexpected_error(e, console, state.json, state.debug)
         raise typer.Exit(1)
+
+
+# Example Mermaid diagrams for the diagram command
+EXAMPLE_DIAGRAMS = {
+    "flowchart": """flowchart TB
+    A["Start"]
+    B["Process Data"]
+    C["Validate"]
+    D["End"]
+    A --> B
+    B --> C
+    C --> D""",
+    "sequence": """sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+    Client->>Server: Request
+    Server->>Database: Query
+    Database->>Server: Result
+    Server->>Client: Response""",
+}
+
+
+@jekyl_app.command("diagram")
+def diagram(
+    diagram_type: str = typer.Argument(
+        ...,
+        help="Diagram type to display (flowchart, sequence).",
+    ),
+) -> None:
+    """Display example Mermaid diagrams rendered as ASCII art.
+    
+    Shows example diagrams for the specified type, demonstrating
+    how Mermaid diagrams are converted to terminal-friendly ASCII.
+    
+    Supported diagram types:
+    - flowchart: Box and arrow diagrams (TB/LR directions)
+    - sequence: Participant and message diagrams
+    """
+    from mrdr.render.components import MermaidRenderer
+    
+    start_time = time.time()
+    console = state.console
+    
+    diagram_type_lower = diagram_type.lower()
+    
+    if diagram_type_lower not in EXAMPLE_DIAGRAMS:
+        available = ", ".join(EXAMPLE_DIAGRAMS.keys())
+        if state.json:
+            console.print(json_module.dumps({
+                "error": "Unknown diagram type",
+                "type": diagram_type,
+                "available": list(EXAMPLE_DIAGRAMS.keys()),
+            }, indent=2))
+        else:
+            console.print(f"[red]Error:[/red] Unknown diagram type '{diagram_type}'.")
+            console.print(f"[dim]Available types: {available}[/dim]")
+        raise typer.Exit(1)
+    
+    source = EXAMPLE_DIAGRAMS[diagram_type_lower]
+    renderer = MermaidRenderer()
+    
+    try:
+        output = renderer.render(source)
+        elapsed = (time.time() - start_time) * 1000
+        
+        if state.json:
+            console.print(json_module.dumps({
+                "type": diagram_type_lower,
+                "source": source,
+                "rendered": output,
+            }, indent=2))
+        elif state.should_use_plain():
+            console.print(f"Diagram Type: {diagram_type_lower}")
+            console.print()
+            console.print("Source:")
+            console.print(source)
+            console.print()
+            console.print("Rendered:")
+            console.print(output)
+        else:
+            # Rich output
+            from rich.panel import Panel
+            from rich.syntax import Syntax
+            
+            # Show source
+            syntax = Syntax(source, "text", theme="monokai")
+            console.print(Panel(
+                syntax,
+                title=f"[bold]Mermaid Source ({diagram_type_lower})[/bold]",
+                border_style="cyan",
+            ))
+            
+            # Show rendered output
+            console.print(Panel(
+                output,
+                title="[bold]ASCII Rendering[/bold]",
+                border_style="green",
+            ))
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+            
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)

@@ -203,45 +203,45 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - **Property 18: Alert Type Styling**
     - **Validates: Requirements 8.1, 8.2, 8.3, 8.4, 8.5, 8.6**
 
-- [ ] 10. Checkpoint - Renderers complete
+- [x] 10. Checkpoint - Renderers complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Mermaid Renderer implementation
-  - [ ] 11.1 Create Mermaid Renderer module
+- [x] 11. Mermaid Renderer implementation
+  - [x] 11.1 Create Mermaid Renderer module
     - Create `src/mrdr/render/components/mermaid.py`
     - Create MermaidRenderer class with render method
     - Implement _detect_type method for diagram type detection
     - _Requirements: 7.1, 7.2, 7.3, 7.4_
 
-  - [ ] 11.2 Implement Mermaid flowchart rendering
+  - [x] 11.2 Implement Mermaid flowchart rendering
     - Implement _render_flowchart method extracting nodes and connections
     - Render ASCII boxes with ┌─┐│└─┘ characters
     - Render arrows with │ and ▼ characters
     - _Requirements: 7.1, 7.2_
 
-  - [ ] 11.3 Write property test for Mermaid flowchart
+  - [x] 11.3 Write property test for Mermaid flowchart
     - **Property 15: Mermaid Flowchart Rendering**
     - **Validates: Requirements 7.1, 7.2**
 
-  - [ ] 11.4 Implement Mermaid sequence rendering
+  - [x] 11.4 Implement Mermaid sequence rendering
     - Implement _render_sequence method extracting participants and messages
     - Render participant headers and message arrows
     - _Requirements: 7.3_
 
-  - [ ] 11.5 Write property test for Mermaid sequence
+  - [x] 11.5 Write property test for Mermaid sequence
     - **Property 16: Mermaid Sequence Rendering**
     - **Validates: Requirements 7.3**
 
-  - [ ] 11.6 Implement Mermaid fallback
+  - [x] 11.6 Implement Mermaid fallback
     - Implement _render_fallback method returning raw source in code fence
     - Handle exceptions gracefully
     - _Requirements: 7.4_
 
-  - [ ] 11.7 Write property test for Mermaid fallback
+  - [x] 11.7 Write property test for Mermaid fallback
     - **Property 17: Mermaid Fallback**
     - **Validates: Requirements 7.4**
 
-  - [ ] 11.8 Implement diagram command
+  - [x] 11.8 Implement diagram command
     - Add `mrdr jekyl diagram <type>` command
     - Display example diagrams for flowchart and sequence types
     - _Requirements: 7.5_

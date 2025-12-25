@@ -18,6 +18,8 @@ This module provides reusable UI components:
 - AlertComponent: Semantic alert message component
 - AlertType: Enum for alert types (NOTE, TIP, IMPORTANT, WARNING, CAUTION)
 - ALERT_CONFIG: Configuration dict for alert styling
+- MermaidRenderer: Mermaid diagram to ASCII converter
+- MermaidDiagramType: Enum for Mermaid diagram types
 """
 
 from mrdr.render.components.accordion import (
@@ -50,6 +52,10 @@ from mrdr.render.components.keybar import (
 )
 from mrdr.render.components.line_gutter import (
     LineGutter,
+)
+from mrdr.render.components.mermaid import (
+    MermaidDiagramType,
+    MermaidRenderer,
 )
 from mrdr.render.components.plusrep import (
     PlusrepDisplay,
@@ -86,4 +92,7 @@ __all__ = [
     "AlertComponent",
     "AlertType",
     "ALERT_CONFIG",
+    # Mermaid components
+    "MermaidRenderer",
+    "MermaidDiagramType",
 ]
