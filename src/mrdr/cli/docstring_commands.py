@@ -20,7 +20,7 @@ from mrdr.cli.error_handlers import (
     display_unexpected_error,
     handle_mrdr_error,
 )
-from mrdr.controllers.hyde import HydeController
+from mrdr.factory import get_hyde_controller
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
 from mrdr.utils.errors import LanguageNotFoundError, MRDRError
@@ -98,11 +98,6 @@ Description of return value.
 """''',
     },
 }
-
-
-def get_hyde_controller() -> HydeController:
-    """Get a configured HydeController instance."""
-    return HydeController()
 
 
 def docstring_command(
@@ -193,8 +188,14 @@ def docstring_command(
         raise typer.Exit(1)
 
 
-def _display_all_languages(hyde: HydeController, console: Console, start_time: float) -> None:
-    """Display all languages with their signatures."""
+def _display_all_languages(hyde, console: Console, start_time: float) -> None:
+    """Display all languages with their signatures.
+    
+    Args:
+        hyde: HydeController instance for data operations.
+        console: Rich Console for output.
+        start_time: Start time for timing calculation.
+    """
     languages = hyde.list_languages()
     elapsed = (time.time() - start_time) * 1000
     

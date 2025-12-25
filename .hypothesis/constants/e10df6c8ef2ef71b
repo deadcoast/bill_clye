@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/cli/hyde_commands.py
+# hypothesis_version: 6.148.8
+
+[1000, '#', ', ', '--format', '--help', '-f', '-h', 'End Delimiter', 'Field', 'Language', 'Location', 'None', 'None (line-based)', 'Start Delimiter', 'Supported Languages', 'Tags', 'Type', 'Value', '[]', 'blue', 'bold green', 'cyan', 'dim', 'export', 'help_option_names', 'hyde', 'inspect', 'json', 'list', 'magenta', 'query', 'show', 'yaml', 'yellow']

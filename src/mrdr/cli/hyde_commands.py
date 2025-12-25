@@ -4,12 +4,10 @@ This module implements the hyde subcommand group for back-end data operations
 including query, list, inspect, and export commands.
 """
 
-import json
 import time
 from typing import Optional
 
 import typer
-from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
@@ -20,7 +18,7 @@ from mrdr.cli.error_handlers import (
     display_unexpected_error,
     handle_mrdr_error,
 )
-from mrdr.controllers.hyde import HydeController
+from mrdr.factory import get_hyde_controller
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
 from mrdr.utils.errors import LanguageNotFoundError, MRDRError
@@ -31,11 +29,6 @@ hyde_app = typer.Typer(
     no_args_is_help=True,
     context_settings={"help_option_names": ["-h", "--help"]},
 )
-
-
-def get_hyde_controller() -> HydeController:
-    """Get a configured HydeController instance."""
-    return HydeController()
 
 
 @hyde_app.command("query")

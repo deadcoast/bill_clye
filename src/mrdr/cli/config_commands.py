@@ -13,7 +13,7 @@ from rich.table import Table
 from rich.text import Text
 
 from mrdr.cli.app import state
-from mrdr.config.loader import ConfigLoader
+from mrdr.factory import get_config_loader
 from mrdr.render.json_renderer import JSONRenderer
 
 config_app = typer.Typer(
@@ -22,11 +22,6 @@ config_app = typer.Typer(
     no_args_is_help=True,
     context_settings={"help_option_names": ["-h", "--help"]},
 )
-
-
-def get_config_loader() -> ConfigLoader:
-    """Get a ConfigLoader instance."""
-    return ConfigLoader()
 
 
 @config_app.command("show")

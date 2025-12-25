@@ -288,24 +288,24 @@ This implementation plan transforms the MRDR CLI Foundation design into actionab
 - [x] 11. Checkpoint - CLI module complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 12. Integration and wiring
-  - [ ] 12.1 Wire dependency injection
+- [x] 12. Integration and wiring
+  - [x] 12.1 Wire dependency injection
     - Create factory functions for controller instantiation
     - Wire database loader → Hyde → Jekyl → Renderer chain
     - Integrate config loader into all components
     - _Requirements: 8.2, 8.5_
 
-  - [ ] 12.2 Update pyproject.toml entry points
+  - [x] 12.2 Update pyproject.toml entry points
     - Add `mrdr` console script entry point
     - Add `misterdoctor` console script alias
     - _Requirements: 1.1, 1.2_
 
-  - [ ] 12.3 Write integration tests
+  - [x] 12.3 Write integration tests
     - Test full CLI flow from entry to output
     - Test controller communication
     - _Requirements: 8.2_
 
-- [ ] 13. Final checkpoint - All tests pass
+- [x] 13. Final checkpoint - All tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
@@ -317,4 +317,3 @@ This implementation plan transforms the MRDR CLI Foundation design into actionab
 - Unit tests validate specific examples and edge cases
 - The implementation follows the hyde → jekyl data flow pattern
 - All naming follows docs → src → cli cohesion principle from AGENTS.md
-

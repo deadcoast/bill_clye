@@ -4,11 +4,9 @@ This module implements the jekyl subcommand group for front-end visual
 operations including show and compare commands with Rich rendering.
 """
 
-import json
 import time
 
 import typer
-from rich.console import Console
 
 from mrdr.cli.app import state
 from mrdr.cli.error_handlers import (
@@ -16,11 +14,9 @@ from mrdr.cli.error_handlers import (
     display_unexpected_error,
     handle_mrdr_error,
 )
-from mrdr.controllers.hyde import HydeController
-from mrdr.controllers.jekyl import JekylController, ShowOptions
+from mrdr.controllers.jekyl import ShowOptions
+from mrdr.factory import create_jekyl_controller
 from mrdr.render.json_renderer import JSONRenderer
-from mrdr.render.plain_renderer import PlainRenderer
-from mrdr.render.rich_renderer import RichRenderer
 from mrdr.utils.errors import LanguageNotFoundError, MRDRError
 
 jekyl_app = typer.Typer(
@@ -31,18 +27,19 @@ jekyl_app = typer.Typer(
 )
 
 
-def get_jekyl_controller() -> JekylController:
-    """Get a configured JekylController instance."""
-    hyde = HydeController()
-    
+def get_jekyl_controller():
+    """Get a configured JekylController instance using factory."""
     if state.json:
-        renderer = JSONRenderer()
+        output_format = "json"
     elif state.should_use_plain():
-        renderer = PlainRenderer()
+        output_format = "plain"
     else:
-        renderer = RichRenderer(state.console)
+        output_format = "rich"
     
-    return JekylController(hyde=hyde, renderer=renderer, console=state.console)
+    return create_jekyl_controller(
+        output_format=output_format,
+        console=state.console,
+    )
 
 
 @jekyl_app.command("show")

@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/factory.py
+# hypothesis_version: 6.148.8
+
+['create_renderer', 'get_config_loader', 'get_database_loader', 'get_hyde_controller', 'json', 'plain', 'reset_singletons', 'rich']
