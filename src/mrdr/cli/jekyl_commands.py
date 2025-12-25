@@ -4,9 +4,13 @@ This module implements the jekyl subcommand group for front-end visual
 operations including show and compare commands with Rich rendering.
 """
 
+import json as json_module
 import time
 
 import typer
+from rich.panel import Panel
+from rich.table import Table
+from rich.text import Text
 
 from mrdr.cli.app import state
 from mrdr.cli.error_handlers import (
@@ -15,7 +19,12 @@ from mrdr.cli.error_handlers import (
     handle_mrdr_error,
 )
 from mrdr.controllers.jekyl import ShowOptions
+from mrdr.database.doctag import DoctagLoader
+from mrdr.database.doctag.loader import DoctagNotFoundError
+from mrdr.database.udl import UDLLoader
+from mrdr.database.udl.loader import UDLNotFoundError
 from mrdr.factory import create_jekyl_controller
+from mrdr.render.doctag_renderer import DoctagEntry, DoctagRenderer
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.utils.errors import LanguageNotFoundError, MRDRError
 
@@ -44,7 +53,7 @@ def get_jekyl_controller():
 
 @jekyl_app.command("show")
 def show(
-    language: str = typer.Argument(..., help="Programming language to display."),
+    language: str = typer.Argument(..., help="Programming language to display, or 'udl:<name>' for UDL."),
     plain: bool = typer.Option(
         False,
         "--plain",
@@ -67,6 +76,8 @@ def show(
     
     Renders the docstring syntax for a language using the Golden Screen
     layout with header bar, primary payload, and hints bar.
+    
+    Use 'udl:<name>' to display a custom UDL definition.
     """
     start_time = time.time()
     console = state.console
@@ -74,6 +85,12 @@ def show(
     # Override plain state if --plain flag is passed
     if plain:
         state.plain = True
+    
+    # Check for UDL pattern
+    if language.lower().startswith("udl:"):
+        udl_name = language[4:]  # Remove "udl:" prefix
+        _show_udl(udl_name, start_time)
+        return
     
     jekyl = get_jekyl_controller()
     options = ShowOptions(
@@ -104,6 +121,106 @@ def show(
         raise typer.Exit(1)
     except MRDRError as e:
         handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)
+
+
+def _show_udl(name: str, start_time: float) -> None:
+    """Display a UDL definition.
+    
+    Args:
+        name: The UDL name to display.
+        start_time: Start time for timing measurement.
+    """
+    import json as json_module
+    
+    console = state.console
+    loader = UDLLoader()
+    
+    try:
+        entry = loader.get_entry(name)
+        definition = entry.definition
+        elapsed = (time.time() - start_time) * 1000
+        
+        if state.json:
+            output = json_module.dumps({
+                "type": "udl",
+                "name": entry.name,
+                "definition": {
+                    "title": definition.title,
+                    "description": definition.description,
+                    "language": definition.language,
+                    "delimiter_open": definition.delimiter_open,
+                    "delimiter_close": definition.delimiter_close,
+                    "bracket_open": definition.bracket_open,
+                    "bracket_close": definition.bracket_close,
+                    "operators": [
+                        {"name": op.name, "open": op.open, "close": op.close}
+                        for op in definition.operators
+                    ],
+                },
+                "examples": entry.examples,
+            }, indent=2)
+            console.print(output)
+        elif state.should_use_plain():
+            console.print(f"UDL: {entry.name}")
+            console.print(f"Title: {definition.title}")
+            console.print(f"Description: {definition.description}")
+            console.print(f"Language: {definition.language}")
+            console.print(f"Delimiters: {definition.delimiter_open}...{definition.delimiter_close}")
+            if definition.operators:
+                console.print("Operators:")
+                for op in definition.operators:
+                    console.print(f"  {op.name}: {op.open} {op.close}")
+        else:
+            # Rich output
+            table = Table(show_header=False, box=None, padding=(0, 1))
+            table.add_column("Field", style="cyan", width=15)
+            table.add_column("Value")
+            
+            table.add_row("Title", Text(definition.title, style="bold green"))
+            table.add_row("Description", definition.description)
+            table.add_row("Language", Text(definition.language, style="magenta"))
+            table.add_row(
+                "Delimiters",
+                Text(f"{definition.delimiter_open}...{definition.delimiter_close}", style="yellow"),
+            )
+            table.add_row(
+                "Brackets",
+                Text(f"{definition.bracket_open}...{definition.bracket_close}", style="yellow"),
+            )
+            
+            if definition.operators:
+                ops_text = Text()
+                for i, op in enumerate(definition.operators):
+                    if i > 0:
+                        ops_text.append(" | ", style="dim")
+                    ops_text.append(f"{op.name} ", style="cyan")
+                    ops_text.append(f"{op.open} {op.close}", style="yellow")
+                table.add_row("Operators", ops_text)
+            
+            console.print(Panel(
+                table,
+                title=f"[bold]UDL: {entry.name}[/bold]",
+                border_style="cyan",
+            ))
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+            
+    except UDLNotFoundError as e:
+        if state.json:
+            console.print(json_module.dumps({
+                "error": "UDL not found",
+                "name": name,
+                "available": e.available,
+            }, indent=2))
+        else:
+            console.print(f"[red]Error:[/red] UDL '{name}' not found.")
+            if e.available:
+                console.print(f"[dim]Available: {', '.join(e.available)}[/dim]")
         raise typer.Exit(1)
     except Exception as e:
         display_unexpected_error(e, console, state.json, state.debug)
@@ -147,6 +264,91 @@ def compare(
         raise typer.Exit(1)
     except MRDRError as e:
         handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)
+
+
+@jekyl_app.command("doctag")
+def doctag(
+    tag_id: str = typer.Argument(..., help="Doctag ID to look up (e.g., DDL01, GRM05, IDC02)."),
+) -> None:
+    """Display doctag definition with examples.
+    
+    Looks up a doctag by ID and displays its definition including
+    short name, full name, description, and usage example.
+    
+    Tag categories:
+    - DDL: Document Delimiters (DDL01-DDL10)
+    - GRM: Grammar definitions (GRM01-GRM10)
+    - IDC: Inter-Document Commands (IDC01-IDC10)
+    - FMT: Formatting rules (FMT01-FMT10)
+    - DOC: Document spec markers (DOC01-DOC05)
+    """
+    start_time = time.time()
+    console = state.console
+    loader = DoctagLoader()
+    
+    try:
+        tag = loader.get(tag_id)
+        elapsed = (time.time() - start_time) * 1000
+        
+        if state.json:
+            output = json_module.dumps({
+                "id": tag.id,
+                "symbol": tag.symbol,
+                "short_name": tag.short_name,
+                "description": tag.description,
+                "category": tag.category.value,
+                "example": tag.example,
+            }, indent=2)
+            console.print(output)
+        elif state.should_use_plain():
+            renderer = DoctagRenderer()
+            entry = DoctagEntry(
+                id=tag.id,
+                short_name=tag.short_name,
+                full_name=tag.symbol,
+                description=tag.description,
+                example=tag.example,
+            )
+            console.print(renderer.render_entry_plain(entry))
+        else:
+            # Rich output
+            renderer = DoctagRenderer()
+            entry = DoctagEntry(
+                id=tag.id,
+                short_name=tag.short_name,
+                full_name=tag.symbol,
+                description=tag.description,
+                example=tag.example,
+            )
+            output = renderer.render_tag_full(entry)
+            console.print(output)
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+            
+    except DoctagNotFoundError as e:
+        if state.json:
+            console.print(json_module.dumps({
+                "error": "Doctag not found",
+                "tag_id": tag_id,
+                "available": e.available[:10],  # Show first 10
+            }, indent=2))
+        else:
+            console.print(f"[red]Error:[/red] Doctag '{tag_id}' not found.")
+            # Group available tags by category
+            categories = {"DDL": [], "GRM": [], "IDC": [], "FMT": [], "DOC": []}
+            for tid in e.available:
+                prefix = tid[:3]
+                if prefix in categories:
+                    categories[prefix].append(tid)
+            console.print("[dim]Available tags:[/dim]")
+            for cat, tags in categories.items():
+                if tags:
+                    console.print(f"  [cyan]{cat}:[/cyan] {', '.join(tags)}")
         raise typer.Exit(1)
     except Exception as e:
         display_unexpected_error(e, console, state.json, state.debug)

@@ -4,9 +4,16 @@ This module provides renderers for different output formats:
 - RichRenderer: Rich terminal UI with colors, panels, and tables
 - PlainRenderer: Plain text without ANSI codes
 - JSONRenderer: Valid JSON output for programmatic consumption
+- DoctagRenderer: Doctag syntax highlighting with semantic coloring
 """
 
 from mrdr.render.base import Renderer
+from mrdr.render.doctag_renderer import (
+    DOCTAG_COLORS,
+    DoctagEntry,
+    DoctagRenderer,
+    DoctagType,
+)
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
 from mrdr.render.rich_renderer import RichRenderer
@@ -16,4 +23,9 @@ __all__ = [
     "RichRenderer",
     "PlainRenderer",
     "JSONRenderer",
+    # Doctag Renderer
+    "DoctagRenderer",
+    "DoctagEntry",
+    "DoctagType",
+    "DOCTAG_COLORS",
 ]

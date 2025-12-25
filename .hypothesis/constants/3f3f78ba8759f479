@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/doctag/__init__.py
+# hypothesis_version: 6.148.8
+
+['DOCTAG_DATABASE', 'DoctagCategory', 'DoctagDefinition', 'DoctagLoader']

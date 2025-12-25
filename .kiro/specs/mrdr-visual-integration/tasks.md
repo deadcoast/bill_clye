@@ -65,77 +65,77 @@ This implementation plan transforms the MRDR Visual Integration design into acti
     - **Property 6: Line Gutter Start Line**
     - **Validates: Requirements 2.4**
 
-- [ ] 3. Checkpoint - Visual components complete
+- [x] 3. Checkpoint - Visual components complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. UDL System implementation
-  - [ ] 4.1 Create UDL module structure
+- [x] 4. UDL System implementation
+  - [x] 4.1 Create UDL module structure
     - Create `src/mrdr/database/udl/__init__.py`
     - Create `src/mrdr/database/udl/schema.py` with UDLOperator, UDLDefinition models
     - Create `src/mrdr/database/udl/loader.py` for UDL file loading
     - Create `src/mrdr/database/udl/validator.py` for validation
     - _Requirements: 3.1, 3.6_
 
-  - [ ] 4.2 Implement UDL schema models
+  - [x] 4.2 Implement UDL schema models
     - Create UDLOperator model with name, open, close fields
     - Create UDLDefinition model with title, descr, lang, delimiter, operator fields
     - Add field validators for single-char delimiter and two-char operator
     - Define DOLPHIN_OPERATOR and WALRUS_OPERATOR constants
     - _Requirements: 3.1, 3.3, 3.4, 3.6_
 
-  - [ ] 4.3 Write property test for UDL operator patterns
+  - [x] 4.3 Write property test for UDL operator patterns
     - **Property 7: UDL Operator Pattern Support**
     - **Validates: Requirements 3.3, 3.4**
 
-  - [ ] 4.4 Write property test for UDL delimiter validation
+  - [x] 4.4 Write property test for UDL delimiter validation
     - **Property 8: UDL Delimiter Validation**
     - **Validates: Requirements 3.6**
 
-  - [ ] 4.5 Implement UDL loader
+  - [x] 4.5 Implement UDL loader
     - Create UDLLoader class for loading from `database/languages/udl/`
     - Implement get_udl method returning UDLDefinition
     - Implement list_udls method returning all UDL names
     - _Requirements: 3.5, 3.7_
 
-  - [ ] 4.6 Write property test for UDL list completeness
+  - [x] 4.6 Write property test for UDL list completeness
     - **Property 9: UDL List Completeness**
     - **Validates: Requirements 3.7**
 
-  - [ ] 4.7 Implement UDL CLI commands
+  - [x] 4.7 Implement UDL CLI commands
     - Create `src/mrdr/cli/udl_commands.py`
     - Implement `mrdr hyde udl create <name>` command
     - Implement `mrdr hyde udl list` command
     - Implement `mrdr jekyl show udl:<name>` pattern
     - _Requirements: 3.2, 3.5, 3.7_
 
-- [ ] 5. Doctag Renderer implementation
-  - [ ] 5.1 Create Doctag Renderer module
+- [x] 5. Doctag Renderer implementation
+  - [x] 5.1 Create Doctag Renderer module
     - Create `src/mrdr/render/doctag_renderer.py`
     - Create DoctagType enum with DDL, GRM, IDC, FMT, DOC values
     - Create DOCTAG_COLORS mapping for semantic coloring
     - _Requirements: 4.1, 4.3, 4.4, 4.6_
 
-  - [ ] 5.2 Implement Doctag Renderer
+  - [x] 5.2 Implement Doctag Renderer
     - Create DoctagRenderer class with render_tag method
     - Implement _get_tag_type method for type detection
     - Apply SCREAMINGSNAKE case to identifiers
     - Render IDC tokens with link-style formatting
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.6_
 
-  - [ ] 5.3 Write property test for Doctag token rendering
+  - [x] 5.3 Write property test for Doctag token rendering
     - **Property 10: Doctag Token Rendering**
     - **Validates: Requirements 4.1, 4.2, 4.3, 4.4, 4.6**
 
-  - [ ] 5.4 Implement Doctag lookup command
+  - [x] 5.4 Implement Doctag lookup command
     - Add `mrdr jekyl doctag <tag_id>` command
     - Display tag definition with short name, full name, description, example
     - _Requirements: 4.5_
 
-  - [ ] 5.5 Write property test for Doctag lookup
+  - [x] 5.5 Write property test for Doctag lookup
     - **Property 11: Doctag Lookup Display**
     - **Validates: Requirements 4.5**
 
-- [ ] 6. Checkpoint - UDL and Doctag complete
+- [-] 6. Checkpoint - UDL and Doctag complete
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 7. Python Style Renderer implementation

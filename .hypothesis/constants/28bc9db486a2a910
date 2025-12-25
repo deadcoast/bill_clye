@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/udl/__init__.py
+# hypothesis_version: 6.148.8
+
+['DOLPHIN_OPERATOR', 'UDLDefinition', 'UDLEntry', 'UDLLoader', 'UDLOperator', 'UDLValidator', 'WALRUS_OPERATOR']

@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/udl/validator.py
+# hypothesis_version: 6.148.8
+
+['.', 'delimiter', 'delimiter_close', 'delimiter_open', 'exactly 1 character', 'exactly 2 characters', 'input', 'loc', 'msg', 'operator', 'operator.close', 'operator.open']

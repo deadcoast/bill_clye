@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/udl/schema.py
+# hypothesis_version: 6.148.8
+
+['(', ')', ':=', ':>', '<:', '=:', 'Closing bracket', 'Closing delimiter', 'Creation timestamp', 'Custom operators', 'Example usages', 'Opening bracket', 'Opening delimiter', 'Target language', 'UDL', 'UDL definition', 'UDL description', 'UDL identifier name', 'UDL title', 'close', 'delimiter_close', 'delimiter_open', 'descr', 'dolphin', 'lang', 'open', 'populate_by_name', 'use_enum_values', 'walrus']

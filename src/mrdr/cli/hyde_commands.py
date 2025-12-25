@@ -18,6 +18,7 @@ from mrdr.cli.error_handlers import (
     display_unexpected_error,
     handle_mrdr_error,
 )
+from mrdr.cli.udl_commands import udl_app
 from mrdr.factory import get_hyde_controller
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
@@ -29,6 +30,9 @@ hyde_app = typer.Typer(
     no_args_is_help=True,
     context_settings={"help_option_names": ["-h", "--help"]},
 )
+
+# Register UDL subcommand group
+hyde_app.add_typer(udl_app, name="udl")
 
 
 @hyde_app.command("query")
