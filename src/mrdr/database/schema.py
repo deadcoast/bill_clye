@@ -28,6 +28,7 @@ class SyntaxType(str, Enum):
     LEADING_LINE = "leading_line"
     XML_STRUCTURED = "xml_structured"
     ATTRIBUTE_COMMENT = "attribute_comment"
+    ARGUMENT_METADATA = "argument_metadata"
 
 
 class SyntaxLocation(str, Enum):
@@ -41,6 +42,7 @@ class SyntaxLocation(str, Enum):
     ANYWHERE = "anywhere"
     COLUMN_7 = "column_7"
     COLUMN_1 = "column_1"
+    AFTER_NAME = "after_name"
 
 
 class SyntaxSpec(BaseModel):

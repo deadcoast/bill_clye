@@ -1,6 +1,6 @@
 {
   "manifest_name": "Global Docstring Syntax Database",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "schema_origin": "Absolute Truth Version (Technical Development)",
   "entries": [
     {
@@ -12,7 +12,13 @@
         "location": "internal_first_line"
       },
       "tags": ["pep257", "indentation_sensitive"],
-      "example_content": "format: github\npurpose: visual_styling\nuser: \"Technical Development\"\n - profile: A developer and academic..."
+      "example_content": "format: github\npurpose: visual_styling\nuser: \"Technical Development\"\n - profile: A developer and academic...",
+      "conflict_ref": "Julia",
+      "plusrep": {
+        "tokens": "++++++",
+        "rating": 4,
+        "label": "MAXIMUM"
+      }
     },
     {
       "language": "JavaScript",
@@ -23,7 +29,79 @@
         "location": "above_target"
       },
       "tags": ["jsdoc", "asterisk_prefix"],
-      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n */"
+      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n */",
+      "conflict_ref": "D",
+      "plusrep": {
+        "tokens": "+++++.",
+        "rating": 3,
+        "label": "GREAT"
+      }
+    },
+    {
+      "language": "TypeScript",
+      "syntax": {
+        "start": "/**",
+        "end": "*/",
+        "type": "block",
+        "location": "above_target"
+      },
+      "tags": ["tsdoc", "jsdoc_compatible", "asterisk_prefix"],
+      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n * @param name - The name parameter\n */"
+    },
+    {
+      "language": "Java",
+      "syntax": {
+        "start": "/**",
+        "end": "*/",
+        "type": "block",
+        "location": "above_target"
+      },
+      "tags": ["javadoc", "asterisk_prefix", "html_tags"],
+      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n * @param input the input value\n * @return the result\n */"
+    },
+    {
+      "language": "Kotlin",
+      "syntax": {
+        "start": "/**",
+        "end": "*/",
+        "type": "block",
+        "location": "above_target"
+      },
+      "tags": ["kdoc", "markdown_native", "asterisk_prefix"],
+      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n * @param name the name parameter\n */"
+    },
+    {
+      "language": "Scala",
+      "syntax": {
+        "start": "/**",
+        "end": "*/",
+        "type": "block",
+        "location": "above_target"
+      },
+      "tags": ["scaladoc", "asterisk_prefix", "wiki_syntax"],
+      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n * @param x the first parameter\n */"
+    },
+    {
+      "language": "PHP",
+      "syntax": {
+        "start": "/**",
+        "end": "*/",
+        "type": "block",
+        "location": "above_target"
+      },
+      "tags": ["phpdoc", "asterisk_prefix"],
+      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n * @param string $name\n * @return void\n */"
+    },
+    {
+      "language": "Swift",
+      "syntax": {
+        "start": "///",
+        "end": null,
+        "type": "line_sugared",
+        "location": "above_target"
+      },
+      "tags": ["swift_markup", "markdown_native", "xcode_quickhelp"],
+      "example_content": "/// format: github\n/// user: \"Technical Development\"\n/// - Parameter name: The name to greet"
     },
     {
       "language": "Lua",
@@ -45,7 +123,24 @@
         "location": "above_target"
       },
       "tags": ["rustdoc", "compiler_native"],
-      "example_content": "/// format: github\n/// user: \"Technical Development\""
+      "example_content": "/// format: github\n/// user: \"Technical Development\"",
+      "plusrep": {
+        "tokens": "++++++",
+        "rating": 4,
+        "label": "MAXIMUM"
+      }
+    },
+    {
+      "language": "Zig",
+      "syntax": {
+        "start": "///",
+        "end": null,
+        "type": "line_sugared",
+        "location": "above_target"
+      },
+      "tags": ["zigdoc", "compiler_native"],
+      "example_content": "/// format: github\n/// user: \"Technical Development\"",
+      "metadata": "Use //! for module-level documentation"
     },
     {
       "language": "Elixir",
@@ -67,7 +162,7 @@
         "location": "above_target"
       },
       "tags": ["ddoc", "nesting_safe"],
-      "conflict_ref": "Javascript [2]"
+      "conflict_ref": "JavaScript"
     },
     {
       "language": "Julia",
@@ -78,7 +173,7 @@
         "location": "above_target"
       },
       "tags": ["markdown_native"],
-      "conflict_ref": "Python [1]"
+      "conflict_ref": "Python"
     },
     {
       "language": "Haskell",
@@ -120,6 +215,74 @@
         "location": "above_target"
       },
       "tags": ["xml", "compiler_validated"]
+    },
+    {
+      "language": "F#",
+      "syntax": {
+        "start": "///",
+        "end": null,
+        "type": "line_sugared",
+        "location": "above_target"
+      },
+      "tags": ["xml_ish", "fsharp_doc"],
+      "example_content": "/// format: github\n/// user: \"Technical Development\""
+    },
+    {
+      "language": "Ruby",
+      "syntax": {
+        "start": "=begin",
+        "end": "=end",
+        "type": "block",
+        "location": "above_target"
+      },
+      "tags": ["rdoc", "yard_compatible"],
+      "example_content": "=begin\nformat: github\nuser: \"Technical Development\"\n=end"
+    },
+    {
+      "language": "Ada",
+      "syntax": {
+        "start": "--",
+        "end": null,
+        "type": "line_sugared",
+        "location": "above_target"
+      },
+      "tags": ["convention_based", "formal"],
+      "example_content": "-- format: github\n-- user: \"Technical Development\""
+    },
+    {
+      "language": "OCaml",
+      "syntax": {
+        "start": "(**",
+        "end": "*)",
+        "type": "block",
+        "location": "above_target"
+      },
+      "tags": ["ocamldoc", "double_asterisk"],
+      "example_content": "(** format: github\n    user: \"Technical Development\" *)"
+    },
+    {
+      "language": "Clojure",
+      "syntax": {
+        "start": "\"",
+        "end": "\"",
+        "type": "argument_metadata",
+        "location": "after_name"
+      },
+      "tags": ["lisp", "positional_string"],
+      "example_content": "(defn f\n  \"format: github\\nuser: Technical Development\"\n  []\n  1)",
+      "metadata": "String literal placed immediately after function name becomes docstring"
+    },
+    {
+      "language": "Fortran",
+      "syntax": {
+        "start": "C",
+        "end": null,
+        "type": "positional",
+        "location": "column_1"
+      },
+      "tags": ["legacy", "fixed_form"],
+      "example_content": "C format: github\nC user: \"Technical Development\"",
+      "parsing_rule": "Comment character must be in column 1 for fixed-form Fortran"
     },
     {
       "language": "Erlang",

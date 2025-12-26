@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/schema.py
+# hypothesis_version: 6.148.8
+
+['Additional notes', 'Categorization tags', 'Opening delimiter', 'Quality grade', 'Syntax carrier type', 'Syntax specification', '^[\\+\\.]{6}$', 'above_target', 'after_name', 'anywhere', 'argument_metadata', 'attribute_comment', 'block', 'column_1', 'column_7', 'haddock_block', 'internal_first_line', 'leading_line', 'line_sugared', 'literal', 'module_attribute', 'nestable_block', 'padded_bracket', 'positional', 'prefix_literal', 'use_enum_values', 'xml_structured']
