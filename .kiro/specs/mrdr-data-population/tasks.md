@@ -32,39 +32,39 @@ This implementation plan transforms the MRDR Data Population design into actiona
     - **Property 3: Conflict Reference Consistency**
     - **Validates: Requirements 1.1, 1.2, 1.4**
 
-- [ ] 2. Doctag Database Creation
-  - [ ] 2.1 Create doctag_database.json file
+- [x] 2. Doctag Database Creation
+  - [x] 2.1 Create doctag_database.json file
     - Create `database/doctags/` directory
     - Create `database/doctags/doctag_database.json` with manifest
     - _Requirements: 2.1_
 
-  - [ ] 2.2 Populate DDL (Delimiter) tags
+  - [x] 2.2 Populate DDL (Delimiter) tags
     - Add DDL01-DDL10 entries from doctags.md
     - Include: id, symbol, short_name, description, category, example
     - DDL01: `+` ADDTACH, DDL02: `-+` DELREM, DDL03: `!>` EXCEPTFOR, etc.
     - _Requirements: 2.2, 2.7_
 
-  - [ ] 2.3 Populate GRM (Grammar) tags
+  - [x] 2.3 Populate GRM (Grammar) tags
     - Add GRM01-GRM10 entries from doctags.md
     - GRM01: rstr RESTRICTIONS, GRM02: ntype NAMETYPE, etc.
     - _Requirements: 2.3, 2.7_
 
-  - [ ] 2.4 Populate IDC (Inter-Document Command) tags
+  - [x] 2.4 Populate IDC (Inter-Document Command) tags
     - Add IDC01-IDC10 entries from doctags.md
     - IDC01: LANGUSE, IDC02: DOCLINK, IDC03: FILELINK, etc.
     - _Requirements: 2.4, 2.7_
 
-  - [ ] 2.5 Populate FMT (Formatting) tags
+  - [x] 2.5 Populate FMT (Formatting) tags
     - Add FMT01-FMT10 entries from doctags.md
     - FMT01: newline, FMT02: nlrule, FMT03: cfgdflt, etc.
     - _Requirements: 2.5, 2.7_
 
-  - [ ] 2.6 Populate DOC (Document Spec) tags
+  - [x] 2.6 Populate DOC (Document Spec) tags
     - Add DOC01-DOC05 entries from doctags.md
     - DOC01: MRDR:doc:spec=doctags, DOC02: MRDR:doc:spec=metadata, etc.
     - _Requirements: 2.6, 2.7_
 
-  - [ ] 2.7 Write property test for doctag database
+  - [x] 2.7 Write property test for doctag database
     - **Property 4: Doctag Category Completeness**
     - **Property 5: Doctag Entry Schema Validity**
     - **Property 16: SCREAMINGSNAKE Case Compliance**

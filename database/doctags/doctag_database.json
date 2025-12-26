@@ -1,0 +1,355 @@
+{
+  "manifest": {
+    "manifest_name": "doctag_database",
+    "version": "1.0.0",
+    "schema_origin": "docs/doctags.md",
+    "entry_count": 43,
+    "last_updated": "2025-12-25"
+  },
+  "doctags": [
+    {
+      "id": "DDL01",
+      "symbol": "+",
+      "short_name": "ADDTACH",
+      "description": "add, or attach an item or reference",
+      "category": "DDL",
+      "example": "+new_line below headers"
+    },
+    {
+      "id": "DDL02",
+      "symbol": "-+",
+      "short_name": "DELREM",
+      "description": "remove, or delete an item or reference",
+      "category": "DDL",
+      "example": "-+new_line above headers"
+    },
+    {
+      "id": "DDL03",
+      "symbol": "!>",
+      "short_name": "EXCEPTFOR",
+      "description": "Except for [x] ID, an exception to a rule",
+      "category": "DDL",
+      "example": "-+new_line above headers !> lists"
+    },
+    {
+      "id": "DDL04",
+      "symbol": ":",
+      "short_name": "KEYVAL",
+      "description": "key/value separator for tags and metadata",
+      "category": "DDL",
+      "example": "ABOVE:true"
+    },
+    {
+      "id": "DDL05",
+      "symbol": "|",
+      "short_name": "DOCPIPE",
+      "description": "file/header separator in doc links",
+      "category": "DDL",
+      "example": "file|## header"
+    },
+    {
+      "id": "DDL06",
+      "symbol": "=",
+      "short_name": "ASSIGN",
+      "description": "assignment operator for inline configs",
+      "category": "DDL",
+      "example": "spec=doctags"
+    },
+    {
+      "id": "DDL07",
+      "symbol": ",",
+      "short_name": "LISTSEP",
+      "description": "inline list separator",
+      "category": "DDL",
+      "example": "['BREVITY', 'CONSISTENCY']"
+    },
+    {
+      "id": "DDL08",
+      "symbol": ";",
+      "short_name": "STMTSEP",
+      "description": "statement separator for compact specs",
+      "category": "DDL",
+      "example": "ABOVE:true; BELOW:false"
+    },
+    {
+      "id": "DDL09",
+      "symbol": "/",
+      "short_name": "PATHSEP",
+      "description": "path delimiter for repo-relative references",
+      "category": "DDL",
+      "example": "/docs/doctags.md"
+    },
+    {
+      "id": "DDL10",
+      "symbol": "#",
+      "short_name": "HEADTAG",
+      "description": "header identifier for anchor references",
+      "category": "DDL",
+      "example": "## DOCTAG SPEC"
+    },
+    {
+      "id": "GRM01",
+      "symbol": "rstr",
+      "short_name": "RESTRICTIONS",
+      "description": "Prohibited practise",
+      "category": "GRM",
+      "example": "rstr: no whitespace in identifiers"
+    },
+    {
+      "id": "GRM02",
+      "symbol": "ntype",
+      "short_name": "NAMETYPE",
+      "description": "Grandparent Type",
+      "category": "GRM",
+      "example": "ntype: SCREAMINGSNAKE"
+    },
+    {
+      "id": "GRM05",
+      "symbol": "dlist",
+      "short_name": "DASHLIST",
+      "description": "a dash ordered list",
+      "category": "GRM",
+      "example": "- item one\n- item two"
+    },
+    {
+      "id": "GRM06",
+      "symbol": "id",
+      "short_name": "ID",
+      "description": "Purpose Related Identifier",
+      "category": "GRM",
+      "example": "DDL01"
+    },
+    {
+      "id": "GRM07",
+      "symbol": "glbl",
+      "short_name": "GLOBAL",
+      "description": "Applies Globally in the Repo",
+      "category": "GRM",
+      "example": "glbl: SCREAMINGSNAKE case"
+    },
+    {
+      "id": "GRM08",
+      "symbol": "met",
+      "short_name": "METADATA",
+      "description": "References the docs Metadata",
+      "category": "GRM",
+      "example": "met: version=1.0.0"
+    },
+    {
+      "id": "GRM09",
+      "symbol": "alias",
+      "short_name": "ALIAS",
+      "description": "Alternate name binding for the same command/tag",
+      "category": "GRM",
+      "example": "alias: mrdr -> misterdoctor"
+    },
+    {
+      "id": "GRM10",
+      "symbol": "desc",
+      "short_name": "DESCRIPTION",
+      "description": "Descriptive text attached to an identifier",
+      "category": "GRM",
+      "example": "desc: This tag defines..."
+    },
+    {
+      "id": "IDC01",
+      "symbol": "LANGUSE",
+      "short_name": "LANGUAGEUSAGE",
+      "description": "Duplicated Usage",
+      "category": "IDC",
+      "example": "LANGUSE: Python, JavaScript"
+    },
+    {
+      "id": "IDC02",
+      "symbol": "DOCLINK",
+      "short_name": "DOCREFERENCE",
+      "description": "File+header reference using file|## header",
+      "category": "IDC",
+      "example": "docs/doctags.md|## Grammar"
+    },
+    {
+      "id": "IDC03",
+      "symbol": "FILELINK",
+      "short_name": "FILEREF",
+      "description": "File-only reference",
+      "category": "IDC",
+      "example": "FILELINK: /docs/doctags.md"
+    },
+    {
+      "id": "IDC04",
+      "symbol": "HEADRLINK",
+      "short_name": "HEADERREF",
+      "description": "Header-only reference within a file",
+      "category": "IDC",
+      "example": "HEADRLINK: ## DOCTAG SPEC"
+    },
+    {
+      "id": "IDC05",
+      "symbol": "REF",
+      "short_name": "REFERENCE",
+      "description": "General cross-doc reference marker",
+      "category": "IDC",
+      "example": "REF: see doctags.md"
+    },
+    {
+      "id": "IDC06",
+      "symbol": "SPECREF",
+      "short_name": "SPECREFERENCE",
+      "description": "Spec pointer in docs",
+      "category": "IDC",
+      "example": "SPECREF: cli_spec.md"
+    },
+    {
+      "id": "IDC07",
+      "symbol": "DBREF",
+      "short_name": "DATABASEREF",
+      "description": "Database reference pointer",
+      "category": "IDC",
+      "example": "DBREF: docstring_database.json"
+    },
+    {
+      "id": "IDC08",
+      "symbol": "TEMPRE",
+      "short_name": "TEMPLATEREF",
+      "description": "Template reference pointer",
+      "category": "IDC",
+      "example": "TEMPRE: docstring_template.md"
+    },
+    {
+      "id": "IDC09",
+      "symbol": "RESREF",
+      "short_name": "RESOURCEREF",
+      "description": "Resource reference pointer",
+      "category": "IDC",
+      "example": "RESREF: resources/example.png"
+    },
+    {
+      "id": "IDC10",
+      "symbol": "TODOLINK",
+      "short_name": "TODOREF",
+      "description": "TODO reference pointer",
+      "category": "IDC",
+      "example": "TODOLINK: TODO.md#TASK01"
+    },
+    {
+      "id": "FMT01",
+      "symbol": "newline",
+      "short_name": "NEWLINE",
+      "description": "Newline formatting marker with HEADERS:newline, ABOVE:true, BELOW:false",
+      "category": "FMT",
+      "example": "HEADERS:newline\n  ABOVE:true\n  BELOW:false"
+    },
+    {
+      "id": "FMT02",
+      "symbol": "nlrule",
+      "short_name": "NEWLINERULE",
+      "description": "newline rule marker",
+      "category": "FMT",
+      "example": "nlrule: BACKSLASH"
+    },
+    {
+      "id": "FMT03",
+      "symbol": "cfgdflt",
+      "short_name": "CONFIGDEFAULT",
+      "description": "default config marker",
+      "category": "FMT",
+      "example": "cfgdflt: twospc"
+    },
+    {
+      "id": "FMT04",
+      "symbol": "twospc",
+      "short_name": "TWOSPACES",
+      "description": "two-space newline variant (default)",
+      "category": "FMT",
+      "example": "line one  \nline two"
+    },
+    {
+      "id": "FMT05",
+      "symbol": "htmlbr",
+      "short_name": "HTMLBR",
+      "description": "HTML <br> line break method",
+      "category": "FMT",
+      "example": "line one<br>line two"
+    },
+    {
+      "id": "FMT06",
+      "symbol": "htmlpre",
+      "short_name": "HTMLPRE",
+      "description": "<pre> block newline method",
+      "category": "FMT",
+      "example": "<pre>\nline one\nline two\n</pre>"
+    },
+    {
+      "id": "FMT07",
+      "symbol": "codeblk",
+      "short_name": "CODEBLOCK",
+      "description": "code block newline method",
+      "category": "FMT",
+      "example": "```\nline one\nline two\n```"
+    },
+    {
+      "id": "FMT08",
+      "symbol": "tblmtd",
+      "short_name": "TABLEMETHOD",
+      "description": "table-based newline method",
+      "category": "FMT",
+      "example": "| line one |\n| line two |"
+    },
+    {
+      "id": "FMT09",
+      "symbol": "invtable",
+      "short_name": "INVISIBLETABLE",
+      "description": "invisible table variant",
+      "category": "FMT",
+      "example": "<table><tr><td>line one</td></tr></table>"
+    },
+    {
+      "id": "FMT10",
+      "symbol": "bksmtd",
+      "short_name": "BACKSLASHMETHOD",
+      "description": "backslash newline method",
+      "category": "FMT",
+      "example": "line one\\\nline two"
+    },
+    {
+      "id": "DOC01",
+      "symbol": "MRDR:doc:spec=doctags",
+      "short_name": "DOCSPEC_DOCTAGS",
+      "description": "Required docspec marker for all documents",
+      "category": "DOC",
+      "example": "[MRDR:doc:spec=doctags](/docs/doctags.md)"
+    },
+    {
+      "id": "DOC02",
+      "symbol": "MRDR:doc:spec=metadata",
+      "short_name": "DOCSPEC_METADATA",
+      "description": "Metadata spec alignment",
+      "category": "DOC",
+      "example": "[MRDR:doc:spec=metadata](/docs/docspecs/metadata_spec.md)"
+    },
+    {
+      "id": "DOC03",
+      "symbol": "MRDR:doc:spec=visualdata",
+      "short_name": "DOCSPEC_VISUALDATA",
+      "description": "Visual data spec focus",
+      "category": "DOC",
+      "example": "[MRDR:doc:spec=visualdata](/docs/visual_pattern_lib.md)"
+    },
+    {
+      "id": "DOC04",
+      "symbol": "MRDR:doc:spec=output",
+      "short_name": "DOCSPEC_OUTPUT",
+      "description": "Output and display focus",
+      "category": "DOC",
+      "example": "[MRDR:doc:spec=output](/docs/docspecs/output_spec.md)"
+    },
+    {
+      "id": "DOC05",
+      "symbol": "MRDR:doc:spec=userexperience",
+      "short_name": "DOCSPEC_USEREXPERIENCE",
+      "description": "UX focus",
+      "category": "DOC",
+      "example": "[MRDR:doc:spec=userexperience](/docs/docspecs/ux_spec.md)"
+    }
+  ]
+}
