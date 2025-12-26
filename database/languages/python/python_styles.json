@@ -1,0 +1,175 @@
+{
+  "manifest": {
+    "manifest_name": "python_styles_database",
+    "version": "1.0.0",
+    "schema_origin": "docs/docspecs/cli_spec.md",
+    "entry_count": 5,
+    "last_updated": "2025-01-01"
+  },
+  "styles": [
+    {
+      "name": "sphinx",
+      "description": "Sphinx (reStructuredText) style docstrings using field list syntax with colons. The most common style for Python documentation generation with Sphinx.",
+      "markers": [
+        {
+          "name": "param",
+          "syntax": ":param name:",
+          "description": "Documents a function parameter by name"
+        },
+        {
+          "name": "type",
+          "syntax": ":type name:",
+          "description": "Specifies the type of a parameter"
+        },
+        {
+          "name": "return",
+          "syntax": ":return:",
+          "description": "Documents the return value"
+        },
+        {
+          "name": "rtype",
+          "syntax": ":rtype:",
+          "description": "Specifies the return type"
+        },
+        {
+          "name": "raises",
+          "syntax": ":raises ExceptionType:",
+          "description": "Documents exceptions that may be raised"
+        }
+      ],
+      "template_code": "def my_function(name, age):\n    \"\"\"\n    This is a brief description of the function.\n\n    :param name: The name of the user.\n    :type name: str\n    :param age: The age of the user.\n    :type age: int\n    :return: A greeting message.\n    :rtype: str\n    \"\"\"\n    return f\"Hello {name}, you are {age} years old.\"",
+      "rules": [
+        "Summary Line: Start with a concise, capitalized summary of the object's purpose ending in a period.",
+        "Structural Spacing: Insert a blank line between the summary and the technical metadata/field lists.",
+        "Field Indentation: Ensure all descriptions and sub-elements are consistently indented under their respective tags.",
+        "Clean Termination: Place the closing triple-quotes on their own line to clearly demarcate the end of the block."
+      ]
+    },
+    {
+      "name": "google",
+      "description": "Google style docstrings using section headers with indented content. Popular for its readability and clean structure.",
+      "markers": [
+        {
+          "name": "Args",
+          "syntax": "Args:",
+          "description": "Section header for function arguments"
+        },
+        {
+          "name": "Returns",
+          "syntax": "Returns:",
+          "description": "Section header for return value documentation"
+        },
+        {
+          "name": "Raises",
+          "syntax": "Raises:",
+          "description": "Section header for exceptions documentation"
+        },
+        {
+          "name": "Yields",
+          "syntax": "Yields:",
+          "description": "Section header for generator yield documentation"
+        },
+        {
+          "name": "Examples",
+          "syntax": "Examples:",
+          "description": "Section header for usage examples"
+        }
+      ],
+      "template_code": "def my_function(name, age):\n    \"\"\"\n    This is the module or function description.\n\n    Args:\n        name (str): The name of the user.\n        age (int): The age of the user.\n\n    Returns:\n        str: A greeting message.\n    \"\"\"\n    return f\"Hello {name}, you are {age} years old.\"",
+      "rules": [
+        "Summary Line: Start with a concise, capitalized summary of the object's purpose ending in a period.",
+        "Structural Spacing: Insert a blank line between the summary and the technical metadata/field lists.",
+        "Field Indentation: Ensure all descriptions and sub-elements are consistently indented under their respective tags.",
+        "Clean Termination: Place the closing triple-quotes on their own line to clearly demarcate the end of the block."
+      ]
+    },
+    {
+      "name": "numpy",
+      "description": "NumPy style docstrings using section headers with dashed underlines. Common in scientific Python libraries.",
+      "markers": [
+        {
+          "name": "Parameters",
+          "syntax": "Parameters\n----------",
+          "description": "Section header for function parameters with dashed separator"
+        },
+        {
+          "name": "Returns",
+          "syntax": "Returns\n-------",
+          "description": "Section header for return value with dashed separator"
+        },
+        {
+          "name": "Raises",
+          "syntax": "Raises\n------",
+          "description": "Section header for exceptions with dashed separator"
+        },
+        {
+          "name": "See Also",
+          "syntax": "See Also\n--------",
+          "description": "Section header for related functions"
+        },
+        {
+          "name": "Examples",
+          "syntax": "Examples\n--------",
+          "description": "Section header for usage examples"
+        }
+      ],
+      "template_code": "def my_function(name, age):\n    \"\"\"\n    Brief description.\n\n    Parameters\n    ----------\n    name : str\n        The name of the user.\n    age : int\n        The age of the user.\n\n    Returns\n    -------\n    str\n        A greeting message.\n    \"\"\"",
+      "rules": [
+        "Summary Line: Start with a concise, capitalized summary of the object's purpose ending in a period.",
+        "Structural Spacing: Insert a blank line between the summary and the technical metadata/field lists.",
+        "Field Indentation: Ensure all descriptions and sub-elements are consistently indented under their respective tags.",
+        "Clean Termination: Place the closing triple-quotes on their own line to clearly demarcate the end of the block."
+      ]
+    },
+    {
+      "name": "epytext",
+      "description": "Epytext style docstrings using @ symbols similar to Javadoc. Historically used by Epydoc documentation generator.",
+      "markers": [
+        {
+          "name": "param",
+          "syntax": "@param name:",
+          "description": "Documents a function parameter by name"
+        },
+        {
+          "name": "type",
+          "syntax": "@type name:",
+          "description": "Specifies the type of a parameter"
+        },
+        {
+          "name": "return",
+          "syntax": "@return:",
+          "description": "Documents the return value"
+        },
+        {
+          "name": "rtype",
+          "syntax": "@rtype:",
+          "description": "Specifies the return type"
+        },
+        {
+          "name": "raise",
+          "syntax": "@raise ExceptionType:",
+          "description": "Documents exceptions that may be raised"
+        }
+      ],
+      "template_code": "def my_function(name, age):\n    \"\"\"\n    Brief description.\n\n    @param name: The name of the user.\n    @type name: str\n    @return: A greeting message.\n    \"\"\"",
+      "rules": [
+        "Summary Line: Start with a concise, capitalized summary of the object's purpose ending in a period.",
+        "Structural Spacing: Insert a blank line between the summary and the technical metadata/field lists.",
+        "Field Indentation: Ensure all descriptions and sub-elements are consistently indented under their respective tags.",
+        "Clean Termination: Place the closing triple-quotes on their own line to clearly demarcate the end of the block."
+      ]
+    },
+    {
+      "name": "pep257",
+      "description": "PEP 257 minimal style docstrings. The bare-minimum Python standard, typically used for simple functions or modules.",
+      "markers": [],
+      "template_code": "def my_function():\n    \"\"\"\n    Perform a simple task and return None.\n\n    This multi-line section expands on the summary above if\n    more context is required for the developer.\n    \"\"\"\n    pass",
+      "rules": [
+        "Summary Line: Start with a concise, capitalized summary of the object's purpose ending in a period.",
+        "Structural Spacing: Insert a blank line between the summary and the technical metadata/field lists.",
+        "Field Indentation: Ensure all descriptions and sub-elements are consistently indented under their respective tags.",
+        "Clean Termination: Place the closing triple-quotes on their own line to clearly demarcate the end of the block."
+      ]
+    }
+  ]
+}

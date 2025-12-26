@@ -1,0 +1,209 @@
+{
+  "manifest": {
+    "manifest_name": "dictionary_database",
+    "version": "1.0.0",
+    "schema_origin": "docs/dictionary.md",
+    "entry_count": 27,
+    "last_updated": "2025-12-25"
+  },
+  "nametypes": [
+    {
+      "name": "CHILD",
+      "alias": "chd",
+      "level": "nametype",
+      "description": "Child Data Hierarchy - lowest level in the hierarchy tree",
+      "children": []
+    },
+    {
+      "name": "PARENT",
+      "alias": "pnt",
+      "level": "nametype",
+      "description": "Parent Data Hierarchy - middle level containing child entries",
+      "children": ["CHILD"]
+    },
+    {
+      "name": "GRANDPARENT",
+      "alias": "gpn",
+      "level": "nametype",
+      "description": "Grandparent Data Hierarchy - top level containing parent entries",
+      "children": ["PARENT"]
+    }
+  ],
+  "definitions": [],
+  "grandparents": [
+    {
+      "name": "NOTE",
+      "alias": "note",
+      "level": "grandparent",
+      "description": "Additional notes provided in the authors voice",
+      "children": []
+    },
+    {
+      "name": "CLAIM",
+      "alias": "claim",
+      "level": "grandparent",
+      "description": "Top level Claims",
+      "children": []
+    },
+    {
+      "name": "LANG_USE",
+      "alias": "languse",
+      "level": "grandparent",
+      "description": "This tag is used to identify the additional utilization of a term in a different language",
+      "children": []
+    },
+    {
+      "name": "FORMAT",
+      "alias": "format",
+      "level": "grandparent",
+      "description": "This tag is used to identify the format of the documentation",
+      "children": []
+    },
+    {
+      "name": "PURPOSE",
+      "alias": "purpose",
+      "level": "grandparent",
+      "description": "This tag is used to identify the purpose of the documentation",
+      "children": []
+    },
+    {
+      "name": "RESTRICTIONS",
+      "alias": "restrictions",
+      "level": "grandparent",
+      "description": "This tag is used to identify the restrictions of the documentation",
+      "children": []
+    },
+    {
+      "name": "STYLING",
+      "alias": "styling",
+      "level": "grandparent",
+      "description": "This tag is used to identify the styling of the documentation",
+      "children": []
+    },
+    {
+      "name": "USER",
+      "alias": "user",
+      "level": "grandparent",
+      "description": "This tag is used to identify the user of the documentation",
+      "children": []
+    },
+    {
+      "name": "NOTES",
+      "alias": "notes",
+      "level": "grandparent",
+      "description": "This tag is used to identify any additional important notes about the corresponding data",
+      "children": []
+    }
+  ],
+  "parents": [
+    {
+      "name": "ASPERDEFINED",
+      "alias": "apd",
+      "level": "parent",
+      "description": "Reference is in context to traditional definition",
+      "children": []
+    },
+    {
+      "name": "OBJECTIVEACCEPTANCE",
+      "alias": "objacc",
+      "level": "parent",
+      "description": "A statement or claim that is obvious in nature, understandable without further explanation, while still technically sound is disputable, dispute would disqualify users intelligence",
+      "children": []
+    }
+  ],
+  "children": [
+    {
+      "name": "SEMANTICS",
+      "alias": "sem",
+      "level": "child",
+      "description": "Arguing out of good faith",
+      "children": []
+    },
+    {
+      "name": "DEFINITION",
+      "alias": "def",
+      "level": "child",
+      "description": "As per defined - reference to traditional definition",
+      "children": []
+    },
+    {
+      "name": "DOCSTRING",
+      "alias": "dstr",
+      "level": "child",
+      "description": "As per defined - documentation string reference",
+      "children": []
+    },
+    {
+      "name": "RESEARCH",
+      "alias": "rsch",
+      "level": "child",
+      "description": "As per defined - research reference",
+      "children": []
+    },
+    {
+      "name": "STATISTIC",
+      "alias": "stat",
+      "level": "child",
+      "description": "As per defined - statistical reference",
+      "children": []
+    },
+    {
+      "name": "EXAMPLE",
+      "alias": "eg",
+      "level": "child",
+      "description": "As per defined - example reference",
+      "children": []
+    },
+    {
+      "name": "VALIDATED",
+      "alias": "vldt",
+      "level": "child",
+      "description": "As per defined - validated reference",
+      "children": []
+    },
+    {
+      "name": "EXPERIMENTAL",
+      "alias": "expr",
+      "level": "child",
+      "description": "As per defined - experimental reference",
+      "children": []
+    },
+    {
+      "name": "OPTIMAL",
+      "alias": "optml",
+      "level": "child",
+      "description": "As per defined - optimal reference",
+      "children": []
+    },
+    {
+      "name": "UNSTABLE",
+      "alias": "unstbl",
+      "level": "child",
+      "description": "As per defined - unstable reference",
+      "children": []
+    },
+    {
+      "name": "VISUALLY_APPEALING",
+      "alias": "vislap",
+      "level": "child",
+      "description": "As per defined - visually appealing reference",
+      "children": []
+    },
+    {
+      "name": "CREATIVE",
+      "alias": "crtv",
+      "level": "child",
+      "description": "As per defined - creative reference",
+      "children": []
+    }
+  ],
+  "grandchildren": [
+    {
+      "name": "VALUE",
+      "alias": "val",
+      "level": "grandchild",
+      "description": "The value of Parent or Child function",
+      "children": []
+    }
+  ]
+}
