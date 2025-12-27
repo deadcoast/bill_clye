@@ -14,6 +14,7 @@ import yaml
 from mrdr.database.loader import DatabaseLoader
 from mrdr.database.query import QueryEngine
 from mrdr.database.schema import DocstringEntry
+from mrdr.database.validation import ValidationCollector, ValidationResult
 from mrdr.utils.errors import LanguageNotFoundError, ValidationError
 
 
@@ -202,6 +203,192 @@ class HydeController:
 
         return errors
 
+    def validate_all_databases(self) -> ValidationCollector:
+        """Validate all database files against their schemas.
+
+        Loads and validates all database files:
+        - docstrings database
+        - doctags database
+        - dictionary database
+        - python_styles database
+        - conflict database
+        - udl database
+
+        Returns:
+            ValidationCollector with results from all databases.
+        """
+        from mrdr.database.conflict.loader import ConflictLoader
+        from mrdr.database.dictionary.loader import DictionaryLoader
+        from mrdr.database.doctag.loader import DoctagLoader
+        from mrdr.database.python_styles.loader import PythonStylesLoader
+        from mrdr.database.udl.loader import UDLLoader
+
+        collector = ValidationCollector()
+
+        # Validate docstrings database
+        try:
+            self._loader._loaded = False
+            self._loader.load()
+            if self._loader.validation_result:
+                collector.add_result(self._loader.validation_result)
+        except FileNotFoundError:
+            result = ValidationResult(
+                database_type="docstrings",
+                database_path=self._loader.path,
+            )
+            result.add_error(
+                entry_id="database",
+                message=f"Database file not found: {self._loader.path}",
+            )
+            collector.add_result(result)
+        except Exception as e:
+            result = ValidationResult(
+                database_type="docstrings",
+                database_path=self._loader.path,
+            )
+            result.add_error(
+                entry_id="database",
+                message=f"Failed to load database: {e}",
+            )
+            collector.add_result(result)
+
+        # Validate doctags database
+        try:
+            doctag_loader = DoctagLoader()
+            doctag_loader.load()
+            if doctag_loader.validation_result:
+                collector.add_result(doctag_loader.validation_result)
+        except FileNotFoundError:
+            result = ValidationResult(
+                database_type="doctags",
+                database_path=Path("database/doctags/doctag_database.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message="Database file not found",
+            )
+            collector.add_result(result)
+        except Exception as e:
+            result = ValidationResult(
+                database_type="doctags",
+                database_path=Path("database/doctags/doctag_database.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message=f"Failed to load database: {e}",
+            )
+            collector.add_result(result)
+
+        # Validate dictionary database
+        try:
+            dict_loader = DictionaryLoader()
+            dict_loader.load()
+            if dict_loader.validation_result:
+                collector.add_result(dict_loader.validation_result)
+        except FileNotFoundError:
+            result = ValidationResult(
+                database_type="dictionary",
+                database_path=Path("database/dictionary/dictionary_database.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message="Database file not found",
+            )
+            collector.add_result(result)
+        except Exception as e:
+            result = ValidationResult(
+                database_type="dictionary",
+                database_path=Path("database/dictionary/dictionary_database.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message=f"Failed to load database: {e}",
+            )
+            collector.add_result(result)
+
+        # Validate python_styles database
+        try:
+            styles_loader = PythonStylesLoader()
+            styles_loader.load()
+            if styles_loader.validation_result:
+                collector.add_result(styles_loader.validation_result)
+        except FileNotFoundError:
+            result = ValidationResult(
+                database_type="python_styles",
+                database_path=Path("database/languages/python/python_styles.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message="Database file not found",
+            )
+            collector.add_result(result)
+        except Exception as e:
+            result = ValidationResult(
+                database_type="python_styles",
+                database_path=Path("database/languages/python/python_styles.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message=f"Failed to load database: {e}",
+            )
+            collector.add_result(result)
+
+        # Validate conflict database
+        try:
+            conflict_loader = ConflictLoader()
+            conflict_loader.load()
+            if conflict_loader.validation_result:
+                collector.add_result(conflict_loader.validation_result)
+        except FileNotFoundError:
+            result = ValidationResult(
+                database_type="conflicts",
+                database_path=Path("database/conflicts/conflict_database.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message="Database file not found",
+            )
+            collector.add_result(result)
+        except Exception as e:
+            result = ValidationResult(
+                database_type="conflicts",
+                database_path=Path("database/conflicts/conflict_database.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message=f"Failed to load database: {e}",
+            )
+            collector.add_result(result)
+
+        # Validate UDL database
+        try:
+            udl_loader = UDLLoader()
+            udl_loader.load()
+            if udl_loader.validation_result:
+                collector.add_result(udl_loader.validation_result)
+        except FileNotFoundError:
+            result = ValidationResult(
+                database_type="udl",
+                database_path=Path("database/languages/udl/udl_database.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message="Database file not found",
+            )
+            collector.add_result(result)
+        except Exception as e:
+            result = ValidationResult(
+                database_type="udl",
+                database_path=Path("database/languages/udl/udl_database.json"),
+            )
+            result.add_error(
+                entry_id="database",
+                message=f"Failed to load database: {e}",
+            )
+            collector.add_result(result)
+
+        return collector
+
     def get_database_metadata(self) -> dict[str, Any]:
         """Get database manifest metadata.
 
@@ -235,6 +422,7 @@ class HydeController:
             ),
             "export_all": lambda: self.export_all(kwargs.get("format", "json")),
             "validate": lambda: self.validate_database(),
+            "validate_all": lambda: self.validate_all_databases(),
             "metadata": lambda: self.get_database_metadata(),
         }
 

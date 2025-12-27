@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/cli/hyde_commands.py
+# hypothesis_version: 6.148.8
+
+[1000, '\nHierarchy Path:\n', '  Errors:', ' > ', '#', ', ', '-', '--format', '--help', '-f', '-h', 'Database', 'Description: ', 'End Delimiter', 'Entries', 'Errors', 'FAIL', 'Field', 'Language', 'Level: ', 'Location', 'None', 'None (line-based)', 'PASS', 'Start Delimiter', 'Status', 'Supported Languages', 'Tags', 'Term: ', 'Type', 'Value', '[]', '\\x1b\\[[0-9;]*m', 'alias', 'ancestors', 'blue', 'bold', 'bold cyan', 'bold green', 'bold red', 'center', 'children', 'cyan', 'description', 'dim', 'error', 'export', 'green', 'help_option_names', 'hierarchy', 'hyde', 'inspect', 'italic', 'json', 'level', 'list', 'magenta', 'name', 'query', 'red', 'right', 'show', 'term', 'udl', 'validate', 'yaml', 'yellow', '✓ PASS', '✗ FAIL']

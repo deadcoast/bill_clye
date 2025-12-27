@@ -354,3 +354,113 @@ def hierarchy(
 
         if state.debug:
             console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+
+
+@hyde_app.command("validate")
+def validate() -> None:
+    """Validate all database files against their schemas.
+
+    Checks all database files (docstrings, doctags, dictionary, python_styles,
+    conflicts, udl) against their Pydantic schemas and reports validation
+    status and any errors found.
+
+    Examples:
+        mrdr hyde validate          # Validate all databases
+    """
+    start_time = time.time()
+    console = state.console
+    hyde = get_hyde_controller()
+
+    try:
+        collector = hyde.validate_all_databases()
+        elapsed = (time.time() - start_time) * 1000
+
+        if state.json:
+            import json as json_module
+
+            console.print(json_module.dumps(collector.to_dict(), indent=2))
+        elif state.should_use_plain():
+            # Plain text output
+            console.print(f"Validation Results: {'PASS' if collector.all_valid else 'FAIL'}")
+            console.print(f"Total Errors: {collector.total_errors}")
+            console.print(f"Total Warnings: {collector.total_warnings}")
+            console.print("")
+
+            for result in collector.results:
+                status = "PASS" if result.is_valid else "FAIL"
+                console.print(f"Database: {result.database_type}")
+                console.print(f"  Path: {result.database_path}")
+                console.print(f"  Status: {status}")
+                console.print(f"  Entries: {result.valid_entries}/{result.total_entries}")
+
+                if result.errors:
+                    console.print("  Errors:")
+                    for error in result.errors:
+                        field_info = f" (field: {error.field})" if error.field else ""
+                        console.print(f"    - [{error.entry_id}]{field_info}: {error.message}")
+                console.print("")
+        else:
+            # Rich output
+            from rich.panel import Panel
+            from rich.table import Table
+            from rich.text import Text
+
+            # Summary panel
+            if collector.all_valid:
+                summary = Text("✓ All databases valid", style="bold green")
+            else:
+                summary = Text(
+                    f"✗ Validation failed: {collector.total_errors} error(s), "
+                    f"{collector.total_warnings} warning(s)",
+                    style="bold red",
+                )
+
+            console.print(Panel(summary, title="[bold]Validation Summary[/bold]"))
+
+            # Results table
+            table = Table(title="Database Validation Results", show_header=True)
+            table.add_column("Database", style="cyan")
+            table.add_column("Status", justify="center")
+            table.add_column("Entries", justify="right")
+            table.add_column("Errors", justify="right")
+
+            for result in collector.results:
+                if result.is_valid:
+                    status = Text("✓ PASS", style="green")
+                else:
+                    status = Text("✗ FAIL", style="red")
+
+                entries = f"{result.valid_entries}/{result.total_entries}"
+                errors = str(result.error_count) if result.error_count > 0 else "-"
+
+                table.add_row(result.database_type, status, entries, errors)
+
+            console.print(table)
+
+            # Show errors if any
+            if not collector.all_valid:
+                console.print("\n[bold red]Validation Errors:[/bold red]")
+                for result in collector.results:
+                    if result.errors:
+                        console.print(f"\n[cyan]{result.database_type}[/cyan] ({result.database_path}):")
+                        for error in result.errors:
+                            field_info = f" [dim](field: {error.field})[/dim]" if error.field else ""
+                            severity_style = "red" if error.severity.value == "error" else "yellow"
+                            console.print(
+                                f"  [{severity_style}]•[/{severity_style}] "
+                                f"[bold]{error.entry_id}[/bold]{field_info}: {error.message}"
+                            )
+
+        if state.debug:
+            console.print(f"\n[dim]Validation time: {elapsed:.2f}ms[/dim]")
+
+        # Exit with error code if validation failed
+        if not collector.all_valid:
+            raise typer.Exit(1)
+
+    except MRDRError as e:
+        handle_mrdr_error(e, console, state.json)
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)

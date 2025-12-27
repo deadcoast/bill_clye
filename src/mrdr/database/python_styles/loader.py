@@ -8,10 +8,13 @@ import json
 import logging
 from pathlib import Path
 
+from pydantic import ValidationError
+
 from mrdr.database.python_styles.schema import (
     PythonStyleEntry,
     PythonStylesDatabase,
 )
+from mrdr.database.validation import ValidationResult, ValidationSeverity
 
 logger = logging.getLogger(__name__)
 
@@ -51,11 +54,17 @@ class PythonStylesLoader:
         self._database: PythonStylesDatabase | None = None
         self._styles_by_name: dict[str, PythonStyleEntry] = {}
         self._loaded = False
+        self._validation_result: ValidationResult | None = None
 
     @property
     def path(self) -> Path:
         """Get the Python styles database path."""
         return self._path
+
+    @property
+    def validation_result(self) -> ValidationResult | None:
+        """Get the detailed validation result from the last load operation."""
+        return self._validation_result
 
     def load(self) -> PythonStylesDatabase:
         """Load the Python styles database.
@@ -76,12 +85,35 @@ class PythonStylesLoader:
         with open(self._path, encoding="utf-8") as f:
             data = json.load(f)
 
-        self._database = PythonStylesDatabase.model_validate(data)
+        # Count total entries before validation
+        total_entries = len(data.get("styles", []))
+
+        # Initialize validation result
+        self._validation_result = ValidationResult(
+            database_type="python_styles",
+            database_path=self._path,
+            total_entries=total_entries,
+        )
+
+        try:
+            self._database = PythonStylesDatabase.model_validate(data)
+        except ValidationError as e:
+            for err in e.errors():
+                field_path = ".".join(str(loc) for loc in err.get("loc", []))
+                self._validation_result.add_error(
+                    entry_id="database",
+                    message=err.get("msg", "Validation failed"),
+                    field=field_path if field_path else None,
+                    severity=ValidationSeverity.ERROR,
+                    details={"type": err.get("type", "unknown")},
+                )
+            raise
 
         # Build lookup index
         for style in self._database.styles:
             self._styles_by_name[style.name.lower()] = style
 
+        self._validation_result.valid_entries = len(self._styles_by_name)
         self._loaded = True
         return self._database
 

@@ -10,6 +10,12 @@ from mrdr.database.schema import (
     SyntaxSpec,
     SyntaxType,
 )
+from mrdr.database.validation import (
+    ValidationCollector,
+    ValidationError,
+    ValidationResult,
+    ValidationSeverity,
+)
 
 __all__ = [
     "DatabaseLoader",
@@ -20,4 +26,8 @@ __all__ = [
     "SyntaxLocation",
     "SyntaxSpec",
     "SyntaxType",
+    "ValidationCollector",
+    "ValidationError",
+    "ValidationResult",
+    "ValidationSeverity",
 ]

@@ -8,11 +8,14 @@ import json
 import logging
 from pathlib import Path
 
+from pydantic import ValidationError
+
 from mrdr.database.dictionary.schema import (
     DictionaryDatabase,
     DictionaryEntry,
     HierarchyLevel,
 )
+from mrdr.database.validation import ValidationResult, ValidationSeverity
 
 logger = logging.getLogger(__name__)
 
@@ -55,11 +58,17 @@ class DictionaryLoader:
         self._entries_by_name: dict[str, DictionaryEntry] = {}
         self._entries_by_alias: dict[str, DictionaryEntry] = {}
         self._loaded = False
+        self._validation_result: ValidationResult | None = None
 
     @property
     def path(self) -> Path:
         """Get the dictionary database path."""
         return self._path
+
+    @property
+    def validation_result(self) -> ValidationResult | None:
+        """Get the detailed validation result from the last load operation."""
+        return self._validation_result
 
     def load(self) -> DictionaryDatabase:
         """Load the complete dictionary database.
@@ -81,13 +90,43 @@ class DictionaryLoader:
         with open(self._path, encoding="utf-8") as f:
             data = json.load(f)
 
-        self._database = DictionaryDatabase.model_validate(data)
+        # Count total entries before validation
+        total_entries = (
+            len(data.get("nametypes", []))
+            + len(data.get("definitions", []))
+            + len(data.get("grandparents", []))
+            + len(data.get("parents", []))
+            + len(data.get("children", []))
+            + len(data.get("grandchildren", []))
+        )
+
+        # Initialize validation result
+        self._validation_result = ValidationResult(
+            database_type="dictionary",
+            database_path=self._path,
+            total_entries=total_entries,
+        )
+
+        try:
+            self._database = DictionaryDatabase.model_validate(data)
+        except ValidationError as e:
+            for err in e.errors():
+                field_path = ".".join(str(loc) for loc in err.get("loc", []))
+                self._validation_result.add_error(
+                    entry_id="database",
+                    message=err.get("msg", "Validation failed"),
+                    field=field_path if field_path else None,
+                    severity=ValidationSeverity.ERROR,
+                    details={"type": err.get("type", "unknown")},
+                )
+            raise
 
         # Build lookup indexes
         for entry in self._database.get_all_entries():
             self._entries_by_name[entry.name.upper()] = entry
             self._entries_by_alias[entry.alias.lower()] = entry
 
+        self._validation_result.valid_entries = len(self._entries_by_name)
         self._loaded = True
         return self._database
 

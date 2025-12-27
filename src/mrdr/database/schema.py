@@ -61,10 +61,74 @@ class SyntaxSpec(BaseModel):
     model_config = {"use_enum_values": True}
 
 
+class PlusrepLabel(str, Enum):
+    """PLUSREP grade labels.
+
+    Defines the valid labels for PLUSREP grades based on rating.
+    """
+
+    MAXIMUM = "MAXIMUM"  # rating +4
+    GREAT = "GREAT"  # rating +2 or +3
+    SLOPPY = "SLOPPY"  # rating 0
+    REJECTED = "REJECTED"  # rating -2
+    RESET = "RESET"  # rating -3
+
+
+# Mapping from rating to valid label(s)
+RATING_TO_LABELS: dict[int, list[PlusrepLabel]] = {
+    4: [PlusrepLabel.MAXIMUM],
+    3: [PlusrepLabel.GREAT],
+    2: [PlusrepLabel.GREAT],
+    1: [PlusrepLabel.GREAT],  # Not in spec but valid rating
+    0: [PlusrepLabel.SLOPPY],
+    -1: [PlusrepLabel.SLOPPY],  # Not in spec but valid rating
+    -2: [PlusrepLabel.REJECTED],
+}
+
+
+def calculate_plusrep_rating(tokens: str) -> int:
+    """Calculate PLUSREP rating from tokens.
+
+    Rating = (count of '+') - 2, ranging from -2 to +4.
+
+    Args:
+        tokens: 6-character string of '+' and '.' characters.
+
+    Returns:
+        Integer rating from -2 to +4.
+    """
+    return tokens.count("+") - 2
+
+
+def get_label_for_rating(rating: int) -> PlusrepLabel:
+    """Get the appropriate label for a rating.
+
+    Args:
+        rating: Integer rating from -2 to +4.
+
+    Returns:
+        The appropriate PlusrepLabel for the rating.
+    """
+    if rating >= 4:
+        return PlusrepLabel.MAXIMUM
+    elif rating >= 1:
+        return PlusrepLabel.GREAT
+    elif rating >= -1:
+        return PlusrepLabel.SLOPPY
+    else:
+        return PlusrepLabel.REJECTED
+
+
 class PlusrepGrade(BaseModel):
     """PLUSREP quality grade.
 
     Represents a quality rating using the PLUSREP system with 6 tokens.
+    The rating is calculated as (count of '+') - 2, ranging from -2 to +4.
+    Labels are assigned based on rating:
+    - MAXIMUM: +4
+    - GREAT: +1 to +3
+    - SLOPPY: -1 to 0
+    - REJECTED: -2
     """
 
     tokens: str = Field(
@@ -72,10 +136,56 @@ class PlusrepGrade(BaseModel):
     )
     rating: int = Field(..., ge=-2, le=4, description="Numeric rating: (count of +) - 2")
     label: str = Field(
-        ..., description="Grade label (MAXIMUM, GREAT, GOOD, FAIR, SLOPPY, RESET)"
+        ..., description="Grade label (MAXIMUM, GREAT, SLOPPY, REJECTED)"
     )
 
     model_config = {"use_enum_values": True}
+
+    @classmethod
+    def validate_rating_matches_tokens(cls, rating: int, tokens: str) -> bool:
+        """Validate that rating matches the token count formula.
+
+        Args:
+            rating: The rating value to validate.
+            tokens: The token string to calculate expected rating from.
+
+        Returns:
+            True if rating matches expected calculation.
+        """
+        expected_rating = calculate_plusrep_rating(tokens)
+        return rating == expected_rating
+
+    @classmethod
+    def validate_label_matches_rating(cls, label: str, rating: int) -> bool:
+        """Validate that label is appropriate for the rating.
+
+        Args:
+            label: The label to validate.
+            rating: The rating to check against.
+
+        Returns:
+            True if label is valid for the rating.
+        """
+        expected_label = get_label_for_rating(rating)
+        return label == expected_label.value
+
+    def model_post_init(self, __context) -> None:
+        """Validate rating and label consistency after initialization."""
+        # Validate rating matches tokens
+        expected_rating = calculate_plusrep_rating(self.tokens)
+        if self.rating != expected_rating:
+            raise ValueError(
+                f"Rating {self.rating} does not match expected {expected_rating} "
+                f"for tokens '{self.tokens}' (formula: count('+') - 2)"
+            )
+
+        # Validate label matches rating
+        expected_label = get_label_for_rating(self.rating)
+        if self.label != expected_label.value:
+            raise ValueError(
+                f"Label '{self.label}' does not match expected '{expected_label.value}' "
+                f"for rating {self.rating}"
+            )
 
 
 class DocstringEntry(BaseModel):

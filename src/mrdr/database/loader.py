@@ -13,6 +13,7 @@ from pydantic import ValidationError
 
 from mrdr.database.base import DataSource
 from mrdr.database.schema import DocstringEntry
+from mrdr.database.validation import ValidationResult, ValidationSeverity
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +39,7 @@ class DatabaseLoader(DataSource):
         self._raw_data: dict[str, Any] = {}
         self._loaded = False
         self._validation_errors: list[tuple[str, list[str]]] = []
+        self._validation_result: ValidationResult | None = None
 
     @property
     def path(self) -> Path:
@@ -46,8 +48,13 @@ class DatabaseLoader(DataSource):
 
     @property
     def validation_errors(self) -> list[tuple[str, list[str]]]:
-        """Get validation errors from the last load operation."""
+        """Get validation errors from the last load operation (legacy format)."""
         return self._validation_errors
+
+    @property
+    def validation_result(self) -> ValidationResult | None:
+        """Get the detailed validation result from the last load operation."""
+        return self._validation_result
 
     def load(self) -> list[dict[str, Any]]:
         """Load all entries from the database file.
@@ -69,20 +76,41 @@ class DatabaseLoader(DataSource):
         self._validation_errors = []
 
         raw_entries = self._raw_data.get("entries", [])
+        
+        # Initialize validation result
+        self._validation_result = ValidationResult(
+            database_type="docstrings",
+            database_path=self._path,
+            total_entries=len(raw_entries),
+        )
+
         for entry_data in raw_entries:
+            language = entry_data.get("language", "unknown")
             try:
                 entry = DocstringEntry(**entry_data)
                 self._entries.append(entry)
             except ValidationError as e:
-                language = entry_data.get("language", "unknown")
                 errors = [str(err) for err in e.errors()]
                 self._validation_errors.append((language, errors))
+                
+                # Add detailed validation errors
+                for err in e.errors():
+                    field_path = ".".join(str(loc) for loc in err.get("loc", []))
+                    self._validation_result.add_error(
+                        entry_id=language,
+                        message=err.get("msg", "Validation failed"),
+                        field=field_path if field_path else None,
+                        severity=ValidationSeverity.ERROR,
+                        details={"type": err.get("type", "unknown")},
+                    )
+                
                 logger.warning(
                     "Validation failed for entry '%s': %s",
                     language,
                     errors,
                 )
 
+        self._validation_result.valid_entries = len(self._entries)
         self._loaded = True
         return [entry.model_dump() for entry in self._entries]
 

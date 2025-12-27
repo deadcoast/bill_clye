@@ -12,7 +12,7 @@
         "location": "internal_first_line"
       },
       "tags": ["pep257", "indentation_sensitive"],
-      "example_content": "format: github\npurpose: visual_styling\nuser: \"Technical Development\"\n - profile: A developer and academic...",
+      "example_content": "\"\"\"\nformat: github\npurpose: cli_doc_db\nuser: \"Technical Development\"\nprofile: \"A developer and academic looking for new and creative integrations.\"\nskills: \"Well-versed in Markdown; advanced foundation.\"\n\"\"\"\n\ndef example_function():\n    \"\"\"Brief description of the function.\"\"\"\n    return 1",
       "conflict_ref": "Julia",
       "plusrep": {
         "tokens": "++++++",
@@ -29,7 +29,7 @@
         "location": "above_target"
       },
       "tags": ["jsdoc", "asterisk_prefix"],
-      "example_content": "/**\n * format: github\n * user: \"Technical Development\"\n */",
+      "example_content": "/**\n * format: github\n * purpose: cli_doc_db\n * user: \"Technical Development\"\n * profile: \"A developer and academic looking for new and creative integrations.\"\n * @param {string} name - The name parameter\n * @returns {string} The greeting\n */\nfunction greet(name) {\n    return `Hello, ${name}!`;\n}",
       "conflict_ref": "D",
       "plusrep": {
         "tokens": "+++++.",
@@ -123,7 +123,7 @@
         "location": "above_target"
       },
       "tags": ["rustdoc", "compiler_native"],
-      "example_content": "/// format: github\n/// user: \"Technical Development\"",
+      "example_content": "//! format: github\n//! purpose: cli_doc_db\n//! user: \"Technical Development\"\n\n/// format: github\n/// purpose: cli_doc_db\n/// user: \"Technical Development\"\n/// profile: \"A developer and academic looking for new and creative integrations.\"\n///\n/// # Arguments\n///\n/// * `x` - The first number\n/// * `y` - The second number\npub fn add(x: i32, y: i32) -> i32 {\n    x + y\n}",
       "plusrep": {
         "tokens": "++++++",
         "rating": 4,

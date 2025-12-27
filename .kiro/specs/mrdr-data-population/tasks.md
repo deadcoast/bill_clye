@@ -249,48 +249,48 @@ This implementation plan transforms the MRDR Data Population design into actiona
     - Update `src/mrdr/database/udl/loader.py` to load from new JSON path
     - _Requirements: 5.1_
 
-- [ ] 11. Validation and Error Handling
-  - [ ] 11.1 Implement validation error collection
+- [x] 11. Validation and Error Handling
+  - [x] 11.1 Implement validation error collection
     - Update all loaders to collect validation errors
     - Store errors with entry identifier and field failures
     - _Requirements: 8.2, 8.3_
 
-  - [ ] 11.2 Add validate command to hyde
+  - [x] 11.2 Add validate command to hyde
     - Add `mrdr hyde validate` command
     - Check all database files against schemas
     - Report validation status and errors
     - _Requirements: 8.4_
 
-  - [ ] 11.3 Write property test for validation
+  - [x] 11.3 Write property test for validation
     - **Property 15: Validation Error Handling**
     - **Validates: Requirements 8.1, 8.2, 8.3**
 
-- [ ] 12. PLUSREP Integration
-  - [ ] 12.1 Update PLUSREP schema validation
+- [x] 12. PLUSREP Integration
+  - [x] 12.1 Update PLUSREP schema validation
     - Ensure tokens pattern validation (6 chars of + and .)
     - Add rating calculation validation
     - Add label-to-rating mapping validation
     - _Requirements: 7.2, 7.3, 7.4_
 
-  - [ ] 12.2 Write property test for PLUSREP
+  - [x] 12.2 Write property test for PLUSREP
     - **Property 14: PLUSREP Consistency**
     - **Validates: Requirements 7.1, 7.2, 7.3, 7.4**
 
-- [ ] 13. Checkpoint - Schemas and loaders complete
+- [x] 13. Checkpoint - Schemas and loaders complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 14. Cross-Database Consistency
-  - [ ] 14.1 Add example_content to docstring entries
+- [x] 14. Cross-Database Consistency
+  - [x] 14.1 Add example_content to docstring entries
     - Add canonical payload examples to Python, JavaScript, Rust entries
     - Include format, purpose, user fields
     - _Requirements: 10.1, 10.2_
 
-  - [ ] 14.2 Write property test for consistency
+  - [x] 14.2 Write property test for consistency
     - **Property 17: Cross-Database Term Consistency**
     - **Property 18: Example Content Canonical Format**
     - **Validates: Requirements 9.3, 10.1, 10.2**
 
-- [ ] 15. Integration and Wiring
+- [-] 15. Integration and Wiring
   - [ ] 15.1 Update factory.py with new loaders
     - Add factory functions for new database loaders
     - Wire into hyde controller

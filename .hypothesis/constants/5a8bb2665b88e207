@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/validation.py
+# hypothesis_version: 6.148.8
+
+['all_valid', 'database_path', 'database_type', 'databases', 'details', 'entry_id', 'error', 'error_count', 'errors', 'field', 'info', 'is_valid', 'message', 'severity', 'total_entries', 'total_errors', 'total_warnings', 'valid_entries', 'warning', 'warning_count']

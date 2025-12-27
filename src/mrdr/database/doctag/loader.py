@@ -9,6 +9,8 @@ import json
 import logging
 from pathlib import Path
 
+from pydantic import ValidationError
+
 from mrdr.database.doctag.schema import (
     DOCTAG_DATABASE,
     DoctagCategory,
@@ -16,6 +18,7 @@ from mrdr.database.doctag.schema import (
     DoctagDefinition,
     DoctagEntry,
 )
+from mrdr.database.validation import ValidationResult, ValidationSeverity
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +59,17 @@ class DoctagLoader:
         self._legacy_database = DOCTAG_DATABASE
         self._loaded = False
         self._use_json = True
+        self._validation_result: ValidationResult | None = None
+
+    @property
+    def path(self) -> Path:
+        """Get the doctag database path."""
+        return self._path
+
+    @property
+    def validation_result(self) -> ValidationResult | None:
+        """Get the detailed validation result from the last load operation."""
+        return self._validation_result
 
     def load(self) -> list[DoctagEntry]:
         """Load all doctag entries from the JSON database.
@@ -75,12 +89,41 @@ class DoctagLoader:
             with open(self._path, encoding="utf-8") as f:
                 data = json.load(f)
 
+            # Initialize validation result
+            raw_doctags = data.get("doctags", [])
+            self._validation_result = ValidationResult(
+                database_type="doctags",
+                database_path=self._path,
+                total_entries=len(raw_doctags),
+            )
+
             db = DoctagDatabase.model_validate(data)
             for entry in db.doctags:
                 self._entries[entry.id.upper()] = entry
 
+            self._validation_result.valid_entries = len(self._entries)
             self._loaded = True
             return list(self._entries.values())
+
+        except ValidationError as e:
+            # Initialize validation result for error case
+            self._validation_result = ValidationResult(
+                database_type="doctags",
+                database_path=self._path,
+            )
+            for err in e.errors():
+                field_path = ".".join(str(loc) for loc in err.get("loc", []))
+                self._validation_result.add_error(
+                    entry_id="database",
+                    message=err.get("msg", "Validation failed"),
+                    field=field_path if field_path else None,
+                    severity=ValidationSeverity.ERROR,
+                    details={"type": err.get("type", "unknown")},
+                )
+            logger.warning("Failed to load doctag database: %s, using legacy", e)
+            self._use_json = False
+            self._loaded = True
+            return self._load_from_legacy()
 
         except (json.JSONDecodeError, Exception) as e:
             logger.warning("Failed to load doctag database: %s, using legacy", e)

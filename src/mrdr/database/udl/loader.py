@@ -8,7 +8,7 @@ import json
 import logging
 from pathlib import Path
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 from mrdr.database.udl.schema import (
     DOLPHIN_OPERATOR,
@@ -18,6 +18,7 @@ from mrdr.database.udl.schema import (
     UDLOperator,
 )
 from mrdr.database.udl.validator import UDLValidationError, UDLValidator
+from mrdr.database.validation import ValidationResult, ValidationSeverity
 
 logger = logging.getLogger(__name__)
 
@@ -110,6 +111,7 @@ class UDLLoader:
         
         self._entries: dict[str, UDLEntry] = {}
         self._loaded = False
+        self._validation_result: ValidationResult | None = None
 
     @property
     def path(self) -> Path:
@@ -125,6 +127,11 @@ class UDLLoader:
     def builtin_operators(self) -> list[UDLOperator]:
         """Get the list of built-in operators."""
         return [DOLPHIN_OPERATOR, WALRUS_OPERATOR]
+
+    @property
+    def validation_result(self) -> ValidationResult | None:
+        """Get the detailed validation result from the last load operation."""
+        return self._validation_result
 
     def load(self) -> list[UDLEntry]:
         """Load all UDL entries from the database.
@@ -175,7 +182,29 @@ class UDLLoader:
         with open(self._database_path, encoding="utf-8") as f:
             data = json.load(f)
 
-        db = UDLDatabase.model_validate(data)
+        # Count total entries before validation
+        total_entries = len(data.get("templates", []))
+
+        # Initialize validation result
+        self._validation_result = ValidationResult(
+            database_type="udl",
+            database_path=self._database_path,
+            total_entries=total_entries,
+        )
+
+        try:
+            db = UDLDatabase.model_validate(data)
+        except ValidationError as e:
+            for err in e.errors():
+                field_path = ".".join(str(loc) for loc in err.get("loc", []))
+                self._validation_result.add_error(
+                    entry_id="database",
+                    message=err.get("msg", "Validation failed"),
+                    field=field_path if field_path else None,
+                    severity=ValidationSeverity.ERROR,
+                    details={"type": err.get("type", "unknown")},
+                )
+            raise
 
         for template in db.templates:
             # Convert operators from dict to UDLOperator
@@ -206,6 +235,8 @@ class UDLLoader:
             )
 
             self._entries[entry.name.lower()] = entry
+
+        self._validation_result.valid_entries = len(self._entries)
 
     def _load_entry(self, file_path: Path) -> UDLEntry | None:
         """Load a single UDL entry from a JSON file.

@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/udl/loader.py
+# hypothesis_version: 6.148.8
+
+['(', ')', '*.json', ', ', '.', '<', '>', 'Closing bracket', 'Closing delimiter', 'Examples', 'Opening bracket', 'Opening delimiter', 'Operators', 'Target language', 'UDL', 'UDL description', 'UDL identifier name', 'UDL title', 'Validation failed', 'bracket_close', 'bracket_open', 'close', 'created_at', 'database', 'definition', 'delimiter_close', 'delimiter_open', 'descr', 'examples', 'lang', 'loc', 'msg', 'name', 'none', 'open', 'operators', 'templates', 'title', 'type', 'udl', 'udl_database.json', 'unknown', 'utf-8', 'w']
