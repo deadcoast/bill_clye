@@ -1,0 +1,76 @@
+{
+  "manifest": {
+    "manifest_name": "UDL Templates Database",
+    "version": "1.0.0",
+    "schema_origin": "database/languages/udl/udl_template.md",
+    "entry_count": 3,
+    "last_updated": "2025-01-01"
+  },
+  "templates": [
+    {
+      "name": "pindx",
+      "title": "Pointy-Numerical-Index",
+      "description": "Hierarchal, Numerical based BRACKET index",
+      "language": "UDL",
+      "delimiter_open": "<",
+      "delimiter_close": ">",
+      "bracket_open": "(",
+      "bracket_close": ")",
+      "operators": [
+        {
+          "name": "dolphin",
+          "open": "<:",
+          "close": ":>"
+        },
+        {
+          "name": "walrus",
+          "open": ":=",
+          "close": "=:"
+        }
+      ],
+      "examples": [
+        "<(1)\n  CLAIM:{\n    sky_color:\"The color of the observable sky is blue during the day\"\n      objective_acceptance:[\n        \"No further specification given, the sky is blue.\",\n        \"The sky is blue almost always, the claim obviously corresponds to the way humans witness the sky majority of time.\"\n        ],\n      semantics:[\n        \"They sky is grey when its overcast at daytime\",\n        \"One could argue the sky is orange during a sunset\"\n        ]\n    },\n\n<(2)\n  CLAIM:{\n    hand_fingers:\"Humans have 5 fingers on each hand\"\n      objective_acceptance:[\n        \"Humans have 5 fingers on each hand\",\n        ],\n      semantics:[\n        \"Humans have 4 fingers and one thumb\"\n        ]\n    },\n>"
+      ]
+    },
+    {
+      "name": "dolphin",
+      "title": "Dolphin Operator Variant",
+      "description": "UDL variant using dolphin operator delimiters <: and :>",
+      "language": "UDL",
+      "delimiter_open": "<",
+      "delimiter_close": ">",
+      "bracket_open": "(",
+      "bracket_close": ")",
+      "operators": [
+        {
+          "name": "dolphin",
+          "open": "<:",
+          "close": ":>"
+        }
+      ],
+      "examples": [
+        "<:(1)\nThe context of the docstring here\n:>"
+      ]
+    },
+    {
+      "name": "walrus",
+      "title": "Walrus Operator Variant",
+      "description": "UDL variant using walrus operator delimiters := and =:",
+      "language": "UDL",
+      "delimiter_open": ":",
+      "delimiter_close": ":",
+      "bracket_open": "(",
+      "bracket_close": ")",
+      "operators": [
+        {
+          "name": "walrus",
+          "open": ":=",
+          "close": "=:"
+        }
+      ],
+      "examples": [
+        ":=(1)\nThe context of the docstring here\n=:"
+      ]
+    }
+  ]
+}
