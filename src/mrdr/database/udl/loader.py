@@ -8,6 +8,8 @@ import json
 import logging
 from pathlib import Path
 
+from pydantic import BaseModel, Field
+
 from mrdr.database.udl.schema import (
     DOLPHIN_OPERATOR,
     WALRUS_OPERATOR,
@@ -20,6 +22,39 @@ from mrdr.database.udl.validator import UDLValidationError, UDLValidator
 logger = logging.getLogger(__name__)
 
 DEFAULT_UDL_PATH = Path("database/languages/udl")
+DEFAULT_UDL_DATABASE_PATH = Path("database/languages/udl/udl_database.json")
+
+
+class UDLTemplateEntry(BaseModel):
+    """UDL template entry from the database JSON."""
+
+    name: str = Field(..., description="UDL identifier name")
+    title: str = Field(..., description="UDL title")
+    description: str = Field(..., description="UDL description")
+    language: str = Field(default="UDL", description="Target language")
+    delimiter_open: str = Field(..., description="Opening delimiter")
+    delimiter_close: str = Field(..., description="Closing delimiter")
+    bracket_open: str = Field(default="(", description="Opening bracket")
+    bracket_close: str = Field(default=")", description="Closing bracket")
+    operators: list[dict] = Field(default_factory=list, description="Operators")
+    examples: list[str] = Field(default_factory=list, description="Examples")
+
+
+class UDLDatabaseManifest(BaseModel):
+    """UDL database manifest."""
+
+    manifest_name: str
+    version: str
+    schema_origin: str
+    entry_count: int | None = None
+    last_updated: str | None = None
+
+
+class UDLDatabase(BaseModel):
+    """UDL templates database."""
+
+    manifest: UDLDatabaseManifest
+    templates: list[UDLTemplateEntry] = Field(default_factory=list)
 
 
 class UDLNotFoundError(Exception):
@@ -40,18 +75,39 @@ class UDLNotFoundError(Exception):
 class UDLLoader:
     """Loads and manages UDL definitions from the database.
 
-    UDL definitions can be stored as JSON files in the UDL directory.
+    UDL definitions can be loaded from the consolidated udl_database.json
+    or from individual JSON files in the UDL directory.
     The loader also provides access to built-in operators.
     """
 
-    def __init__(self, udl_path: Path | str | None = None) -> None:
+    def __init__(
+        self,
+        udl_path: Path | str | None = None,
+        database_path: Path | str | None = None,
+    ) -> None:
         """Initialize the UDL loader.
 
         Args:
             udl_path: Path to the UDL directory.
                      Defaults to database/languages/udl/
+            database_path: Path to the consolidated UDL database JSON file.
+                          Defaults to database/languages/udl/udl_database.json
+                          If udl_path is provided, database_path defaults to
+                          udl_path/udl_database.json
         """
         self._path = Path(udl_path) if udl_path else DEFAULT_UDL_PATH
+        
+        # If custom udl_path is provided, look for database in that directory
+        if udl_path is not None:
+            self._database_path = (
+                Path(database_path) if database_path 
+                else self._path / "udl_database.json"
+            )
+        else:
+            self._database_path = (
+                Path(database_path) if database_path else DEFAULT_UDL_DATABASE_PATH
+            )
+        
         self._entries: dict[str, UDLEntry] = {}
         self._loaded = False
 
@@ -61,25 +117,49 @@ class UDLLoader:
         return self._path
 
     @property
+    def database_path(self) -> Path:
+        """Get the UDL database file path."""
+        return self._database_path
+
+    @property
     def builtin_operators(self) -> list[UDLOperator]:
         """Get the list of built-in operators."""
         return [DOLPHIN_OPERATOR, WALRUS_OPERATOR]
 
     def load(self) -> list[UDLEntry]:
-        """Load all UDL entries from the directory.
+        """Load all UDL entries from the database.
+
+        First attempts to load from the consolidated udl_database.json,
+        then falls back to loading individual JSON files.
 
         Returns:
             A list of all valid UDL entries.
         """
         self._entries = {}
 
+        # Try loading from consolidated database first
+        if self._database_path.exists():
+            try:
+                self._load_from_database()
+                self._loaded = True
+                return list(self._entries.values())
+            except (json.JSONDecodeError, Exception) as e:
+                logger.warning(
+                    "Failed to load UDL database from %s: %s, falling back to individual files",
+                    self._database_path,
+                    e,
+                )
+
+        # Fall back to loading individual JSON files
         if not self._path.exists():
             logger.warning("UDL directory not found: %s", self._path)
             self._loaded = True
             return []
 
-        # Load JSON files from the UDL directory
         for json_file in self._path.glob("*.json"):
+            # Skip the database file itself
+            if json_file.name == "udl_database.json":
+                continue
             try:
                 entry = self._load_entry(json_file)
                 if entry:
@@ -89,6 +169,43 @@ class UDLLoader:
 
         self._loaded = True
         return list(self._entries.values())
+
+    def _load_from_database(self) -> None:
+        """Load entries from the consolidated udl_database.json file."""
+        with open(self._database_path, encoding="utf-8") as f:
+            data = json.load(f)
+
+        db = UDLDatabase.model_validate(data)
+
+        for template in db.templates:
+            # Convert operators from dict to UDLOperator
+            operators = [
+                UDLOperator(
+                    name=op.get("name", ""),
+                    open=op.get("open", ""),
+                    close=op.get("close", ""),
+                )
+                for op in template.operators
+            ]
+
+            definition = UDLDefinition(
+                title=template.title,
+                descr=template.description,
+                lang=template.language,
+                delimiter_open=template.delimiter_open,
+                delimiter_close=template.delimiter_close,
+                bracket_open=template.bracket_open,
+                bracket_close=template.bracket_close,
+                operators=operators,
+            )
+
+            entry = UDLEntry(
+                name=template.name,
+                definition=definition,
+                examples=template.examples,
+            )
+
+            self._entries[entry.name.lower()] = entry
 
     def _load_entry(self, file_path: Path) -> UDLEntry | None:
         """Load a single UDL entry from a JSON file.
@@ -165,6 +282,17 @@ class UDLLoader:
             self.load()
 
         return sorted(set(self._entries.keys()))
+
+    def get_all(self) -> list[UDLEntry]:
+        """Get all UDL entries.
+
+        Returns:
+            List of all UDLEntry objects.
+        """
+        if not self._loaded:
+            self.load()
+
+        return list(self._entries.values())
 
     def save_udl(self, entry: UDLEntry) -> Path:
         """Save a UDL entry to the database.

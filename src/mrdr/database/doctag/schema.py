@@ -7,10 +7,19 @@ doctag database as defined in docs/doctags.md.
 from dataclasses import dataclass
 from enum import Enum
 
+from pydantic import BaseModel, Field
+
 
 class DoctagCategory(str, Enum):
     """Doctag category types."""
 
+    DDL = "DDL"  # Delimiters
+    GRM = "GRM"  # Grammar
+    IDC = "IDC"  # Inter-Document Commands
+    FMT = "FMT"  # Formatting
+    DOC = "DOC"  # Document Spec
+
+    # Legacy aliases for backward compatibility
     DELIMITER = "DDL"
     GRAMMAR = "GRM"
     INTER_DOC = "IDC"
@@ -18,9 +27,36 @@ class DoctagCategory(str, Enum):
     DOC_SPEC = "DOC"
 
 
+class DoctagEntry(BaseModel):
+    """Pydantic model for doctag database entry.
+
+    Attributes:
+        id: Tag identifier (e.g., "DDL01", "GRM05").
+        symbol: The symbol or token (e.g., "+", "rstr").
+        short_name: Short NLP identifier (e.g., "ADDTACH", "RESTRICTIONS").
+        description: Full description of the tag.
+        category: The doctag category (DDL, GRM, IDC, FMT, DOC).
+        example: Optional usage example.
+    """
+
+    id: str = Field(..., pattern=r"^(DDL|GRM|IDC|FMT|DOC)\d{2}$")
+    symbol: str = Field(..., description="The delimiter or symbol")
+    short_name: str = Field(..., description="Short identifier (SCREAMINGSNAKE)")
+    description: str = Field(..., description="Tag description")
+    category: DoctagCategory = Field(..., description="Tag category")
+    example: str | None = Field(None, description="Usage example")
+
+
+class DoctagDatabase(BaseModel):
+    """Complete doctag database model."""
+
+    manifest: dict = Field(..., description="Database manifest")
+    doctags: list[DoctagEntry] = Field(default_factory=list)
+
+
 @dataclass
 class DoctagDefinition:
-    """A single doctag definition.
+    """A single doctag definition (legacy dataclass).
 
     Attributes:
         id: Tag identifier (e.g., "DDL01", "GRM05").

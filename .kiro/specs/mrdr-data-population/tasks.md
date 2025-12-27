@@ -204,48 +204,48 @@ This implementation plan transforms the MRDR Data Population design into actiona
 - [x] 9. Checkpoint - UDL and Conflict databases complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 10. Schema and Loader Updates
-  - [ ] 10.1 Update doctag schema
+- [x] 10. Schema and Loader Updates
+  - [x] 10.1 Update doctag schema
     - Update `src/mrdr/database/doctag/schema.py` with DoctagEntry model
     - Add DoctagCategory enum with DDL, GRM, IDC, FMT, DOC
     - _Requirements: 2.7_
 
-  - [ ] 10.2 Update doctag loader
+  - [x] 10.2 Update doctag loader
     - Update `src/mrdr/database/doctag/loader.py` to load from new JSON path
     - Implement list_by_category method
     - _Requirements: 2.1_
 
-  - [ ] 10.3 Create dictionary schema
+  - [x] 10.3 Create dictionary schema
     - Create `src/mrdr/database/dictionary/schema.py`
     - Add DictionaryEntry, DictionaryDatabase models
     - _Requirements: 3.6_
 
-  - [ ] 10.4 Create dictionary loader
+  - [x] 10.4 Create dictionary loader
     - Create `src/mrdr/database/dictionary/loader.py`
     - Implement load, get_term, get_hierarchy_path methods
     - _Requirements: 3.1_
 
-  - [ ] 10.5 Create Python styles schema
+  - [x] 10.5 Create Python styles schema
     - Create `src/mrdr/database/python_styles/schema.py`
     - Add PythonStyleEntry, PythonStyleMarker models
     - _Requirements: 4.7_
 
-  - [ ] 10.6 Create Python styles loader
+  - [x] 10.6 Create Python styles loader
     - Create `src/mrdr/database/python_styles/loader.py`
     - Implement load, get_style methods
     - _Requirements: 4.1_
 
-  - [ ] 10.7 Create conflict schema
+  - [x] 10.7 Create conflict schema
     - Create `src/mrdr/database/conflict/schema.py`
     - Add ConflictEntry, ConflictDatabase models
     - _Requirements: 6.5_
 
-  - [ ] 10.8 Create conflict loader
+  - [x] 10.8 Create conflict loader
     - Create `src/mrdr/database/conflict/loader.py`
     - Implement load, get_conflict_for_language methods
     - _Requirements: 6.1_
 
-  - [ ] 10.9 Update UDL loader
+  - [x] 10.9 Update UDL loader
     - Update `src/mrdr/database/udl/loader.py` to load from new JSON path
     - _Requirements: 5.1_
 
