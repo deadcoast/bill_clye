@@ -268,8 +268,13 @@ def test_conflict_table_display(conflicts: list[SyntaxConflict]) -> None:
             f"Table should contain delimiter '{conflict.delimiter}'"
         # Resolution may be truncated in table display, check prefix
         # Rich tables truncate long text with ellipsis
-        resolution_prefix = conflict.resolution[:10] if len(conflict.resolution) > 10 else conflict.resolution
-        assert resolution_prefix in table_output or "…" in table_output, \
+        # Also, Rich markup like [a] may be stripped from the output
+        # So we check for alphanumeric prefix only
+        import re
+        resolution_alphanum = re.sub(r'\[.*?\]', '', conflict.resolution)  # Strip markup-like patterns
+        resolution_prefix = resolution_alphanum[:10] if len(resolution_alphanum) > 10 else resolution_alphanum
+        # Check if prefix is in output, or if truncation indicator is present, or if resolution is empty after stripping
+        assert resolution_prefix in table_output or "…" in table_output or not resolution_prefix, \
             f"Table should contain resolution or truncation indicator"
         # At least one language should appear
         assert any(lang in table_output for lang in conflict.languages), \
