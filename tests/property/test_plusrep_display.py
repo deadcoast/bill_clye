@@ -83,7 +83,7 @@ def test_plusrep_display_in_jekyl_show() -> None:
         plusrep=PlusrepGrade(
             tokens="+++...",
             rating=1,
-            label="FAIR",
+            label="GREAT",  # Rating 1 maps to GREAT per schema
         ),
     )
     
@@ -97,7 +97,7 @@ def test_plusrep_display_in_jekyl_show() -> None:
     assert "..." in plain_text
     
     # Should contain label
-    assert "FAIR" in plain_text
+    assert "GREAT" in plain_text
     
     # Should contain rating
     assert "+1" in plain_text
@@ -109,29 +109,36 @@ def test_plusrep_display_grade_flag_no_plusrep() -> None:
     renderer = RichRenderer()
     jekyl = JekylController(hyde=hyde, renderer=renderer)
     
-    # Python doesn't have plusrep in the database
-    entry = hyde.query("Python")
-    assert entry.plusrep is None, "Python should not have plusrep for this test"
+    # TypeScript doesn't have plusrep in the database
+    entry = hyde.query("TypeScript")
+    assert entry.plusrep is None, "TypeScript should not have plusrep for this test"
     
     # Show with grade flag should not error
     options = ShowOptions(grade=True)
-    output = jekyl.show("Python", options)
+    output = jekyl.show("TypeScript", options)
     
     # Should still produce valid output
-    assert "Python" in output
+    assert "TypeScript" in output
     assert len(output) > 0
 
 
 def test_plusrep_display_all_rating_labels() -> None:
-    """Test that all rating labels are displayed correctly."""
+    """Test that all rating labels are displayed correctly.
+    
+    Labels per schema:
+    - MAXIMUM: +4 (6 plus)
+    - GREAT: +1 to +3 (3-5 plus)
+    - SLOPPY: -1 to 0 (1-2 plus)
+    - REJECTED: -2 (0 plus)
+    """
     test_cases = [
-        ("++++++", "MAXIMUM"),
-        ("+++++.", "GREAT"),
-        ("++++..", "GOOD"),
-        ("+++...", "FAIR"),
-        ("++....", "SLOPPY"),
-        ("+.....", "POOR"),
-        ("......", "RESET"),
+        ("++++++", "MAXIMUM"),   # rating +4
+        ("+++++.", "GREAT"),     # rating +3
+        ("++++..", "GREAT"),     # rating +2
+        ("+++...", "GREAT"),     # rating +1
+        ("++....", "SLOPPY"),    # rating 0
+        ("+.....", "SLOPPY"),    # rating -1
+        ("......", "REJECTED"),  # rating -2
     ]
     
     for tokens, expected_label in test_cases:

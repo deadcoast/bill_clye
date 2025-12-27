@@ -14,14 +14,19 @@ from mrdr.database.schema import PlusrepGrade
 
 
 # Rating labels based on count of '+' tokens
+# Must match schema.py get_label_for_rating() function:
+# - MAXIMUM: +4
+# - GREAT: +1 to +3
+# - SLOPPY: -1 to 0
+# - REJECTED: -2
 RATING_LABELS = {
     4: "MAXIMUM",
     3: "GREAT",
-    2: "GOOD",
-    1: "FAIR",
+    2: "GREAT",
+    1: "GREAT",
     0: "SLOPPY",
-    -1: "POOR",
-    -2: "RESET",
+    -1: "SLOPPY",
+    -2: "REJECTED",
 }
 
 

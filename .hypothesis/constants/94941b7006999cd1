@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/dictionary/__init__.py
+# hypothesis_version: 6.148.8
+
+['DictionaryDatabase', 'DictionaryEntry', 'HierarchyLevel']

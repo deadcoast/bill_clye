@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/python_styles/schema.py
+# hypothesis_version: 6.148.8
+
+['1.0.0', 'Database manifest', 'Database version', 'Last update date', 'Name of the manifest', 'Number of entries', 'Style description', 'Style-specific rules']

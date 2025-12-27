@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/controllers/hyde.py
+# hypothesis_version: 6.148.8
+
+['attachment_location', 'carrier_type', 'category', 'conflict_id', 'conflict_ref', 'conflicts', 'database', 'delimiter', 'dictionary', 'docstrings', 'doctags', 'end', 'example_content', 'export', 'export_all', 'format', 'get_all_conflicts', 'get_all_doctags', 'get_conflict', 'get_dictionary_term', 'get_doctag', 'get_python_style', 'inspect', 'json', 'label', 'language', 'level', 'list', 'list_conflicts', 'list_doctags', 'list_python_styles', 'marker_name', 'metadata', 'name', 'parsing_rule', 'plusrep', 'python_styles', 'query', 'rating', 'search_conflicts', 'search_dictionary', 'search_doctags', 'search_python_styles', 'start', 'syntax_signature', 'tag_id', 'tags', 'tokens', 'udl', 'validate', 'validate_all', 'yaml']

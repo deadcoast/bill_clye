@@ -15,7 +15,12 @@ from rich.console import Console
 from mrdr.config.loader import ConfigLoader
 from mrdr.controllers.hyde import HydeController
 from mrdr.controllers.jekyl import JekylController
+from mrdr.database.conflict.loader import ConflictLoader
+from mrdr.database.dictionary.loader import DictionaryLoader
+from mrdr.database.doctag.loader import DoctagLoader
 from mrdr.database.loader import DatabaseLoader
+from mrdr.database.python_styles.loader import PythonStylesLoader
+from mrdr.database.udl.loader import UDLLoader
 from mrdr.render.base import Renderer
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.render.plain_renderer import PlainRenderer
@@ -26,6 +31,11 @@ from mrdr.render.rich_renderer import RichRenderer
 _config_loader: Optional[ConfigLoader] = None
 _database_loader: Optional[DatabaseLoader] = None
 _hyde_controller: Optional[HydeController] = None
+_doctag_loader: Optional[DoctagLoader] = None
+_dictionary_loader: Optional[DictionaryLoader] = None
+_python_styles_loader: Optional[PythonStylesLoader] = None
+_conflict_loader: Optional[ConflictLoader] = None
+_udl_loader: Optional[UDLLoader] = None
 
 
 def get_config_loader(config_path: Optional[Path] = None) -> ConfigLoader:
@@ -78,6 +88,85 @@ def get_hyde_controller(database_path: Optional[Path] = None) -> HydeController:
     if _hyde_controller is None or database_path is not None:
         _hyde_controller = HydeController(database_path=database_path)
     return _hyde_controller
+
+
+def get_doctag_loader(database_path: Optional[Path] = None) -> DoctagLoader:
+    """Get or create the DoctagLoader singleton.
+
+    Args:
+        database_path: Optional custom path to doctag database file.
+
+    Returns:
+        DoctagLoader instance.
+    """
+    global _doctag_loader
+    if _doctag_loader is None or database_path is not None:
+        _doctag_loader = DoctagLoader(database_path)
+    return _doctag_loader
+
+
+def get_dictionary_loader(database_path: Optional[Path] = None) -> DictionaryLoader:
+    """Get or create the DictionaryLoader singleton.
+
+    Args:
+        database_path: Optional custom path to dictionary database file.
+
+    Returns:
+        DictionaryLoader instance.
+    """
+    global _dictionary_loader
+    if _dictionary_loader is None or database_path is not None:
+        _dictionary_loader = DictionaryLoader(database_path)
+    return _dictionary_loader
+
+
+def get_python_styles_loader(database_path: Optional[Path] = None) -> PythonStylesLoader:
+    """Get or create the PythonStylesLoader singleton.
+
+    Args:
+        database_path: Optional custom path to Python styles database file.
+
+    Returns:
+        PythonStylesLoader instance.
+    """
+    global _python_styles_loader
+    if _python_styles_loader is None or database_path is not None:
+        _python_styles_loader = PythonStylesLoader(database_path)
+    return _python_styles_loader
+
+
+def get_conflict_loader(database_path: Optional[Path] = None) -> ConflictLoader:
+    """Get or create the ConflictLoader singleton.
+
+    Args:
+        database_path: Optional custom path to conflict database file.
+
+    Returns:
+        ConflictLoader instance.
+    """
+    global _conflict_loader
+    if _conflict_loader is None or database_path is not None:
+        _conflict_loader = ConflictLoader(database_path)
+    return _conflict_loader
+
+
+def get_udl_loader(
+    udl_path: Optional[Path] = None,
+    database_path: Optional[Path] = None,
+) -> UDLLoader:
+    """Get or create the UDLLoader singleton.
+
+    Args:
+        udl_path: Optional custom path to UDL directory.
+        database_path: Optional custom path to UDL database file.
+
+    Returns:
+        UDLLoader instance.
+    """
+    global _udl_loader
+    if _udl_loader is None or udl_path is not None or database_path is not None:
+        _udl_loader = UDLLoader(udl_path, database_path)
+    return _udl_loader
 
 
 def create_renderer(
@@ -149,15 +238,27 @@ def reset_singletons() -> None:
     fresh instances.
     """
     global _config_loader, _database_loader, _hyde_controller
+    global _doctag_loader, _dictionary_loader, _python_styles_loader
+    global _conflict_loader, _udl_loader
     _config_loader = None
     _database_loader = None
     _hyde_controller = None
+    _doctag_loader = None
+    _dictionary_loader = None
+    _python_styles_loader = None
+    _conflict_loader = None
+    _udl_loader = None
 
 
 __all__ = [
     "get_config_loader",
     "get_database_loader",
     "get_hyde_controller",
+    "get_doctag_loader",
+    "get_dictionary_loader",
+    "get_python_styles_loader",
+    "get_conflict_loader",
+    "get_udl_loader",
     "create_renderer",
     "create_jekyl_controller",
     "reset_singletons",

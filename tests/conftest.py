@@ -40,19 +40,25 @@ plusrep_tokens_strategy = st.text(alphabet=["+", "."], min_size=6, max_size=6)
 # Strategy for valid PLUSREP grades
 @st.composite
 def plusrep_grade_strategy(draw: st.DrawFn) -> dict:
-    """Generate valid PLUSREP grade data."""
+    """Generate valid PLUSREP grade data.
+    
+    Labels per schema:
+    - MAXIMUM: +4 (6 plus)
+    - GREAT: +1 to +3 (3-5 plus)
+    - SLOPPY: -1 to 0 (1-2 plus)
+    - REJECTED: -2 (0 plus)
+    """
     tokens = draw(plusrep_tokens_strategy)
     rating = tokens.count("+") - 2
-    labels = {
-        4: "MAXIMUM",
-        3: "GREAT",
-        2: "GOOD",
-        1: "FAIR",
-        0: "SLOPPY",
-        -1: "POOR",
-        -2: "RESET",
-    }
-    label = labels.get(rating, "UNKNOWN")
+    # Labels must match schema.py get_label_for_rating()
+    if rating >= 4:
+        label = "MAXIMUM"
+    elif rating >= 1:
+        label = "GREAT"
+    elif rating >= -1:
+        label = "SLOPPY"
+    else:
+        label = "REJECTED"
     return {"tokens": tokens, "rating": rating, "label": label}
 
 

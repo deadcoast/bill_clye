@@ -19,11 +19,16 @@ from mrdr.cli.error_handlers import (
     handle_mrdr_error,
 )
 from mrdr.controllers.jekyl import ShowOptions
-from mrdr.database.doctag import DoctagLoader
 from mrdr.database.doctag.loader import DoctagNotFoundError
-from mrdr.database.udl import UDLLoader
 from mrdr.database.udl.loader import UDLNotFoundError
-from mrdr.factory import create_jekyl_controller
+from mrdr.factory import (
+    create_jekyl_controller,
+    get_conflict_loader,
+    get_doctag_loader,
+    get_dictionary_loader,
+    get_python_styles_loader,
+    get_udl_loader,
+)
 from mrdr.render.doctag_renderer import DoctagEntry, DoctagRenderer
 from mrdr.render.json_renderer import JSONRenderer
 from mrdr.utils.errors import LanguageNotFoundError, MRDRError
@@ -183,7 +188,7 @@ def _show_udl(name: str, start_time: float) -> None:
     import json as json_module
     
     console = state.console
-    loader = UDLLoader()
+    loader = get_udl_loader()
     
     try:
         entry = loader.get_entry(name)
@@ -334,7 +339,7 @@ def doctag(
     """
     start_time = time.time()
     console = state.console
-    loader = DoctagLoader()
+    loader = get_doctag_loader()
     
     try:
         tag = loader.get(tag_id)
@@ -518,19 +523,23 @@ def conflicts() -> None:
     pattern but with different attachment rules (e.g., Python vs Julia
     both use triple quotes but attach differently).
     """
-    from mrdr.render.components import ConflictDisplay, KNOWN_CONFLICTS
+    from mrdr.render.components import ConflictDisplay
     
     start_time = time.time()
     console = state.console
     display = ConflictDisplay()
     
     try:
+        # Load conflicts from the database
+        loader = get_conflict_loader()
+        conflict_entries = loader.get_all()
         elapsed = (time.time() - start_time) * 1000
         
         if state.json:
             conflicts_data = []
-            for conflict in KNOWN_CONFLICTS:
+            for conflict in conflict_entries:
                 conflicts_data.append({
+                    "id": conflict.id,
                     "delimiter": conflict.delimiter,
                     "languages": conflict.languages,
                     "resolution": conflict.resolution,
@@ -706,6 +715,395 @@ def table(
             
     except FileNotFoundError as e:
         console.print(f"[red]Error:[/red] Database not found: {e}")
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)
+
+
+@jekyl_app.command("pystyle")
+def pystyle(
+    style_name: str = typer.Argument(
+        ...,
+        help="Python docstring style name (sphinx, google, numpy, epytext, pep257).",
+    ),
+) -> None:
+    """Display Python docstring style definition with examples.
+    
+    Shows the markers, template code, and rules for a specific
+    Python docstring style.
+    
+    Available styles:
+    - sphinx: reStructuredText style with :param:, :type:, :return:, :rtype:
+    - google: Google style with Args:, Returns: sections
+    - numpy: NumPy style with Parameters, Returns headers and dashes
+    - epytext: Epytext style with @param, @type, @return markers
+    - pep257: Minimal PEP 257 style
+    """
+    from mrdr.database.python_styles.loader import PythonStyleNotFoundError
+    
+    start_time = time.time()
+    console = state.console
+    loader = get_python_styles_loader()
+    
+    try:
+        style = loader.get_style(style_name)
+        elapsed = (time.time() - start_time) * 1000
+        
+        if state.json:
+            markers_data = [
+                {"name": m.name, "syntax": m.syntax, "description": m.description}
+                for m in style.markers
+            ]
+            output = json_module.dumps({
+                "name": style.name,
+                "description": style.description,
+                "markers": markers_data,
+                "template_code": style.template_code,
+                "rules": style.rules,
+            }, indent=2)
+            console.print(output)
+        elif state.should_use_plain():
+            console.print(f"Style: {style.name}")
+            console.print(f"Description: {style.description}")
+            console.print()
+            console.print("Markers:")
+            for marker in style.markers:
+                console.print(f"  {marker.name}: {marker.syntax}")
+                console.print(f"    {marker.description}")
+            console.print()
+            console.print("Template:")
+            console.print(style.template_code)
+            console.print()
+            console.print("Rules:")
+            for rule in style.rules:
+                console.print(f"  - {rule}")
+        else:
+            # Rich output
+            from rich.syntax import Syntax
+            
+            table = Table(show_header=False, box=None, padding=(0, 1))
+            table.add_column("Field", style="cyan", width=15)
+            table.add_column("Value")
+            
+            table.add_row("Style", Text(style.name.upper(), style="bold green"))
+            table.add_row("Description", style.description)
+            
+            # Markers
+            if style.markers:
+                markers_text = Text()
+                for i, marker in enumerate(style.markers):
+                    if i > 0:
+                        markers_text.append("\n")
+                    markers_text.append(f"{marker.name}: ", style="cyan")
+                    markers_text.append(f"{marker.syntax}", style="yellow")
+                table.add_row("Markers", markers_text)
+            
+            # Rules
+            if style.rules:
+                rules_text = Text()
+                for i, rule in enumerate(style.rules):
+                    if i > 0:
+                        rules_text.append("\n")
+                    rules_text.append(f"• {rule}", style="dim")
+                table.add_row("Rules", rules_text)
+            
+            console.print(Panel(
+                table,
+                title=f"[bold]Python Style: {style.name.upper()}[/bold]",
+                border_style="cyan",
+            ))
+            
+            # Show template code
+            if style.template_code:
+                syntax = Syntax(
+                    style.template_code,
+                    "python",
+                    theme="monokai",
+                    line_numbers=True,
+                )
+                console.print(Panel(
+                    syntax,
+                    title="[bold]Template Code[/bold]",
+                    border_style="green",
+                ))
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+            
+    except PythonStyleNotFoundError as e:
+        if state.json:
+            console.print(json_module.dumps({
+                "error": "Python style not found",
+                "style": style_name,
+                "available": e.available,
+            }, indent=2))
+        else:
+            console.print(f"[red]Error:[/red] Python style '{style_name}' not found.")
+            if e.available:
+                console.print(f"[dim]Available styles: {', '.join(e.available)}[/dim]")
+        raise typer.Exit(1)
+    except FileNotFoundError:
+        console.print("[red]Error:[/red] Python styles database not found.")
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)
+
+
+@jekyl_app.command("pystyles")
+def pystyles() -> None:
+    """List all available Python docstring styles.
+    
+    Shows a summary table of all Python docstring styles with their
+    key markers and descriptions.
+    """
+    start_time = time.time()
+    console = state.console
+    loader = get_python_styles_loader()
+    
+    try:
+        styles = loader.get_all()
+        elapsed = (time.time() - start_time) * 1000
+        
+        if state.json:
+            styles_data = []
+            for style in styles:
+                markers_data = [
+                    {"name": m.name, "syntax": m.syntax}
+                    for m in style.markers
+                ]
+                styles_data.append({
+                    "name": style.name,
+                    "description": style.description,
+                    "markers": markers_data,
+                })
+            console.print(json_module.dumps({
+                "styles": styles_data,
+                "count": len(styles_data),
+            }, indent=2))
+        elif state.should_use_plain():
+            console.print("Python Docstring Styles:")
+            console.print()
+            for style in styles:
+                console.print(f"{style.name}:")
+                console.print(f"  {style.description}")
+                if style.markers:
+                    markers = ", ".join(m.syntax for m in style.markers[:3])
+                    console.print(f"  Markers: {markers}")
+                console.print()
+        else:
+            # Rich output
+            table = Table(title="Python Docstring Styles", show_header=True)
+            table.add_column("Style", style="cyan")
+            table.add_column("Description")
+            table.add_column("Key Markers", style="yellow")
+            
+            for style in styles:
+                markers = ", ".join(m.syntax for m in style.markers[:3])
+                if len(style.markers) > 3:
+                    markers += "..."
+                table.add_row(style.name.upper(), style.description, markers)
+            
+            console.print(table)
+            console.print(f"\n[dim]Total: {len(styles)} styles[/dim]")
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+            
+    except FileNotFoundError:
+        console.print("[red]Error:[/red] Python styles database not found.")
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)
+
+
+@jekyl_app.command("dict")
+def dictionary_lookup(
+    term: str = typer.Argument(
+        ...,
+        help="Dictionary term to look up (name or alias).",
+    ),
+) -> None:
+    """Look up a term in the MRDR dictionary hierarchy.
+    
+    Shows the term definition, hierarchy level, and path from root.
+    
+    Hierarchy levels:
+    - grandparent: Top-level functions (NOTE, CLAIM, LANG_USE, etc.)
+    - parent: Parent commands (apd, objacc)
+    - child: Child functions (sem, def, dstr, etc.)
+    - grandchild: Grandchild entries (val, value)
+    """
+    from mrdr.database.dictionary.loader import DictionaryNotFoundError
+    
+    start_time = time.time()
+    console = state.console
+    loader = get_dictionary_loader()
+    
+    try:
+        entry = loader.get_term(term)
+        path = loader.get_hierarchy_path(term)
+        elapsed = (time.time() - start_time) * 1000
+        
+        if state.json:
+            path_data = [
+                {"name": p.name, "alias": p.alias, "level": p.level.value}
+                for p in path
+            ]
+            output = json_module.dumps({
+                "name": entry.name,
+                "alias": entry.alias,
+                "level": entry.level.value,
+                "description": entry.description,
+                "children": entry.children,
+                "hierarchy_path": path_data,
+            }, indent=2)
+            console.print(output)
+        elif state.should_use_plain():
+            console.print(f"Term: {entry.name}")
+            console.print(f"Alias: {entry.alias}")
+            console.print(f"Level: {entry.level.value}")
+            console.print(f"Description: {entry.description}")
+            if entry.children:
+                console.print(f"Children: {', '.join(entry.children)}")
+            if path:
+                path_str = " > ".join(p.name for p in path)
+                console.print(f"Path: {path_str}")
+        else:
+            # Rich output
+            table = Table(show_header=False, box=None, padding=(0, 1))
+            table.add_column("Field", style="cyan", width=15)
+            table.add_column("Value")
+            
+            table.add_row("Term", Text(entry.name, style="bold green"))
+            table.add_row("Alias", Text(entry.alias, style="yellow"))
+            table.add_row("Level", Text(entry.level.value, style="magenta"))
+            table.add_row("Description", entry.description)
+            
+            if entry.children:
+                children_text = ", ".join(entry.children)
+                table.add_row("Children", Text(children_text, style="dim"))
+            
+            console.print(Panel(
+                table,
+                title=f"[bold]Dictionary: {entry.name}[/bold]",
+                border_style="cyan",
+            ))
+            
+            # Show hierarchy path
+            if path and len(path) > 1:
+                path_text = Text()
+                path_text.append("\nHierarchy Path:\n", style="bold")
+                for i, p in enumerate(path):
+                    indent = "  " * i
+                    if i == len(path) - 1:
+                        path_text.append(f"{indent}└── ", style="dim")
+                        path_text.append(f"{p.name}", style="bold green")
+                    else:
+                        path_text.append(f"{indent}├── ", style="dim")
+                        path_text.append(f"{p.name}\n", style="cyan")
+                console.print(path_text)
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+            
+    except DictionaryNotFoundError as e:
+        if state.json:
+            console.print(json_module.dumps({
+                "error": "Dictionary term not found",
+                "term": term,
+                "available": e.available[:10],
+            }, indent=2))
+        else:
+            console.print(f"[red]Error:[/red] Dictionary term '{term}' not found.")
+            if e.available:
+                console.print(f"[dim]Available terms: {', '.join(e.available[:10])}...[/dim]")
+        raise typer.Exit(1)
+    except FileNotFoundError:
+        console.print("[red]Error:[/red] Dictionary database not found.")
+        raise typer.Exit(1)
+    except Exception as e:
+        display_unexpected_error(e, console, state.json, state.debug)
+        raise typer.Exit(1)
+
+
+@jekyl_app.command("dictlist")
+def dictionary_list(
+    level: str = typer.Option(
+        None,
+        "--level",
+        "-l",
+        help="Filter by hierarchy level (grandparent, parent, child, grandchild).",
+    ),
+) -> None:
+    """List all terms in the MRDR dictionary hierarchy.
+    
+    Shows all dictionary terms organized by hierarchy level.
+    Use --level to filter by a specific level.
+    """
+    start_time = time.time()
+    console = state.console
+    loader = get_dictionary_loader()
+    
+    try:
+        if level:
+            entries = loader.get_entries_by_level(level)
+        else:
+            entries = loader.get_all()
+        
+        elapsed = (time.time() - start_time) * 1000
+        
+        if state.json:
+            entries_data = [
+                {
+                    "name": e.name,
+                    "alias": e.alias,
+                    "level": e.level.value,
+                    "description": e.description,
+                }
+                for e in entries
+            ]
+            console.print(json_module.dumps({
+                "entries": entries_data,
+                "count": len(entries_data),
+                "filter_level": level,
+            }, indent=2))
+        elif state.should_use_plain():
+            if level:
+                console.print(f"Dictionary Terms (level: {level}):")
+            else:
+                console.print("Dictionary Terms:")
+            console.print()
+            for entry in entries:
+                console.print(f"{entry.name} ({entry.alias}): {entry.level.value}")
+                console.print(f"  {entry.description}")
+        else:
+            # Rich output
+            title = "Dictionary Terms" + (f" (level: {level})" if level else "")
+            table = Table(title=title, show_header=True)
+            table.add_column("Name", style="cyan")
+            table.add_column("Alias", style="yellow")
+            table.add_column("Level", style="magenta")
+            table.add_column("Description")
+            
+            for entry in entries:
+                table.add_row(
+                    entry.name,
+                    entry.alias,
+                    entry.level.value,
+                    entry.description[:50] + "..." if len(entry.description) > 50 else entry.description,
+                )
+            
+            console.print(table)
+            console.print(f"\n[dim]Total: {len(entries)} terms[/dim]")
+        
+        if state.debug:
+            console.print(f"\n[dim]Render time: {elapsed:.2f}ms[/dim]")
+            
+    except FileNotFoundError:
+        console.print("[red]Error:[/red] Dictionary database not found.")
         raise typer.Exit(1)
     except Exception as e:
         display_unexpected_error(e, console, state.json, state.debug)

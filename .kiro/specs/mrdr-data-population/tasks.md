@@ -290,24 +290,24 @@ This implementation plan transforms the MRDR Data Population design into actiona
     - **Property 18: Example Content Canonical Format**
     - **Validates: Requirements 9.3, 10.1, 10.2**
 
-- [-] 15. Integration and Wiring
-  - [ ] 15.1 Update factory.py with new loaders
+- [x] 15. Integration and Wiring
+  - [x] 15.1 Update factory.py with new loaders
     - Add factory functions for new database loaders
     - Wire into hyde controller
     - _Requirements: 8.1_
 
-  - [ ] 15.2 Update hyde controller with new data sources
+  - [x] 15.2 Update hyde controller with new data sources
     - Add methods to access doctag, dictionary, python_styles, conflict data
     - _Requirements: 8.1_
 
-  - [ ] 15.3 Update jekyl commands to use new data
+  - [x] 15.3 Update jekyl commands to use new data
     - Update doctag command to use new loader
     - Update hierarchy command to use dictionary loader
     - Update docstring command to use python_styles loader
     - Update conflicts command to use conflict loader
     - _Requirements: 8.1_
 
-- [ ] 16. Final checkpoint - All tests pass
+- [-] 16. Final checkpoint - All tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes

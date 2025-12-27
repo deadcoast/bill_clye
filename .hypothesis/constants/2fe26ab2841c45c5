@@ -1,0 +1,4 @@
+# file: /Users/deadcoast/github/bill_clye/src/mrdr/database/dictionary/schema.py
+# hypothesis_version: 6.148.8
+
+['1.0.0', 'Child entries', 'Child term names', 'Database manifest', 'Database version', 'General definitions', 'Grandchild entries', 'Grandparent entries', 'Hierarchy level', 'Last update date', 'NAMETYPE definitions', 'Name of the manifest', 'Number of entries', 'Parent entries', 'Term description', 'child', 'grandchild', 'grandparent', 'nametype', 'parent']

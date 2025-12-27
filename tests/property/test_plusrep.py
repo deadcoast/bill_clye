@@ -84,14 +84,21 @@ def test_plusrep_rating_boundaries() -> None:
 
 
 def test_plusrep_labels() -> None:
-    """PLUSREP labels SHALL match rating values."""
+    """PLUSREP labels SHALL match rating values.
+    
+    Labels per schema:
+    - MAXIMUM: +4 (6 plus)
+    - GREAT: +1 to +3 (3-5 plus)
+    - SLOPPY: -1 to 0 (1-2 plus)
+    - REJECTED: -2 (0 plus)
+    """
     assert get_rating_label(4) == "MAXIMUM"
     assert get_rating_label(3) == "GREAT"
-    assert get_rating_label(2) == "GOOD"
-    assert get_rating_label(1) == "FAIR"
+    assert get_rating_label(2) == "GREAT"
+    assert get_rating_label(1) == "GREAT"
     assert get_rating_label(0) == "SLOPPY"
-    assert get_rating_label(-1) == "POOR"
-    assert get_rating_label(-2) == "RESET"
+    assert get_rating_label(-1) == "SLOPPY"
+    assert get_rating_label(-2) == "REJECTED"
 
 
 def test_plusrep_display_plain_no_ansi() -> None:
