@@ -1,0 +1,44 @@
+{
+  "manifest": {
+    "manifest_name": "conflict_database",
+    "version": "1.0.0",
+    "schema_origin": "docs/doctags.md",
+    "entry_count": 3,
+    "last_updated": "2025-12-26"
+  },
+  "conflicts": [
+    {
+      "id": "CONFLICT_TRIPLE_QUOTE",
+      "delimiter": "\"\"\"",
+      "languages": ["Python", "Julia"],
+      "resolution": "Distinguish by attachment location: Python docstrings appear as the first statement inside a function/class body (internal_first_line), while Julia docstrings appear immediately above the target definition (above_target). Context-aware parsing required.",
+      "attachment_rules": {
+        "Python": "internal_first_line",
+        "Julia": "above_target"
+      },
+      "description": "Both Python and Julia use triple-quoted strings for documentation, but with different attachment semantics. Python treats the string as an internal statement, while Julia treats it as a prefix annotation."
+    },
+    {
+      "id": "CONFLICT_BLOCK_COMMENT",
+      "delimiter": "/** */",
+      "languages": ["JavaScript", "D"],
+      "resolution": "Distinguish by nesting capability and delimiter variation: JavaScript uses /** */ (non-nestable), while D uses /++ +/ (nestable). D's plus-based delimiters allow safe nesting of documentation blocks. Check for plus vs asterisk after opening slash.",
+      "attachment_rules": {
+        "JavaScript": "above_target",
+        "D": "above_target"
+      },
+      "description": "JavaScript and D both use block comment syntax for documentation, but D's /++ +/ variant supports nesting while JavaScript's /** */ does not. D chose plus signs specifically to enable nested documentation without escaping."
+    },
+    {
+      "id": "SIMILARITY_LINE_DOC",
+      "delimiter": "///",
+      "languages": ["Rust", "Zig"],
+      "resolution": "Both languages use identical /// syntax with identical attachment semantics. Disambiguation requires file extension or language context. Both support //! for module-level documentation. Treat as interchangeable for parsing purposes.",
+      "attachment_rules": {
+        "Rust": "above_target",
+        "Zig": "above_target"
+      },
+      "description": "Rust and Zig share the same line documentation comment syntax (///) with the same attachment rules. This is a deliberate design similarity rather than a conflict. Both languages also support //! for inner documentation (module-level)."
+    }
+  ]
+}

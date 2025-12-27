@@ -175,33 +175,33 @@ This implementation plan transforms the MRDR Data Population design into actiona
     - **Property 12: UDL Entry Schema Validity**
     - **Validates: Requirements 5.3, 5.4, 5.5**
 
-- [-] 8. Conflict Database Creation
-  - [ ] 8.1 Create conflict_database.json file
+- [x] 8. Conflict Database Creation
+  - [x] 8.1 Create conflict_database.json file
     - Create `database/conflicts/` directory
     - Create `database/conflicts/conflict_database.json` with manifest
     - _Requirements: 6.1_
 
-  - [ ] 8.2 Add Python vs Julia conflict
+  - [x] 8.2 Add Python vs Julia conflict
     - Document triple-quote delimiter conflict
     - Include attachment_rules: Python=internal_first_line, Julia=above_target
     - Include resolution guidance
     - _Requirements: 6.2, 6.5_
 
-  - [ ] 8.3 Add JavaScript vs D conflict
+  - [x] 8.3 Add JavaScript vs D conflict
     - Document block comment conflict with nesting differences
     - Include attachment_rules and resolution
     - _Requirements: 6.3, 6.5_
 
-  - [ ] 8.4 Add Rust vs Zig similarity
+  - [x] 8.4 Add Rust vs Zig similarity
     - Document line doc comment similarities
     - Include attachment_rules and resolution
     - _Requirements: 6.4, 6.5_
 
-  - [ ] 8.5 Write property test for conflict database
+  - [x] 8.5 Write property test for conflict database
     - **Property 13: Conflict Entry Schema Validity**
     - **Validates: Requirements 6.5**
 
-- [ ] 9. Checkpoint - UDL and Conflict databases complete
+- [x] 9. Checkpoint - UDL and Conflict databases complete
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 10. Schema and Loader Updates
